@@ -1,6 +1,7 @@
 export { Avatar, initials, type AvatarProps } from './avatar';
 export { Button, type ButtonProps, type ButtonVariant } from './button';
 export { Card } from './card';
+export { EmptyState, type EmptyStateProps } from './empty-state';
 export { Input, type InputProps } from './input';
 export { Screen, type ScreenProps } from './screen';
 export { Sheet, type SheetProps } from './sheet';
