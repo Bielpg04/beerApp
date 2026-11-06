@@ -1,3 +1,6 @@
+output:
+  - failure
+
 # Git hooks. Installed automatically by `npm install` (prepare script).
 commit-msg:
   commands:
