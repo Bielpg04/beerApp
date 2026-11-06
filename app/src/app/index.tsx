@@ -1,13 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Screen, Text } from '@/shared/ui';
 
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <Text>🍺 BeerApp</Text>
-    </View>
+    <Screen style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <Text variant="title">🍺 BeerApp</Text>
+    </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-});
