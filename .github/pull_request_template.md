@@ -19,4 +19,5 @@
 - [ ] Docs/ADR actualitzats si hi ha una decisió nova
 
 <!-- Subtasca → branca de la US (squash). US → main (merge commit). -->
+
 Closes #

@@ -13,7 +13,15 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
-import { parsePlan, storyBranch, taskBranch, type Epic, type Sprint, type Story, type Task } from './parse-plan.ts';
+import {
+  parsePlan,
+  storyBranch,
+  taskBranch,
+  type Epic,
+  type Sprint,
+  type Story,
+  type Task,
+} from './parse-plan.ts';
 
 const { values: args } = parseArgs({
   options: {
@@ -23,16 +31,21 @@ const { values: args } = parseArgs({
   },
 });
 const DRY_RUN = args['dry-run'];
-const TASK_SPRINTS = new Set(args.tasks.split(',').map((s) => s.trim()).filter(Boolean));
+const TASK_SPRINTS = new Set(
+  args.tasks
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean),
+);
 const SPRINT_DAYS = 14;
 
 const LABELS: Record<string, { color: string; description: string }> = {
   epic: { color: '5319e7', description: 'Agrupa user stories' },
-  'user-story': { color: '1d76db', description: 'User story (sub-issue d\'un epic)' },
-  task: { color: 'c5def5', description: 'Subtasca d\'una user story = una branca task/' },
+  'user-story': { color: '1d76db', description: "User story (sub-issue d'un epic)" },
+  task: { color: 'c5def5', description: "Subtasca d'una user story = una branca task/" },
   backlog: { color: 'ededed', description: 'Fora dels sprints planificats' },
   optional: { color: 'fef2c0', description: 'Opcional' },
-  'store-compliance': { color: 'd93f0b', description: 'Requisit de l\'App Store / Google Play' },
+  'store-compliance': { color: 'd93f0b', description: "Requisit de l'App Store / Google Play" },
   'beta-feedback': { color: 'fbca04', description: 'Feedback de la beta' },
   chore: { color: 'bfdadc', description: 'Manteniment, tooling, CI' },
 };
@@ -161,7 +174,9 @@ function ensureIssue(
 const epicKey = (epic: Epic) => `EPIC-${String(epic.number).padStart(2, '0')}`;
 
 function epicBody(epic: Epic): string {
-  const rows = epic.stories.map((s) => `- **${s.id}** · ${s.title} (${s.points} pts${s.sprint ? ` · ${s.sprint.key}` : ''})`);
+  const rows = epic.stories.map(
+    (s) => `- **${s.id}** · ${s.title} (${s.points} pts${s.sprint ? ` · ${s.sprint.key}` : ''})`,
+  );
   return [
     `Epic **${epic.title}**. Les user stories en són sub-issues.`,
     '',
@@ -176,7 +191,7 @@ function storyBody(story: Story): string {
   const parts: string[] = [];
   if (story.description.length) parts.push(story.description.join('\n'), '');
   if (story.acceptance.length) {
-    parts.push('### Criteris d\'acceptació', ...story.acceptance.map((a) => `- [ ] ${a}`), '');
+    parts.push("### Criteris d'acceptació", ...story.acceptance.map((a) => `- [ ] ${a}`), '');
   }
   if (story.tasks.length) {
     parts.push('### Subtasques', ...story.tasks.map((t) => `- **${t.id}** · ${t.title}`), '');
@@ -212,13 +227,21 @@ function storyLabels(story: Story): string[] {
 // ---------- main ----------
 
 const plan = parsePlan(readFileSync(new URL('../../docs/PLAN.md', import.meta.url), 'utf8'));
-console.log(`${DRY_RUN ? '[dry-run] ' : ''}Repo ${repo} · subtasques per a: ${[...TASK_SPRINTS].join(', ') || 'cap'}`);
+console.log(
+  `${DRY_RUN ? '[dry-run] ' : ''}Repo ${repo} · subtasques per a: ${[...TASK_SPRINTS].join(', ') || 'cap'}`,
+);
 
 ensureLabels();
 const milestones = ensureMilestones(plan.sprints);
 
 for (const epic of plan.epics) {
-  const epicIssue = ensureIssue(epicKey(epic), `${epicKey(epic)} · ${epic.title}`, epicBody(epic), ['epic'], undefined);
+  const epicIssue = ensureIssue(
+    epicKey(epic),
+    `${epicKey(epic)} · ${epic.title}`,
+    epicBody(epic),
+    ['epic'],
+    undefined,
+  );
   for (const story of epic.stories) {
     const milestone = story.sprint ? milestones.get(story.sprint.key) : undefined;
     const storyIssue = ensureIssue(
@@ -231,7 +254,14 @@ for (const epic of plan.epics) {
     );
     if (!story.sprint || !TASK_SPRINTS.has(story.sprint.key)) continue;
     for (const task of story.tasks) {
-      ensureIssue(task.id, `${task.id} · ${task.title}`, taskBody(story, task), ['task'], milestone, storyIssue);
+      ensureIssue(
+        task.id,
+        `${task.id} · ${task.title}`,
+        taskBody(story, task),
+        ['task'],
+        milestone,
+        storyIssue,
+      );
     }
   }
 }

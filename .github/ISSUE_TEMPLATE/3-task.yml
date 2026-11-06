@@ -1,13 +1,13 @@
 name: Subtasca
 description: Unitat de feina d'una user story. Una subtasca = una branca = una PR.
-title: "US-XXX-TN · "
+title: 'US-XXX-TN · '
 labels: [task]
 body:
   - type: input
     id: parent
     attributes:
       label: User story
-      placeholder: "#NN · US-XXX · ..."
+      placeholder: '#NN · US-XXX · ...'
     validations:
       required: true
   - type: textarea

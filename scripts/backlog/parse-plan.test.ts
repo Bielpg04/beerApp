@@ -41,7 +41,10 @@ test('parses epics, stories, tasks and acceptance criteria', () => {
   assert.equal(us001.id, 'US-001');
   assert.equal(us001.points, 3);
   assert.deepEqual(us001.description, ['Com a dev vull un repo.']);
-  assert.deepEqual(us001.tasks.map((t) => t.id), ['US-001-T1', 'US-001-T2']);
+  assert.deepEqual(
+    us001.tasks.map((t) => t.id),
+    ['US-001-T1', 'US-001-T2'],
+  );
   assert.equal(us001.tasks[0].title, 'Crear repo GitHub, .gitignore');
 
   const [us101, us102] = epics[1].stories;
@@ -53,7 +56,10 @@ test('parses epics, stories, tasks and acceptance criteria', () => {
 
 test('assigns stories to sprints, expanding ranges', () => {
   const { epics, sprints } = parsePlan(SAMPLE);
-  assert.deepEqual(sprints.map((s) => s.key), ['S0', 'S1']);
+  assert.deepEqual(
+    sprints.map((s) => s.key),
+    ['S0', 'S1'],
+  );
   assert.deepEqual(sprints[1].storyIds, ['US-101', 'US-102']);
   assert.equal(epics[1].stories[1].sprint?.key, 'S1');
 });

@@ -132,7 +132,12 @@ function parseEpics(lines: string[]): Epic[] {
 
     const acMatch = AC_RE.exec(line);
     if (acMatch) {
-      story.acceptance.push(...acMatch[1].split(/;\s*/).map((s) => s.trim()).filter(Boolean));
+      story.acceptance.push(
+        ...acMatch[1]
+          .split(/;\s*/)
+          .map((s) => s.trim())
+          .filter(Boolean),
+      );
       continue;
     }
 
@@ -151,7 +156,10 @@ function parseSprints(lines: string[], orderedIds: string[]): Sprint[] {
   const sprints: Sprint[] = [];
   for (const line of lines) {
     if (!line.startsWith('|')) continue;
-    const cells = line.split('|').slice(1, -1).map((c) => c.trim());
+    const cells = line
+      .split('|')
+      .slice(1, -1)
+      .map((c) => c.trim());
     if (cells.length < 3 || !/^(S\d+|Backlog)$/.test(cells[0])) continue;
     const [key, goal, usCell] = cells;
     const storyIds: string[] = [];

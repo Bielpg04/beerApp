@@ -1,6 +1,6 @@
 name: Epic
 description: Agrupació gran de funcionalitat. Les user stories en són sub-issues.
-title: "EPIC-XX · "
+title: 'EPIC-XX · '
 labels: [epic]
 body:
   - type: textarea
@@ -15,4 +15,4 @@ body:
     attributes:
       label: User stories
       description: Llista de US previstes (es vinculen com a sub-issues).
-      placeholder: "- US-XXX · ..."
+      placeholder: '- US-XXX · ...'
