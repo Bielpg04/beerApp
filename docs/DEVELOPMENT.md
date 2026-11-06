@@ -37,3 +37,12 @@ npx expo start      # Expo Go / dev build
 npm test            # Jest
 npm run lint && npm run typecheck
 ```
+
+## Connexió de l'app amb Supabase
+
+```bash
+cp app/.env.example app/.env.local   # valors de la BD local
+npm run db:types                     # regenera app/src/types/database.ts després de cada migració
+```
+
+El client tipat és `supabase` a `@/shared/lib`. Les variables `EXPO_PUBLIC_*` s'inclouen dins l'app: només hi poden anar claus **públiques** (URL i _publishable key_), mai la _secret key_.
