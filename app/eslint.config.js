@@ -9,4 +9,25 @@ module.exports = defineConfig([
   {
     ignores: ['dist/*', '.expo/*'],
   },
+  {
+    // Features are only reachable through their public index.ts.
+    files: ['src/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@/features/*/*'],
+              message: 'Importa la feature des de la seva API pública: @/features/<feature>',
+            },
+            {
+              group: ['../*/../*', '../../*'],
+              message: "Fes servir l'alias @/ en lloc de rutes relatives llargues",
+            },
+          ],
+        },
+      ],
+    },
+  },
 ]);
