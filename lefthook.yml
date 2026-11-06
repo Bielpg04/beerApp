@@ -21,4 +21,4 @@ pre-push:
       run: npm run --silent test:scripts
     app-checks:
       root: app/
-      run: npm run --silent lint && npm run --silent typecheck
+      run: npm run --silent lint && npm run --silent typecheck && npm test --silent
