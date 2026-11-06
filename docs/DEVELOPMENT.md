@@ -46,3 +46,11 @@ npm run db:types                     # regenera app/src/types/database.ts despr�
 ```
 
 El client tipat és `supabase` a `@/shared/lib`. Les variables `EXPO_PUBLIC_*` s'inclouen dins l'app: només hi poden anar claus **públiques** (URL i _publishable key_), mai la _secret key_.
+
+## Tests de la base de dades (pgTAP)
+
+```bash
+npm run db:test   # executa supabase/tests/database/*.test.sql
+```
+
+Cada fitxer obre una transacció (`begin` … `rollback`), declara `plan(n)` i acaba amb `finish()`. Tota taula nova porta tests de **RLS**: què pot llegir i escriure cada rol (anònim, propietari, amic, desconegut).
