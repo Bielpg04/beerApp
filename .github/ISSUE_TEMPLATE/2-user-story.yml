@@ -1,6 +1,6 @@
 name: User story
 description: Funcionalitat des del punt de vista de l'usuari. Sub-issue d'un epic.
-title: "US-XXX · "
+title: 'US-XXX · '
 labels: [user-story]
 body:
   - type: textarea
@@ -14,7 +14,7 @@ body:
     id: acceptance
     attributes:
       label: Criteris d'acceptació
-      placeholder: "- [ ] ..."
+      placeholder: '- [ ] ...'
     validations:
       required: true
   - type: textarea
@@ -22,12 +22,12 @@ body:
     attributes:
       label: Subtasques
       description: Cada subtasca és un sub-issue i una branca `task/us-xxx-tn-...`.
-      placeholder: "- US-XXX-T1 · ..."
+      placeholder: '- US-XXX-T1 · ...'
   - type: dropdown
     id: points
     attributes:
       label: Story points
-      options: ["1", "2", "3", "5", "8", "13"]
+      options: ['1', '2', '3', '5', '8', '13']
   - type: input
     id: branch
     attributes:

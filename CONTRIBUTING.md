@@ -4,11 +4,11 @@ Projecte d'una sola persona, però amb el workflow d'un equip: tot passa per iss
 
 ## Jerarquia a GitHub
 
-| Nivell | Issue | Label | Exemple |
-|---|---|---|---|
-| Epic | `EPIC-07 · Bars i mapa` | `epic` | |
-| User story | `US-701 · Model de bars…` (sub-issue de l'epic) | `user-story` | milestone = sprint |
-| Subtasca | `US-701-T2 · Edge Function venues-sync` (sub-issue de la US) | `task` | una subtasca = una branca = una PR |
+| Nivell     | Issue                                                        | Label        | Exemple                            |
+| ---------- | ------------------------------------------------------------ | ------------ | ---------------------------------- |
+| Epic       | `EPIC-07 · Bars i mapa`                                      | `epic`       |                                    |
+| User story | `US-701 · Model de bars…` (sub-issue de l'epic)              | `user-story` | milestone = sprint                 |
+| Subtasca   | `US-701-T2 · Edge Function venues-sync` (sub-issue de la US) | `task`       | una subtasca = una branca = una PR |
 
 - El backlog viu a [`docs/PLAN.md`](docs/PLAN.md). Per crear/actualitzar issues:
   `node scripts/backlog/create-backlog.ts --dry-run --tasks S1` i després sense `--dry-run`.
