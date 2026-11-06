@@ -1,0 +1,17 @@
+{
+  "common": {
+    "appName": "BeerApp",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "loading": "Loading…",
+    "comingSoon": "Coming soon"
+  },
+  "tabs": {
+    "feed": "Feed",
+    "search": "Search",
+    "newPost": "New beer",
+    "map": "Map",
+    "profile": "Profile"
+  }
+}
