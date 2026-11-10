@@ -1,4 +1,5 @@
-import { StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
+import { useState } from 'react';
+import { TextInput, View, type TextInputProps } from 'react-native';
 
 import { useTheme } from '@/shared/theme';
 
@@ -9,23 +10,38 @@ export interface InputProps extends TextInputProps {
   error?: string;
 }
 
-export function Input({ label, error, style, ...props }: InputProps) {
-  const { colors, radius, spacing, typography } = useTheme();
+export function Input({ label, error, style, onFocus, onBlur, ...props }: InputProps) {
+  const { colors, radius, spacing, sizes, typography } = useTheme();
+  const [focused, setFocused] = useState(false);
+
+  const borderColor = error ? colors.danger : focused ? colors.focus : colors.borderStrong;
+  const borderWidth = focused ? sizes.focusWidth : sizes.borderWidth;
+
   return (
     <View style={{ gap: spacing.xs }}>
       {label ? <Text variant="label">{label}</Text> : null}
       <TextInput
         accessibilityLabel={label}
         placeholderTextColor={colors.textMuted}
+        onFocus={(event) => {
+          setFocused(true);
+          onFocus?.(event);
+        }}
+        onBlur={(event) => {
+          setFocused(false);
+          onBlur?.(event);
+        }}
         style={[
-          styles.input,
           typography.body,
           {
+            minHeight: sizes.controlMinHeight,
             color: colors.text,
             backgroundColor: colors.surface,
-            borderColor: error ? colors.danger : colors.border,
+            borderColor,
+            borderWidth,
             borderRadius: radius.md,
-            paddingHorizontal: spacing.md,
+            // Keep the text still when the border thickens on focus.
+            paddingHorizontal: spacing.md - (borderWidth - sizes.borderWidth),
           },
           style,
         ]}
@@ -39,7 +55,3 @@ export function Input({ label, error, style, ...props }: InputProps) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  input: { minHeight: 48, borderWidth: StyleSheet.hairlineWidth * 2 },
-});

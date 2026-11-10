@@ -13,5 +13,10 @@
     "newPost": "Nova cervesa",
     "map": "Mapa",
     "profile": "Perfil"
+  },
+  "verification": {
+    "verified": "Verificada",
+    "partial": "Parcial",
+    "unverified": "No verificada"
   }
 }

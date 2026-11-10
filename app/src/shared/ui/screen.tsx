@@ -7,10 +7,15 @@ export interface ScreenProps extends ViewProps {
   scroll?: boolean;
 }
 
-/** Root container for screens: safe area, themed background and standard padding. */
+/** Root container for screens: safe area, themed background, standard padding and room above the title. */
 export function Screen({ scroll = false, style, children, ...props }: ScreenProps) {
   const { colors, spacing } = useTheme();
-  const content = { padding: spacing.lg, gap: spacing.lg };
+  const content = {
+    paddingTop: spacing.xxl,
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.lg,
+    gap: spacing.lg,
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }} edges={['top', 'left', 'right']}>
       {scroll ? (

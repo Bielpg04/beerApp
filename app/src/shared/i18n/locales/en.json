@@ -13,5 +13,10 @@
     "newPost": "New beer",
     "map": "Map",
     "profile": "Profile"
+  },
+  "verification": {
+    "verified": "Verified",
+    "partial": "Partial",
+    "unverified": "Unverified"
   }
 }
