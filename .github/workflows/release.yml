@@ -1,0 +1,70 @@
+# Native releases and over-the-air updates with EAS.
+# - Tag vX.Y.Z on main  → production build for iOS + Android, auto-submitted to the stores
+# - Push to main        → OTA update on the "preview" channel (internal testers)
+# - Manual run          → OTA update on the chosen channel (e.g. a JS-only hotfix to production)
+# Requires the EXPO_TOKEN secret; without it the jobs are skipped with a notice.
+name: Release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*.*.*']
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: Update channel
+        type: choice
+        options: [preview, production]
+        default: preview
+      message:
+        description: Update message
+        required: true
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  LEFTHOOK: 0
+  EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+  HAS_EXPO_TOKEN: ${{ secrets.EXPO_TOKEN != '' }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: Skip without EXPO_TOKEN
+        if: env.HAS_EXPO_TOKEN != 'true'
+        working-directory: .
+        run: echo "::notice::EXPO_TOKEN is not configured; see docs/RELEASING.md"
+
+      - uses: actions/checkout@v7
+        if: env.HAS_EXPO_TOKEN == 'true'
+      - uses: actions/setup-node@v7
+        if: env.HAS_EXPO_TOKEN == 'true'
+        with:
+          node-version: 26
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - if: env.HAS_EXPO_TOKEN == 'true'
+        run: npm ci
+
+      - name: Production build + submit (tag)
+        if: env.HAS_EXPO_TOKEN == 'true' && startsWith(github.ref, 'refs/tags/v')
+        run: npx eas-cli@27 build --profile production --platform all --non-interactive --no-wait --auto-submit
+
+      - name: OTA update to preview (main)
+        if: env.HAS_EXPO_TOKEN == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: npx eas-cli@27 update --channel preview --environment preview --message "$(printf '%s' "$COMMIT_MESSAGE" | head -1)" --non-interactive
+
+      - name: OTA update (manual)
+        if: env.HAS_EXPO_TOKEN == 'true' && github.event_name == 'workflow_dispatch'
+        env:
+          CHANNEL: ${{ inputs.channel }}
+          MESSAGE: ${{ inputs.message }}
+        run: npx eas-cli@27 update --channel "$CHANNEL" --environment "$CHANNEL" --message "$MESSAGE" --non-interactive
