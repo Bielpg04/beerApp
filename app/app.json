@@ -8,9 +8,12 @@
     "scheme": "beerapp",
     "userInterfaceStyle": "automatic",
     "ios": {
+      "bundleIdentifier": "com.bielpg04.beerapp",
+      "supportsTablet": false,
       "icon": "./assets/expo.icon"
     },
     "android": {
+      "package": "com.bielpg04.beerapp",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -38,6 +41,9 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "runtimeVersion": {
+      "policy": "fingerprint"
     }
   }
 }

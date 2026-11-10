@@ -16,6 +16,7 @@ Xarxa social per registrar **quines cerveses beus, on, quan i amb qui**: perfil,
 - [Pla del projecte](docs/PLAN.md) — arquitectura, backlog, sprints
 - [Guia de contribució](CONTRIBUTING.md) — workflow de git, branques, commits, Definition of Done
 - [Desenvolupament local](docs/DEVELOPMENT.md) — requisits, Supabase local, scripts
+- [Builds i publicació](docs/RELEASING.md) — EAS, perfils, entorns, releases
 
 ## Estructura
 
