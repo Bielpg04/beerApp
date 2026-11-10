@@ -40,3 +40,19 @@ npx eas-cli@latest build --profile development --platform ios
 
 - **Versió nativa nova**: tag `vX.Y.Z` a `main` → el workflow `Release` fa build de producció i l'envia a les stores.
 - **Només canvis de JS/assets**: EAS Update al canal `production` (el `runtimeVersion` per _fingerprint_ evita enviar JS incompatible amb una build antiga).
+
+## Manteniment del pla gratuït de Supabase
+
+Workflow `Maintenance` (`.github/workflows/maintenance.yml`):
+
+- **Keep-alive diari** als projectes dev i prod (el pla gratuït es pausa després de 7 dies sense activitat).
+- **Backup setmanal** de producció (rols + esquema + dades), **xifrat amb GPG** perquè els artifacts d'un repo públic els pot descarregar qualsevol usuari de GitHub. Es guarden 90 dies.
+
+Secrets necessaris: `SUPABASE_DB_URL_DEV`, `SUPABASE_DB_URL_PROD` (cadena de connexió del _session pooler_) i `BACKUP_PASSPHRASE`.
+
+Restaurar un backup:
+
+```bash
+gpg --decrypt backup-AAAA-MM-DD.tar.gpg > backup.tar && tar -xf backup.tar
+psql "$DB_URL" -f backup/roles.sql -f backup/schema.sql -f backup/data.sql
+```
