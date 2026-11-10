@@ -44,6 +44,15 @@
     },
     "runtimeVersion": {
       "policy": "fingerprint"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "01d29aad-c11f-42d8-8034-8cfa4b75bc02"
+      }
+    },
+    "owner": "bili04",
+    "updates": {
+      "url": "https://u.expo.dev/01d29aad-c11f-42d8-8034-8cfa4b75bc02"
     }
   }
 }

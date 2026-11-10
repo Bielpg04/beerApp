@@ -1,6 +1,22 @@
 # Builds i publicació (EAS)
 
-## Configuració inicial (un sol cop)
+## Entorns actuals
+
+| Entorn EAS           | Projecte Supabase | Ref                    | URL                                      |
+| -------------------- | ----------------- | ---------------------- | ---------------------------------------- |
+| development, preview | `beerapp-dev`     | `txznwvkrpiuqgbzskpdw` | https://txznwvkrpiuqgbzskpdw.supabase.co |
+| production           | `beerapp-prod`    | `jvikptbacskqebxkblxx` | https://jvikptbacskqebxkblxx.supabase.co |
+
+- Projecte Expo: [`@bili04/beerapp`](https://expo.dev/accounts/bili04/projects/beerapp)
+- Regió Supabase: `eu-west-1` (Irlanda), pla Free
+- Les variables `EXPO_PUBLIC_SUPABASE_URL` i `EXPO_PUBLIC_SUPABASE_KEY` (publishable) ja estan creades a cada entorn d'EAS.
+- Aplicar migracions al núvol (primer a dev, després a prod):
+  ```bash
+  supabase db push --remote=txznwvkrpiuqgbzskpdw   # dev
+  supabase db push --remote=jvikptbacskqebxkblxx   # prod
+  ```
+
+## Configuració inicial (un sol cop, ja feta)
 
 1. Crear un compte a [expo.dev](https://expo.dev) i iniciar sessió:
    ```bash
