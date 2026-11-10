@@ -14,7 +14,7 @@
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
     "db:migration": "supabase migration new",
-    "db:lint": "supabase db lint --level warning",
+    "db:lint": "supabase db lint --schema public --level warning --fail-on warning",
     "db:types": "supabase gen types typescript > app/src/types/database.ts && prettier --write --log-level warn app/src/types/database.ts",
     "db:test": "supabase test db"
   },
