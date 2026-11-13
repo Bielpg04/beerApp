@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { View } from 'react-native';
 
 import { useTheme } from '@/shared/theme';
@@ -9,9 +10,10 @@ export interface EmptyStateProps {
   emoji: string;
   title: string;
   message?: string;
+  children?: ReactNode;
 }
 
-export function EmptyState({ emoji, title, message }: EmptyStateProps) {
+export function EmptyState({ emoji, title, message, children }: EmptyStateProps) {
   const { colors, sizes } = useTheme();
   const disc = sizes.emptyStateDisc;
   return (
@@ -38,6 +40,7 @@ export function EmptyState({ emoji, title, message }: EmptyStateProps) {
           {message}
         </Text>
       ) : null}
+      {children}
     </Screen>
   );
 }

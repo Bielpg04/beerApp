@@ -2,7 +2,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(18);
+select plan(19);
 
 -- Two users: A signs up by email, B with Apple/Google (full name in metadata).
 insert into auth.users (id, email, raw_user_meta_data)
@@ -67,8 +67,17 @@ select is(
 
 select is(
   (select count(*)::int from public.public_profiles where id = '00000000-0000-0000-0000-00000000000b'),
+  0,
+  'users who have not finished onboarding (e.g. rejected minors) are not listed'
+);
+reset role;
+update public.profiles set onboarded_at = now() where id = '00000000-0000-0000-0000-00000000000b';
+select pg_temp.login_as('00000000-0000-0000-0000-00000000000a');
+set local role authenticated;
+select is(
+  (select count(*)::int from public.public_profiles where id = '00000000-0000-0000-0000-00000000000b'),
   1,
-  'other users are visible through public_profiles'
+  'onboarded users are visible through public_profiles'
 );
 
 select is(public.username_available('biel'), true, 'a free username is available');

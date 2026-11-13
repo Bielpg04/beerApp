@@ -10,7 +10,8 @@
     "ios": {
       "bundleIdentifier": "com.bielpg04.beerapp",
       "supportsTablet": false,
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "usesAppleSignIn": true
     },
     "android": {
       "package": "com.bielpg04.beerapp",
@@ -36,7 +37,16 @@
           "imageWidth": 76
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "BeerApp uses your photos so you can choose a profile picture.",
+          "cameraPermission": "BeerApp uses the camera so you can take a profile picture.",
+          "microphonePermission": false
+        }
+      ],
+      "expo-apple-authentication"
     ],
     "experiments": {
       "typedRoutes": true,

@@ -1,5 +1,3 @@
-import '@/shared/i18n';
-
 import { BarlowCondensed_700Bold } from '@expo-google-fonts/barlow-condensed/700Bold';
 import { BarlowCondensed_800ExtraBold } from '@expo-google-fonts/barlow-condensed/800ExtraBold';
 import { Figtree_400Regular } from '@expo-google-fonts/figtree/400Regular';
@@ -13,8 +11,11 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
 import { useRouteState } from '@/features/auth';
-import { QueryProvider } from '@/shared/lib/query-client';
+import { myProfileKey } from '@/features/profile';
+import { useTranslation } from '@/shared/i18n';
+import { QueryProvider, queryClient } from '@/shared/lib/query-client';
 import { fonts, ThemeProvider } from '@/shared/theme';
+import { Button, EmptyState } from '@/shared/ui';
 
 void SplashScreen.preventAutoHideAsync();
 
@@ -28,6 +29,8 @@ function RootNavigator({ fontsReady }: { fontsReady: boolean }) {
 
   // Hold the first frame until the fonts are in, so text never reflows.
   if (!fontsReady) return null;
+
+  if (state === 'error') return <ConnectionError />;
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
@@ -43,8 +46,22 @@ function RootNavigator({ fontsReady }: { fontsReady: boolean }) {
       </Stack.Protected>
       <Stack.Protected guard={state === 'ready'}>
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="profile-edit" options={{ presentation: 'modal' }} />
       </Stack.Protected>
     </Stack>
+  );
+}
+
+/** Shown when the profile can't be loaded (e.g. offline at launch). */
+function ConnectionError() {
+  const { t } = useTranslation();
+  return (
+    <EmptyState emoji="📡" title={t('common.connectionError')} message={t('common.connectionErrorHint')}>
+      <Button
+        title={t('common.retry')}
+        onPress={() => void queryClient.refetchQueries({ queryKey: myProfileKey })}
+      />
+    </EmptyState>
   );
 }
 

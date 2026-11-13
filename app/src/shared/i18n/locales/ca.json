@@ -5,7 +5,10 @@
     "close": "Tanca",
     "save": "Desa",
     "loading": "Carregant…",
-    "comingSoon": "Aviat"
+    "comingSoon": "Aviat",
+    "connectionError": "No s’ha pogut connectar",
+    "connectionErrorHint": "Comprova la connexió a internet.",
+    "retry": "Torna-ho a provar"
   },
   "tabs": {
     "feed": "Feed",
@@ -20,7 +23,10 @@
       "subtitle": "Entra o crea un compte amb el teu correu. T’enviarem un codi.",
       "emailLabel": "Correu electrònic",
       "emailPlaceholder": "nom@exemple.com",
-      "submit": "Envia’m el codi"
+      "submit": "Envia’m el codi",
+      "google": "Continua amb Google",
+      "apple": "Continua amb Apple",
+      "or": "o amb el teu correu"
     },
     "code": {
       "title": "Revisa el correu",
@@ -41,10 +47,54 @@
   },
   "onboarding": {
     "age": {
-      "title": "Quants anys tens?"
+      "title": "Quants anys tens?",
+      "subtitle": "Per fer servir BeerApp has de tenir l’edat legal per beure alcohol al teu país.",
+      "day": "Dia",
+      "month": "Mes",
+      "year": "Any",
+      "dayPlaceholder": "DD",
+      "monthPlaceholder": "MM",
+      "yearPlaceholder": "AAAA",
+      "country": "País",
+      "chooseCountry": "Tria el teu país",
+      "invalidDate": "Aquesta data no existeix.",
+      "underage": "Has de tenir com a mínim {{age}} anys per fer servir BeerApp.",
+      "submit": "Continua",
+      "responsible": "Beu amb responsabilitat. La data i el país no es podran canviar després."
     },
     "profile": {
-      "title": "Crea el teu perfil"
+      "title": "Crea el teu perfil",
+      "subtitle": "Així et trobaran els teus amics.",
+      "username": "Nom d’usuari",
+      "usernamePlaceholder": "biel_04",
+      "usernameRules": "3–20 caràcters: lletres minúscules, números, _ i . (no al principi ni al final).",
+      "usernameChecking": "Comprovant…",
+      "usernameAvailable": "✓ Disponible",
+      "usernameTaken": "Aquest nom ja està agafat.",
+      "displayName": "Nom",
+      "displayNamePlaceholder": "Com et diuen?",
+      "displayNameRequired": "Escriu el teu nom (màxim 50 caràcters).",
+      "avatar": "Foto de perfil",
+      "takePhoto": "Fes una foto",
+      "chooseFromLibrary": "Tria de la galeria",
+      "permissionDenied": "Cal permís per accedir a la càmera o a les fotos. El pots donar a Ajustos.",
+      "submit": "Comença"
+    }
+  },
+  "profile": {
+    "edit": "Edita el perfil",
+    "editTitle": "Edita el perfil",
+    "noBio": "Encara no has escrit res sobre tu.",
+    "bio": "Sobre mi",
+    "bioPlaceholder": "Quines cerveses t’agraden?",
+    "private": "Perfil privat",
+    "privateHint": "Només els teus amics veuran les teves cerveses i estadístiques.",
+    "readOnlyHint": "El nom d’usuari, la data de naixement i el país no es poden canviar.",
+    "signOut": "Tanca la sessió",
+    "signOutConfirm": "Vols tancar la sessió?",
+    "signOutConfirmYes": "Sí, tanca la sessió",
+    "errors": {
+      "bioTooLong": "Màxim 160 caràcters."
     }
   },
   "verification": {
