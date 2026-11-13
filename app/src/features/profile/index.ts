@@ -1,4 +1,10 @@
-export { AvatarPermissionError, avatarUrl, pickAndUploadAvatar, type AvatarSource } from './api/avatar';
+export {
+  AvatarPermissionError,
+  avatarUrl,
+  pickAndUploadAvatar,
+  removeAvatar,
+  type AvatarSource,
+} from './api/avatar';
 export { useCompleteProfile, type CompleteProfileInput } from './api/complete-profile';
 export { myProfileKey, useMyProfile, useOwnProfile } from './api/my-profile';
 export { OnboardingError, useSetBirthdate } from './api/set-birthdate';

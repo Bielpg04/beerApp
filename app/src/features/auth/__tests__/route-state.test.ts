@@ -35,4 +35,14 @@ describe('routeState', () => {
   it('treats a signed-in user without a profile row as needing onboarding', () => {
     expect(routeState('signedIn', null)).toBe('needsAge');
   });
+
+  it('reports an error when the profile could not be loaded, instead of waiting forever', () => {
+    expect(routeState('signedIn', undefined, true)).toBe('error');
+  });
+
+  it('keeps using a cached profile even if a refetch failed', () => {
+    expect(
+      routeState('signedIn', profile({ birthdate: '2000-01-01', onboarded_at: '2026-11-13' }), true),
+    ).toBe('ready');
+  });
 });

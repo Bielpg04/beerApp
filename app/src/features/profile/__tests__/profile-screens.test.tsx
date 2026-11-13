@@ -4,6 +4,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react-nativ
 import { i18n } from '@/shared/i18n';
 
 import { EditProfileScreen, myProfileKey, MyProfileScreen } from '..';
+import { pickAndUploadAvatar, removeAvatar } from '../api/avatar';
 
 const mockEq = jest.fn();
 const mockUpdate = jest.fn(() => ({ eq: mockEq }));
@@ -18,6 +19,7 @@ jest.mock('expo-router', () => ({ router: { push: jest.fn(), back: jest.fn() } }
 jest.mock('../api/avatar', () => ({
   ...jest.requireActual('../api/avatar'),
   pickAndUploadAvatar: jest.fn(),
+  removeAvatar: jest.fn(),
 }));
 
 const t = (key: string) => i18n.t(key as never) as unknown as string;
@@ -32,9 +34,9 @@ const profile = {
   country: 'ES',
 };
 
-async function renderWith(ui: React.ReactElement) {
+async function renderWith(ui: React.ReactElement, overrides: Partial<typeof profile> = {}) {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false, staleTime: Infinity } } });
-  client.setQueryData(myProfileKey, profile);
+  client.setQueryData(myProfileKey, { ...profile, ...overrides });
   const invalidate = jest.spyOn(client, 'invalidateQueries');
   await render(<QueryClientProvider client={client}>{ui}</QueryClientProvider>);
   return { invalidate };
@@ -89,6 +91,21 @@ describe('EditProfileScreen', () => {
     expect(screen.getByText('@biel')).toBeOnTheScreen();
     expect(screen.getByText(/Espanya/)).toBeOnTheScreen();
     expect(screen.queryByLabelText(t('onboarding.profile.username'))).toBeNull();
+  });
+
+  it('keeps the saved photo until the new one is saved, then removes it', async () => {
+    (pickAndUploadAvatar as jest.Mock).mockResolvedValue('user-1/new.jpg');
+    await renderWith(<EditProfileScreen onSignOut={jest.fn()} />, { avatar_path: 'user-1/old.jpg' as never });
+    await fireEvent.press(screen.getByRole('button', { name: t('onboarding.profile.avatar') }));
+    await fireEvent.press(screen.getByRole('button', { name: t('onboarding.profile.chooseFromLibrary') }));
+    await waitFor(() => expect(pickAndUploadAvatar).toHaveBeenCalledWith('user-1', 'library', null));
+    expect(removeAvatar).not.toHaveBeenCalled();
+
+    await save();
+    await waitFor(() =>
+      expect(mockUpdate).toHaveBeenCalledWith(expect.objectContaining({ avatar_path: 'user-1/new.jpg' })),
+    );
+    await waitFor(() => expect(removeAvatar).toHaveBeenCalledWith('user-1/old.jpg'));
   });
 
   it('asks for confirmation before signing out', async () => {

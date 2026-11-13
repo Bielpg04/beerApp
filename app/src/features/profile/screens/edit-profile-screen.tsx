@@ -6,6 +6,7 @@ import { type Language, useTranslation } from '@/shared/i18n';
 import { useTheme } from '@/shared/theme';
 import { Button, Card, Input, Screen, Sheet, Text } from '@/shared/ui';
 
+import { removeAvatar } from '../api/avatar';
 import { useOwnProfile } from '../api/my-profile';
 import { useUpdateProfile } from '../api/update-profile';
 import { AvatarPicker } from '../components/avatar-picker';
@@ -42,7 +43,14 @@ function EditProfileForm({ profile, onSignOut }: { profile: MyProfile } & EditPr
     if (!name.success || !about.success) return;
     update.mutate(
       { display_name: name.data, bio: about.data || null, avatar_path: avatarPath, is_private: isPrivate },
-      { onSuccess: () => router.back() },
+      {
+        onSuccess: () => {
+          // The previous photo is removed only once the new one is saved.
+          if (profile.avatar_path && profile.avatar_path !== avatarPath)
+            void removeAvatar(profile.avatar_path);
+          router.back();
+        },
+      },
     );
   };
 
@@ -56,7 +64,13 @@ function EditProfileForm({ profile, onSignOut }: { profile: MyProfile } & EditPr
         {t('profile.editTitle')}
       </Text>
 
-      <AvatarPicker userId={profile.id} name={displayName} path={avatarPath} onChange={setAvatarPath} />
+      <AvatarPicker
+        userId={profile.id}
+        name={displayName}
+        path={avatarPath}
+        replaces={avatarPath !== profile.avatar_path ? avatarPath : null}
+        onChange={setAvatarPath}
+      />
 
       <Input
         label={t('onboarding.profile.displayName')}

@@ -5,7 +5,10 @@
     "close": "Cerrar",
     "save": "Guardar",
     "loading": "Cargando…",
-    "comingSoon": "Próximamente"
+    "comingSoon": "Próximamente",
+    "connectionError": "No se ha podido conectar",
+    "connectionErrorHint": "Comprueba tu conexión a internet.",
+    "retry": "Reintentar"
   },
   "tabs": {
     "feed": "Feed",
