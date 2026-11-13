@@ -1,11 +1,12 @@
-import '@/shared/i18n';
-
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
 import { useRouteState } from '@/features/auth';
-import { QueryProvider } from '@/shared/lib/query-client';
+import { myProfileKey } from '@/features/profile';
+import { useTranslation } from '@/shared/i18n';
+import { QueryProvider, queryClient } from '@/shared/lib/query-client';
+import { Button, EmptyState } from '@/shared/ui';
 
 void SplashScreen.preventAutoHideAsync();
 
@@ -15,6 +16,8 @@ function RootNavigator() {
   useEffect(() => {
     if (state !== 'loading') void SplashScreen.hideAsync();
   }, [state]);
+
+  if (state === 'error') return <ConnectionError />;
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
@@ -33,6 +36,19 @@ function RootNavigator() {
         <Stack.Screen name="profile-edit" options={{ presentation: 'modal' }} />
       </Stack.Protected>
     </Stack>
+  );
+}
+
+/** Shown when the profile can't be loaded (e.g. offline at launch). */
+function ConnectionError() {
+  const { t } = useTranslation();
+  return (
+    <EmptyState emoji="📡" title={t('common.connectionError')} message={t('common.connectionErrorHint')}>
+      <Button
+        title={t('common.retry')}
+        onPress={() => void queryClient.refetchQueries({ queryKey: myProfileKey })}
+      />
+    </EmptyState>
   );
 }
 

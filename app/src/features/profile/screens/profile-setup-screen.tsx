@@ -42,7 +42,13 @@ export function ProfileSetupScreen() {
       <Text muted>{t('onboarding.profile.subtitle')}</Text>
 
       {profile ? (
-        <AvatarPicker userId={profile.id} name={displayName} path={avatarPath} onChange={setAvatarPath} />
+        <AvatarPicker
+          userId={profile.id}
+          name={displayName}
+          path={avatarPath}
+          replaces={avatarPath !== profile.avatar_path ? avatarPath : null}
+          onChange={setAvatarPath}
+        />
       ) : null}
 
       <UsernameField

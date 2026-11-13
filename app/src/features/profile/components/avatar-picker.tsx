@@ -9,12 +9,15 @@ import { AvatarPermissionError, avatarUrl, pickAndUploadAvatar, type AvatarSourc
 export interface AvatarPickerProps {
   userId: string;
   name: string;
+  /** Avatar shown now. */
   path: string | null;
+  /** File to delete when a new photo replaces it: only unsaved uploads, never the saved avatar. */
+  replaces: string | null;
   onChange: (path: string) => void;
 }
 
 /** Tappable avatar that lets the user take or choose a photo; uploads it right away. */
-export function AvatarPicker({ userId, name, path, onChange }: AvatarPickerProps) {
+export function AvatarPicker({ userId, name, path, replaces, onChange }: AvatarPickerProps) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -25,7 +28,7 @@ export function AvatarPicker({ userId, name, path, onChange }: AvatarPickerProps
     setError(null);
     setBusy(true);
     try {
-      const newPath = await pickAndUploadAvatar(userId, source, path);
+      const newPath = await pickAndUploadAvatar(userId, source, replaces);
       if (newPath) onChange(newPath);
     } catch (e) {
       setError(

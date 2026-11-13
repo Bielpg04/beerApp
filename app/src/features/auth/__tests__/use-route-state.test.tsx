@@ -40,3 +40,17 @@ it('reports loading only before anything has settled', async () => {
   const { result } = await renderHook(() => useRouteState());
   expect(result.current).toBe('loading');
 });
+
+it('surfaces a failed profile load even right after signing in', async () => {
+  const session = useSession as jest.Mock;
+  const myProfile = useMyProfile as jest.Mock;
+  session.mockReturnValue({ status: 'signedOut', userId: null });
+  myProfile.mockReturnValue({ data: undefined, isError: false });
+  const { result, rerender } = await renderHook(() => useRouteState());
+
+  session.mockReturnValue({ status: 'signedIn', userId: 'u1' });
+  myProfile.mockReturnValue({ data: undefined, isError: true });
+  await rerender({});
+
+  expect(result.current).toBe('error');
+});

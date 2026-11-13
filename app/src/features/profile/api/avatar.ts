@@ -65,6 +65,11 @@ export async function pickAndUploadAvatar(
   return path;
 }
 
+/** Deletes an avatar file (best effort: a leftover file is harmless, a missing one is not). */
+export async function removeAvatar(path: string): Promise<void> {
+  await supabase.storage.from(BUCKET).remove([path]);
+}
+
 export function avatarUrl(path: string | null | undefined): string | null {
   return path ? supabase.storage.from(BUCKET).getPublicUrl(path).data.publicUrl : null;
 }

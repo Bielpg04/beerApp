@@ -5,7 +5,10 @@
     "close": "Close",
     "save": "Save",
     "loading": "Loading…",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "connectionError": "Couldn’t connect",
+    "connectionErrorHint": "Check your internet connection.",
+    "retry": "Try again"
   },
   "tabs": {
     "feed": "Feed",
@@ -20,7 +23,10 @@
       "subtitle": "Sign in or create an account with your email. We’ll send you a code.",
       "emailLabel": "Email",
       "emailPlaceholder": "name@example.com",
-      "submit": "Send me the code"
+      "submit": "Send me the code",
+      "google": "Continue with Google",
+      "apple": "Continue with Apple",
+      "or": "or with your email"
     },
     "code": {
       "title": "Check your email",

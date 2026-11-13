@@ -8,6 +8,7 @@ import { useTranslation } from '@/shared/i18n';
 import { Button, Input, Screen, Text } from '@/shared/ui';
 
 import { sendEmailCode } from '../api/email';
+import { SocialButtons } from '../components/social-buttons';
 import { authErrorKey, type AuthErrorKey } from '../lib/auth-error';
 import { emailSchema } from '../lib/schemas';
 
@@ -39,6 +40,7 @@ export function LoginScreen() {
         {t('auth.login.title')}
       </Text>
       <Text muted>{t('auth.login.subtitle')}</Text>
+      <SocialButtons />
       <Controller
         control={control}
         name="email"
