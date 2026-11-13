@@ -57,7 +57,22 @@
       "responsible": "Drink responsibly. Your birthdate and country can’t be changed later."
     },
     "profile": {
-      "title": "Create your profile"
+      "title": "Create your profile",
+      "subtitle": "This is how your friends will find you.",
+      "username": "Username",
+      "usernamePlaceholder": "biel_04",
+      "usernameRules": "3–20 characters: lowercase letters, numbers, _ and . (not at the start or end).",
+      "usernameChecking": "Checking…",
+      "usernameAvailable": "✓ Available",
+      "usernameTaken": "This username is already taken.",
+      "displayName": "Name",
+      "displayNamePlaceholder": "What’s your name?",
+      "displayNameRequired": "Enter your name (up to 50 characters).",
+      "avatar": "Profile photo",
+      "takePhoto": "Take a photo",
+      "chooseFromLibrary": "Choose from library",
+      "permissionDenied": "Camera or photo access is needed. You can allow it in Settings.",
+      "submit": "Get started"
     }
   }
 }

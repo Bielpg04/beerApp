@@ -57,7 +57,22 @@
       "responsible": "Beu amb responsabilitat. La data i el país no es podran canviar després."
     },
     "profile": {
-      "title": "Crea el teu perfil"
+      "title": "Crea el teu perfil",
+      "subtitle": "Així et trobaran els teus amics.",
+      "username": "Nom d’usuari",
+      "usernamePlaceholder": "biel_04",
+      "usernameRules": "3–20 caràcters: lletres minúscules, números, _ i . (no al principi ni al final).",
+      "usernameChecking": "Comprovant…",
+      "usernameAvailable": "✓ Disponible",
+      "usernameTaken": "Aquest nom ja està agafat.",
+      "displayName": "Nom",
+      "displayNamePlaceholder": "Com et diuen?",
+      "displayNameRequired": "Escriu el teu nom (màxim 50 caràcters).",
+      "avatar": "Foto de perfil",
+      "takePhoto": "Fes una foto",
+      "chooseFromLibrary": "Tria de la galeria",
+      "permissionDenied": "Cal permís per accedir a la càmera o a les fotos. El pots donar a Ajustos.",
+      "submit": "Comença"
     }
   }
 }

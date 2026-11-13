@@ -57,7 +57,22 @@
       "responsible": "Bebe con responsabilidad. La fecha y el país no se podrán cambiar después."
     },
     "profile": {
-      "title": "Crea tu perfil"
+      "title": "Crea tu perfil",
+      "subtitle": "Así te encontrarán tus amigos.",
+      "username": "Nombre de usuario",
+      "usernamePlaceholder": "biel_04",
+      "usernameRules": "3–20 caracteres: letras minúsculas, números, _ y . (no al principio ni al final).",
+      "usernameChecking": "Comprobando…",
+      "usernameAvailable": "✓ Disponible",
+      "usernameTaken": "Este nombre ya está cogido.",
+      "displayName": "Nombre",
+      "displayNamePlaceholder": "¿Cómo te llamas?",
+      "displayNameRequired": "Escribe tu nombre (máximo 50 caracteres).",
+      "avatar": "Foto de perfil",
+      "takePhoto": "Hacer una foto",
+      "chooseFromLibrary": "Elegir de la galería",
+      "permissionDenied": "Se necesita permiso para acceder a la cámara o a las fotos. Puedes darlo en Ajustes.",
+      "submit": "Empezar"
     }
   }
 }
