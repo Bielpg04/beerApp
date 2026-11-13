@@ -41,7 +41,20 @@
   },
   "onboarding": {
     "age": {
-      "title": "Quants anys tens?"
+      "title": "Quants anys tens?",
+      "subtitle": "Per fer servir BeerApp has de tenir l’edat legal per beure alcohol al teu país.",
+      "day": "Dia",
+      "month": "Mes",
+      "year": "Any",
+      "dayPlaceholder": "DD",
+      "monthPlaceholder": "MM",
+      "yearPlaceholder": "AAAA",
+      "country": "País",
+      "chooseCountry": "Tria el teu país",
+      "invalidDate": "Aquesta data no existeix.",
+      "underage": "Has de tenir com a mínim {{age}} anys per fer servir BeerApp.",
+      "submit": "Continua",
+      "responsible": "Beu amb responsabilitat. La data i el país no es podran canviar després."
     },
     "profile": {
       "title": "Crea el teu perfil"
