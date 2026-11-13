@@ -11,7 +11,7 @@ pre-commit:
   parallel: true
   commands:
     prettier:
-      glob: '*.{js,mjs,cjs,ts,tsx,json,md,yml,yaml}'
+      glob: '*.{js,mjs,cjs,ts,tsx,json,md,yml,yaml,html,css}'
       run: npx --no -- prettier --write --ignore-unknown {staged_files}
       stage_fixed: true
 
