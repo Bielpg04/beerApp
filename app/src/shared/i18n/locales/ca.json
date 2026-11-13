@@ -5,7 +5,10 @@
     "close": "Tanca",
     "save": "Desa",
     "loading": "Carregant…",
-    "comingSoon": "Aviat"
+    "comingSoon": "Aviat",
+    "connectionError": "No s’ha pogut connectar",
+    "connectionErrorHint": "Comprova la connexió a internet.",
+    "retry": "Torna-ho a provar"
   },
   "tabs": {
     "feed": "Feed",

@@ -5,7 +5,10 @@
     "close": "Close",
     "save": "Save",
     "loading": "Loading…",
-    "comingSoon": "Coming soon"
+    "comingSoon": "Coming soon",
+    "connectionError": "Couldn’t connect",
+    "connectionErrorHint": "Check your internet connection.",
+    "retry": "Try again"
   },
   "tabs": {
     "feed": "Feed",

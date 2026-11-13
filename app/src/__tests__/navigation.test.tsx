@@ -1,4 +1,4 @@
-import { renderRouter, screen } from 'expo-router/testing-library';
+import { fireEvent, renderRouter, screen } from 'expo-router/testing-library';
 
 import type { RouteState } from '@/features/auth';
 import { i18n } from '@/shared/i18n';
@@ -64,4 +64,14 @@ it('lets signed-out users open the code screen', async () => {
   await renderRouter('./src/app', { initialUrl: '/verify?email=biel%40example.com' });
   expect(screen).toHavePathname('/verify');
   expect(screen.getByRole('header', { name: t('auth.code.title') })).toBeOnTheScreen();
+});
+
+it('offers a retry when the profile cannot be loaded (e.g. offline)', async () => {
+  mockState = 'error';
+  const { queryClient } = jest.requireActual('@/shared/lib/query-client');
+  const refetch = jest.spyOn(queryClient, 'refetchQueries');
+  await renderRouter('./src/app', { initialUrl: '/' });
+  expect(screen.getByText(t('common.connectionError'))).toBeOnTheScreen();
+  await fireEvent.press(screen.getByRole('button', { name: t('common.retry') }));
+  expect(refetch).toHaveBeenCalledWith({ queryKey: ['profile', 'me'] });
 });
