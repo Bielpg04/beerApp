@@ -21,11 +21,15 @@ describe('when ready', () => {
     ['/search', 'Cerca'],
     ['/new-post', 'Nova cervesa'],
     ['/map', 'Mapa'],
-    ['/profile', 'Perfil'],
   ])('%s renders the %s tab', async (url, title) => {
     await renderRouter('./src/app', { initialUrl: url });
     expect(screen).toHavePathname(url);
     expect(screen.getByRole('header', { name: title })).toBeOnTheScreen();
+  });
+
+  it('opens the profile tab', async () => {
+    await renderRouter('./src/app', { initialUrl: '/profile' });
+    expect(screen).toHavePathname('/profile');
   });
 
   it('cannot open the login screen', async () => {

@@ -57,7 +57,38 @@
       "responsible": "Beu amb responsabilitat. La data i el país no es podran canviar després."
     },
     "profile": {
-      "title": "Crea el teu perfil"
+      "title": "Crea el teu perfil",
+      "subtitle": "Així et trobaran els teus amics.",
+      "username": "Nom d’usuari",
+      "usernamePlaceholder": "biel_04",
+      "usernameRules": "3–20 caràcters: lletres minúscules, números, _ i . (no al principi ni al final).",
+      "usernameChecking": "Comprovant…",
+      "usernameAvailable": "✓ Disponible",
+      "usernameTaken": "Aquest nom ja està agafat.",
+      "displayName": "Nom",
+      "displayNamePlaceholder": "Com et diuen?",
+      "displayNameRequired": "Escriu el teu nom (màxim 50 caràcters).",
+      "avatar": "Foto de perfil",
+      "takePhoto": "Fes una foto",
+      "chooseFromLibrary": "Tria de la galeria",
+      "permissionDenied": "Cal permís per accedir a la càmera o a les fotos. El pots donar a Ajustos.",
+      "submit": "Comença"
+    }
+  },
+  "profile": {
+    "edit": "Edita el perfil",
+    "editTitle": "Edita el perfil",
+    "noBio": "Encara no has escrit res sobre tu.",
+    "bio": "Sobre mi",
+    "bioPlaceholder": "Quines cerveses t’agraden?",
+    "private": "Perfil privat",
+    "privateHint": "Només els teus amics veuran les teves cerveses i estadístiques.",
+    "readOnlyHint": "El nom d’usuari, la data de naixement i el país no es poden canviar.",
+    "signOut": "Tanca la sessió",
+    "signOutConfirm": "Vols tancar la sessió?",
+    "signOutConfirmYes": "Sí, tanca la sessió",
+    "errors": {
+      "bioTooLong": "Màxim 160 caràcters."
     }
   }
 }

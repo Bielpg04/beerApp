@@ -30,6 +30,7 @@ function RootNavigator() {
       </Stack.Protected>
       <Stack.Protected guard={state === 'ready'}>
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="profile-edit" options={{ presentation: 'modal' }} />
       </Stack.Protected>
     </Stack>
   );
