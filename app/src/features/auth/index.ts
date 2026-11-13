@@ -1,3 +1,4 @@
+export { isAppleAvailable, signInWithApple, type AppleOptions } from './api/apple';
 export { sendEmailCode, signOut, verifyEmailCode } from './api/email';
 export { googleConfigFromEnv, isGoogleConfigured, signInWithGoogle, type GoogleConfig } from './api/google';
 export { SocialButtons, type SocialButtonsProps } from './components/social-buttons';
