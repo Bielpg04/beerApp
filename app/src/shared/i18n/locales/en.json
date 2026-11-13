@@ -41,7 +41,20 @@
   },
   "onboarding": {
     "age": {
-      "title": "How old are you?"
+      "title": "How old are you?",
+      "subtitle": "To use BeerApp you must be of legal drinking age in your country.",
+      "day": "Day",
+      "month": "Month",
+      "year": "Year",
+      "dayPlaceholder": "DD",
+      "monthPlaceholder": "MM",
+      "yearPlaceholder": "YYYY",
+      "country": "Country",
+      "chooseCountry": "Choose your country",
+      "invalidDate": "This date doesn’t exist.",
+      "underage": "You must be at least {{age}} to use BeerApp.",
+      "submit": "Continue",
+      "responsible": "Drink responsibly. Your birthdate and country can’t be changed later."
     },
     "profile": {
       "title": "Create your profile"
