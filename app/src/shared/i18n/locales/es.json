@@ -20,7 +20,10 @@
       "subtitle": "Entra o crea una cuenta con tu correo. Te enviaremos un código.",
       "emailLabel": "Correo electrónico",
       "emailPlaceholder": "nombre@ejemplo.com",
-      "submit": "Envíame el código"
+      "submit": "Envíame el código",
+      "google": "Continuar con Google",
+      "apple": "Continuar con Apple",
+      "or": "o con tu correo"
     },
     "code": {
       "title": "Revisa tu correo",

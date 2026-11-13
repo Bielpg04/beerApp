@@ -20,7 +20,10 @@
       "subtitle": "Entra o crea un compte amb el teu correu. T’enviarem un codi.",
       "emailLabel": "Correu electrònic",
       "emailPlaceholder": "nom@exemple.com",
-      "submit": "Envia’m el codi"
+      "submit": "Envia’m el codi",
+      "google": "Continua amb Google",
+      "apple": "Continua amb Apple",
+      "or": "o amb el teu correu"
     },
     "code": {
       "title": "Revisa el correu",
