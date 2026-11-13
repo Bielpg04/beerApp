@@ -74,5 +74,21 @@
       "permissionDenied": "Camera or photo access is needed. You can allow it in Settings.",
       "submit": "Get started"
     }
+  },
+  "profile": {
+    "edit": "Edit profile",
+    "editTitle": "Edit profile",
+    "noBio": "You haven’t written anything about yourself yet.",
+    "bio": "About me",
+    "bioPlaceholder": "Which beers do you like?",
+    "private": "Private profile",
+    "privateHint": "Only your friends will see your beers and stats.",
+    "readOnlyHint": "Username, birthdate and country can’t be changed.",
+    "signOut": "Sign out",
+    "signOutConfirm": "Do you want to sign out?",
+    "signOutConfirmYes": "Yes, sign out",
+    "errors": {
+      "bioTooLong": "Up to 160 characters."
+    }
   }
 }

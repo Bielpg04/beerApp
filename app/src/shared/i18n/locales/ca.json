@@ -74,5 +74,21 @@
       "permissionDenied": "Cal permís per accedir a la càmera o a les fotos. El pots donar a Ajustos.",
       "submit": "Comença"
     }
+  },
+  "profile": {
+    "edit": "Edita el perfil",
+    "editTitle": "Edita el perfil",
+    "noBio": "Encara no has escrit res sobre tu.",
+    "bio": "Sobre mi",
+    "bioPlaceholder": "Quines cerveses t’agraden?",
+    "private": "Perfil privat",
+    "privateHint": "Només els teus amics veuran les teves cerveses i estadístiques.",
+    "readOnlyHint": "El nom d’usuari, la data de naixement i el país no es poden canviar.",
+    "signOut": "Tanca la sessió",
+    "signOutConfirm": "Vols tancar la sessió?",
+    "signOutConfirmYes": "Sí, tanca la sessió",
+    "errors": {
+      "bioTooLong": "Màxim 160 caràcters."
+    }
   }
 }

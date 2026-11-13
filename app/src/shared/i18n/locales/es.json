@@ -74,5 +74,21 @@
       "permissionDenied": "Se necesita permiso para acceder a la cámara o a las fotos. Puedes darlo en Ajustes.",
       "submit": "Empezar"
     }
+  },
+  "profile": {
+    "edit": "Editar perfil",
+    "editTitle": "Editar perfil",
+    "noBio": "Todavía no has escrito nada sobre ti.",
+    "bio": "Sobre mí",
+    "bioPlaceholder": "¿Qué cervezas te gustan?",
+    "private": "Perfil privado",
+    "privateHint": "Solo tus amigos verán tus cervezas y estadísticas.",
+    "readOnlyHint": "El nombre de usuario, la fecha de nacimiento y el país no se pueden cambiar.",
+    "signOut": "Cerrar sesión",
+    "signOutConfirm": "¿Quieres cerrar la sesión?",
+    "signOutConfirmYes": "Sí, cerrar sesión",
+    "errors": {
+      "bioTooLong": "Máximo 160 caracteres."
+    }
   }
 }
