@@ -1,3 +1,4 @@
+export { AvatarPermissionError, avatarUrl, pickAndUploadAvatar, type AvatarSource } from './api/avatar';
 export { myProfileKey, useMyProfile } from './api/my-profile';
 export { OnboardingError, useSetBirthdate } from './api/set-birthdate';
 export { isOldEnough, minDrinkingAge, parseBirthdate, toIsoDate } from './lib/age';
