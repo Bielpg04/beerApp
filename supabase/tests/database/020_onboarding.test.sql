@@ -2,7 +2,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(17);
+select plan(18);
 
 insert into auth.users (id, email)
 values
@@ -88,6 +88,17 @@ select pg_temp.login_as('00000000-0000-0000-0000-00000000000b');
 select throws_ok(
   $$ select public.complete_profile('pere2', 'Pere') $$,
   'P0001', 'birthdate_required', 'the age step must come first'
+);
+
+-- ---- A user whose profile row is gone (e.g. deleted account with a live token) ----
+reset role;
+insert into auth.users (id, email) values ('00000000-0000-0000-0000-00000000000c', 'c@example.com');
+delete from public.profiles where id = '00000000-0000-0000-0000-00000000000c';
+select pg_temp.login_as('00000000-0000-0000-0000-00000000000c');
+set local role authenticated;
+select throws_ok(
+  $$ select public.set_birthdate('2000-01-01', 'ES') $$,
+  'P0001', 'profile_not_found', 'saving the age never silently does nothing'
 );
 
 -- ---- Anonymous ----
