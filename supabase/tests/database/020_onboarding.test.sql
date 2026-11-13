@@ -2,7 +2,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(18);
+select plan(19);
 
 insert into auth.users (id, email)
 values
@@ -74,6 +74,10 @@ select ok(
 select throws_ok(
   $$ select public.set_birthdate('1990-01-01', 'ES') $$,
   'P0001', 'already_onboarded', 'birthdate and country cannot change after onboarding'
+);
+select throws_ok(
+  $$ select public.complete_profile('biel_nou', 'Biel') $$,
+  'P0001', 'already_onboarded', 'the username cannot be changed after onboarding'
 );
 
 reset role;
