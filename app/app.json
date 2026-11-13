@@ -36,7 +36,15 @@
           "imageWidth": 76
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "BeerApp uses your photos so you can choose a profile picture.",
+          "cameraPermission": "BeerApp uses the camera so you can take a profile picture.",
+          "microphonePermission": false
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
