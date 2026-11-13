@@ -5,14 +5,19 @@
  * - every backlog issue added, with points and sprint set from docs/PLAN.md
  *
  * Needs the `project` scope: gh auth refresh -s project
- * Usage: node scripts/github/setup-project.ts [--start 2026-11-09]
+ * Usage: node scripts/github/setup-project.ts [--start 2026-11-09] [--current S1]
  */
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import { parsePlan } from '../backlog/parse-plan.ts';
 
-const { values: args } = parseArgs({ options: { start: { type: 'string', default: '2026-11-09' } } });
+const { values: args } = parseArgs({
+  options: {
+    start: { type: 'string', default: '2026-11-09' },
+    current: { type: 'string', default: 'S0' }, // sprint whose open items go to "Sprint backlog"
+  },
+});
 const TITLE = 'BeerApp';
 const SPRINT_DAYS = 14;
 const STATUSES = [
@@ -191,8 +196,9 @@ const iterationId = (key: string) => sprintField.configuration?.iterations.find(
 
 // ---------- items ----------
 const stories = new Map(plan.epics.flatMap((e) => e.stories).map((s) => [s.id, s]));
-const existing = new Set(
-  ghJson<{ items: { content: { number?: number } }[] }>([
+// Items already on the board (the project may auto-add new issues without fields).
+const existing = new Map(
+  ghJson<{ items: { id: string; status?: string; content: { number?: number } }[] }>([
     'project',
     'item-list',
     String(project.number),
@@ -202,7 +208,7 @@ const existing = new Set(
     'json',
     '--limit',
     '1000',
-  ]).items.map((i) => i.content.number),
+  ]).items.map((i) => [i.content.number, i]),
 );
 const issues = ghJson<{ number: number; title: string; url: string; state: string }[]>([
   'issue',
@@ -231,28 +237,35 @@ function setField(itemId: string, fieldId: string, value: Record<string, unknown
 }
 
 for (const issue of issues.sort((a, b) => a.number - b.number)) {
-  if (existing.has(issue.number)) continue;
+  const onBoard = existing.get(issue.number);
+  if (onBoard?.status) continue; // already classified
   const key = issue.title.split(' · ')[0];
   const story = stories.get(key.replace(/-T\d+$/, ''));
-  const item = ghJson<{ id: string }>([
-    'project',
-    'item-add',
-    String(project.number),
-    '--owner',
-    owner,
-    '--url',
-    issue.url,
-    '--format',
-    'json',
-  ]);
+  const itemId =
+    onBoard?.id ??
+    ghJson<{ id: string }>([
+      'project',
+      'item-add',
+      String(project.number),
+      '--owner',
+      owner,
+      '--url',
+      issue.url,
+      '--format',
+      'json',
+    ]).id;
   const isEpic = key.startsWith('EPIC-');
   const statusName =
-    issue.state === 'CLOSED' ? 'Done' : !isEpic && story?.sprint?.key === 'S0' ? 'Sprint backlog' : 'Backlog';
-  setField(item.id, statusField.id, { singleSelectOptionId: optionId(statusName) });
-  if (story && key === story.id) setField(item.id, pointsField.id, { number: story.points });
+    issue.state === 'CLOSED'
+      ? 'Done'
+      : !isEpic && story?.sprint?.key === args.current
+        ? 'Sprint backlog'
+        : 'Backlog';
+  setField(itemId, statusField.id, { singleSelectOptionId: optionId(statusName) });
+  if (story && key === story.id) setField(itemId, pointsField.id, { number: story.points });
   const iteration = !isEpic && story?.sprint ? iterationId(story.sprint.key) : undefined;
-  if (iteration) setField(item.id, sprintField.id, { iterationId: iteration });
-  console.log(`+ item #${issue.number} ${key} → ${statusName}`);
+  if (iteration) setField(itemId, sprintField.id, { iterationId: iteration });
+  console.log(`${onBoard ? '~' : '+'} item #${issue.number} ${key} → ${statusName}`);
   sleep(800);
 }
 console.log(`Fet: https://github.com/users/${owner}/projects/${project.number}`);
