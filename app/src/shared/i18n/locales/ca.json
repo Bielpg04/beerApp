@@ -13,5 +13,38 @@
     "newPost": "Nova cervesa",
     "map": "Mapa",
     "profile": "Perfil"
+  },
+  "auth": {
+    "login": {
+      "title": "Benvingut/da a BeerApp",
+      "subtitle": "Entra o crea un compte amb el teu correu. T’enviarem un codi.",
+      "emailLabel": "Correu electrònic",
+      "emailPlaceholder": "nom@exemple.com",
+      "submit": "Envia’m el codi"
+    },
+    "code": {
+      "title": "Revisa el correu",
+      "subtitle": "Hem enviat un codi de 6 dígits a {{email}}.",
+      "codeLabel": "Codi",
+      "submit": "Entra",
+      "resend": "Reenvia el codi",
+      "resendIn": "Pots reenviar-lo en {{seconds}} s",
+      "changeEmail": "Canvia el correu"
+    },
+    "errors": {
+      "invalidEmail": "Aquest correu no és vàlid.",
+      "invalidCode": "El codi ha de tenir 6 dígits.",
+      "codeExpired": "El codi és incorrecte o ha caducat. Torna-ho a provar o demana’n un de nou.",
+      "tooManyEmails": "Has demanat massa codis. Espera uns minuts.",
+      "generic": "Alguna cosa ha fallat. Torna-ho a provar."
+    }
+  },
+  "onboarding": {
+    "age": {
+      "title": "Quants anys tens?"
+    },
+    "profile": {
+      "title": "Crea el teu perfil"
+    }
   }
 }

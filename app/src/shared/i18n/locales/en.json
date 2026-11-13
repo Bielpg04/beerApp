@@ -13,5 +13,38 @@
     "newPost": "New beer",
     "map": "Map",
     "profile": "Profile"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome to BeerApp",
+      "subtitle": "Sign in or create an account with your email. We’ll send you a code.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "name@example.com",
+      "submit": "Send me the code"
+    },
+    "code": {
+      "title": "Check your email",
+      "subtitle": "We sent a 6-digit code to {{email}}.",
+      "codeLabel": "Code",
+      "submit": "Sign in",
+      "resend": "Resend code",
+      "resendIn": "You can resend it in {{seconds}} s",
+      "changeEmail": "Change email"
+    },
+    "errors": {
+      "invalidEmail": "This email is not valid.",
+      "invalidCode": "The code must have 6 digits.",
+      "codeExpired": "The code is wrong or has expired. Try again or request a new one.",
+      "tooManyEmails": "You requested too many codes. Wait a few minutes.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "onboarding": {
+    "age": {
+      "title": "How old are you?"
+    },
+    "profile": {
+      "title": "Create your profile"
+    }
   }
 }
