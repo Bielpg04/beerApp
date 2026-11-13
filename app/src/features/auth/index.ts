@@ -1,4 +1,6 @@
 export { sendEmailCode, signOut, verifyEmailCode } from './api/email';
+export { googleConfigFromEnv, isGoogleConfigured, signInWithGoogle, type GoogleConfig } from './api/google';
+export { SocialButtons, type SocialButtonsProps } from './components/social-buttons';
 export { useRouteState } from './hooks/use-route-state';
 export { useSession, type SessionState, type SessionStatus } from './hooks/use-session';
 export { AuthError, authErrorKey, type AuthErrorKey } from './lib/auth-error';
