@@ -12,9 +12,41 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
+import { useRouteState } from '@/features/auth';
+import { QueryProvider } from '@/shared/lib/query-client';
 import { fonts, ThemeProvider } from '@/shared/theme';
 
 void SplashScreen.preventAutoHideAsync();
+
+function RootNavigator({ fontsReady }: { fontsReady: boolean }) {
+  const state = useRouteState();
+  const ready = fontsReady && state !== 'loading';
+
+  useEffect(() => {
+    if (ready) void SplashScreen.hideAsync();
+  }, [ready]);
+
+  // Hold the first frame until the fonts are in, so text never reflows.
+  if (!fontsReady) return null;
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Protected guard={state === 'signedOut'}>
+        <Stack.Screen name="(auth)/login" />
+        <Stack.Screen name="(auth)/verify" />
+      </Stack.Protected>
+      <Stack.Protected guard={state === 'needsAge'}>
+        <Stack.Screen name="onboarding/age" />
+      </Stack.Protected>
+      <Stack.Protected guard={state === 'needsProfile'}>
+        <Stack.Screen name="onboarding/profile" />
+      </Stack.Protected>
+      <Stack.Protected guard={state === 'ready'}>
+        <Stack.Screen name="(tabs)" />
+      </Stack.Protected>
+    </Stack>
+  );
+}
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -26,18 +58,14 @@ export default function RootLayout() {
     [fonts.bodyBold]: Figtree_700Bold,
     [fonts.mono]: IBMPlexMono_500Medium,
   });
-  const ready = loaded || error != null;
-
-  useEffect(() => {
-    if (ready) SplashScreen.hide();
-  }, [ready]);
-
   // If a font fails to load, render anyway: text falls back to the system face.
-  if (!ready) return null;
+  const fontsReady = loaded || error != null;
 
   return (
-    <ThemeProvider>
-      <Stack screenOptions={{ headerShown: false }} />
-    </ThemeProvider>
+    <QueryProvider>
+      <ThemeProvider>
+        <RootNavigator fontsReady={fontsReady} />
+      </ThemeProvider>
+    </QueryProvider>
   );
 }

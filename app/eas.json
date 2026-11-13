@@ -13,11 +13,15 @@
       "distribution": "internal",
       "channel": "development",
       "environment": "development",
-      "ios": { "simulator": true }
+      "ios": {
+        "simulator": true
+      }
     },
     "development-device": {
       "extends": "development",
-      "ios": { "simulator": false }
+      "ios": {
+        "simulator": false
+      }
     },
     "preview": {
       "extends": "base",

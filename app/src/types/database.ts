@@ -23,13 +23,89 @@ export type Database = {
   };
   public: {
     Tables: {
-      [_ in never]: never;
+      profiles: {
+        Row: {
+          avatar_path: string | null;
+          bio: string | null;
+          birthdate: string | null;
+          country: string | null;
+          created_at: string;
+          display_name: string | null;
+          id: string;
+          is_private: boolean;
+          onboarded_at: string | null;
+          updated_at: string;
+          username: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          avatar_path?: string | null;
+          bio?: string | null;
+          birthdate?: string | null;
+          country?: string | null;
+          created_at?: string;
+          display_name?: string | null;
+          id: string;
+          is_private?: boolean;
+          onboarded_at?: string | null;
+          updated_at?: string;
+          username?: string | null;
+        };
+        Update: {
+          avatar_path?: string | null;
+          bio?: string | null;
+          birthdate?: string | null;
+          country?: string | null;
+          created_at?: string;
+          display_name?: string | null;
+          id?: string;
+          is_private?: boolean;
+          onboarded_at?: string | null;
+          updated_at?: string;
+          username?: string | null;
+        };
+        Relationships: [];
+      };
     };
     Views: {
-      [_ in never]: never;
+      public_profiles: {
+        Row: {
+          avatar_path: string | null;
+          bio: string | null;
+          country: string | null;
+          created_at: string;
+          display_name: string | null;
+          id: string;
+          is_private: boolean;
+          username: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          avatar_path?: string | null;
+          bio?: string | null;
+          country?: string | null;
+          created_at?: string | null;
+          display_name?: string | null;
+          id?: string | null;
+          is_private?: boolean | null;
+          username?: string | null;
+        };
+        Update: {
+          avatar_path?: string | null;
+          bio?: string | null;
+          country?: string | null;
+          created_at?: string | null;
+          display_name?: string | null;
+          id?: string | null;
+          is_private?: boolean | null;
+          username?: string | null;
+        };
+        Relationships: [];
+      };
     };
     Functions: {
-      [_ in never]: never;
+      is_valid_username: { Args: { candidate: string }; Returns: boolean };
+      username_available: { Args: { candidate: string }; Returns: boolean };
     };
     Enums: {
       [_ in never]: never;
