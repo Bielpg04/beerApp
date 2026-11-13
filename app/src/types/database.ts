@@ -23,6 +23,22 @@ export type Database = {
   };
   public: {
     Tables: {
+      legal_drinking_age: {
+        Row: {
+          country: string;
+          min_age: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          country: string;
+          min_age: number;
+        };
+        Update: {
+          country?: string;
+          min_age?: number;
+        };
+        Relationships: [];
+      };
       profiles: {
         Row: {
           avatar_path: string | null;
@@ -104,7 +120,10 @@ export type Database = {
       };
     };
     Functions: {
+      complete_profile: { Args: { display_name: string; username: string }; Returns: undefined };
       is_valid_username: { Args: { candidate: string }; Returns: boolean };
+      min_drinking_age: { Args: { country: string }; Returns: number };
+      set_birthdate: { Args: { birthdate: string; country: string }; Returns: undefined };
       username_available: { Args: { candidate: string }; Returns: boolean };
     };
     Enums: {
