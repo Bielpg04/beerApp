@@ -41,7 +41,20 @@
   },
   "onboarding": {
     "age": {
-      "title": "¿Cuántos años tienes?"
+      "title": "¿Cuántos años tienes?",
+      "subtitle": "Para usar BeerApp debes tener la edad legal para beber alcohol en tu país.",
+      "day": "Día",
+      "month": "Mes",
+      "year": "Año",
+      "dayPlaceholder": "DD",
+      "monthPlaceholder": "MM",
+      "yearPlaceholder": "AAAA",
+      "country": "País",
+      "chooseCountry": "Elige tu país",
+      "invalidDate": "Esta fecha no existe.",
+      "underage": "Debes tener al menos {{age}} años para usar BeerApp.",
+      "submit": "Continuar",
+      "responsible": "Bebe con responsabilidad. La fecha y el país no se podrán cambiar después."
     },
     "profile": {
       "title": "Crea tu perfil"
