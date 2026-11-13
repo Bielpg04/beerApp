@@ -32,8 +32,8 @@ export async function signInWithGoogle(
 ): Promise<'ok' | 'cancelled'> {
   // Loaded on demand: the native module doesn't exist in Expo Go or on web, and importing it
   // eagerly would crash the whole app there.
-  // eslint-disable-next-line @typescript-eslint/no-require-imports -- lazy native module
   const { GoogleSignin, statusCodes } =
+    // eslint-disable-next-line @typescript-eslint/no-require-imports -- lazy native module
     require('@react-native-google-signin/google-signin') as GoogleSignInModule;
   GoogleSignin.configure({ webClientId: config.webClientId, iosClientId: config.iosClientId });
   try {
