@@ -38,5 +38,13 @@
       "tooManyEmails": "Has demanat massa codis. Espera uns minuts.",
       "generic": "Alguna cosa ha fallat. Torna-ho a provar."
     }
+  },
+  "onboarding": {
+    "age": {
+      "title": "Quants anys tens?"
+    },
+    "profile": {
+      "title": "Crea el teu perfil"
+    }
   }
 }

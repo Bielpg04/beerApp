@@ -38,5 +38,13 @@
       "tooManyEmails": "You requested too many codes. Wait a few minutes.",
       "generic": "Something went wrong. Please try again."
     }
+  },
+  "onboarding": {
+    "age": {
+      "title": "How old are you?"
+    },
+    "profile": {
+      "title": "Create your profile"
+    }
   }
 }
