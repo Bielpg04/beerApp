@@ -38,5 +38,13 @@
       "tooManyEmails": "Has pedido demasiados códigos. Espera unos minutos.",
       "generic": "Algo ha fallado. Inténtalo de nuevo."
     }
+  },
+  "onboarding": {
+    "age": {
+      "title": "¿Cuántos años tienes?"
+    },
+    "profile": {
+      "title": "Crea tu perfil"
+    }
   }
 }

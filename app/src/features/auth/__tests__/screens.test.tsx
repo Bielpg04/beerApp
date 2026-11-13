@@ -55,7 +55,7 @@ describe('LoginScreen', () => {
     await fireEvent.changeText(screen.getByLabelText(t('auth.login.emailLabel')), ' Biel@Example.com ');
     await fireEvent.press(screen.getByRole('button', { name: t('auth.login.submit') }));
     await waitFor(() => expect(send).toHaveBeenCalledWith('biel@example.com'));
-    expect(router.push).toHaveBeenCalledWith({ pathname: '/code', params: { email: 'biel@example.com' } });
+    expect(router.push).toHaveBeenCalledWith({ pathname: '/verify', params: { email: 'biel@example.com' } });
   });
 
   it('shows a translated error when sending fails', async () => {

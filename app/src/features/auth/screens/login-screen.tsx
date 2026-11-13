@@ -26,7 +26,7 @@ export function LoginScreen() {
     setError(null);
     try {
       await sendEmailCode(email);
-      router.push({ pathname: '/code', params: { email } });
+      router.push({ pathname: '/verify', params: { email } });
     } catch (e) {
       setError(authErrorKey(e));
     }
