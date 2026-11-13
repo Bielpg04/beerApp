@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
 
-import { Avatar, Button, Input, Sheet, Text, initials } from '@/shared/ui';
+import { i18n } from '@/shared/i18n';
+import { Avatar, Button, Input, Sheet, Text, VerificationBadge, initials } from '@/shared/ui';
 
 describe('Button', () => {
   it('calls onPress when tapped', async () => {
@@ -59,5 +60,23 @@ describe('Sheet', () => {
     expect(screen.getByText('Cerveses del bar')).toBeOnTheScreen();
     await fireEvent.press(screen.getByTestId('sheet-backdrop'));
     expect(onClose).toHaveBeenCalled();
+  });
+});
+
+describe('VerificationBadge', () => {
+  it.each([
+    ['verified', 'Verified'],
+    ['partial', 'Partial'],
+    ['unverified', 'Unverified'],
+  ] as const)('shows the %s level as a word', async (level, word) => {
+    await i18n.changeLanguage('en');
+    await render(<VerificationBadge level={level} />);
+    expect(screen.getByText(word)).toBeOnTheScreen();
+    expect(screen.getByLabelText(word)).toBeOnTheScreen();
+  });
+
+  it('accepts a custom label', async () => {
+    await render(<VerificationBadge level="partial" label="Sense GPS" />);
+    expect(screen.getByText('Sense GPS')).toBeOnTheScreen();
   });
 });

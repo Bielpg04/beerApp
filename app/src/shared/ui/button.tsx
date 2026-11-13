@@ -1,4 +1,4 @@
-import { ActivityIndicator, Pressable, StyleSheet, type PressableProps } from 'react-native';
+import { ActivityIndicator, Pressable, type PressableProps } from 'react-native';
 
 import { useTheme } from '@/shared/theme';
 
@@ -12,6 +12,7 @@ export interface ButtonProps extends Omit<PressableProps, 'children'> {
   loading?: boolean;
 }
 
+/** A pill, like a tap handle. One `primary` per view. */
 export function Button({
   title,
   variant = 'primary',
@@ -20,7 +21,7 @@ export function Button({
   style,
   ...props
 }: ButtonProps) {
-  const { colors, radius, spacing } = useTheme();
+  const { colors, radius, spacing, sizes, opacity } = useTheme();
   const isDisabled = disabled || loading;
 
   const background = {
@@ -32,7 +33,7 @@ export function Button({
   const foreground = {
     primary: colors.onPrimary,
     secondary: colors.text,
-    ghost: colors.primary,
+    ghost: colors.primaryText,
     danger: colors.onDanger,
   }[variant];
 
@@ -42,12 +43,14 @@ export function Button({
       accessibilityState={{ disabled: isDisabled, busy: loading }}
       disabled={isDisabled}
       style={(state) => [
-        styles.base,
         {
+          minHeight: sizes.controlMinHeight,
+          alignItems: 'center',
+          justifyContent: 'center',
           backgroundColor: state.pressed && variant === 'primary' ? colors.primaryPressed : background,
-          borderRadius: radius.md,
-          paddingHorizontal: spacing.lg,
-          opacity: isDisabled ? 0.5 : state.pressed ? 0.85 : 1,
+          borderRadius: radius.full,
+          paddingHorizontal: spacing.xl,
+          opacity: isDisabled ? opacity.disabled : state.pressed ? opacity.pressed : 1,
         },
         typeof style === 'function' ? style(state) : style,
       ]}
@@ -63,7 +66,3 @@ export function Button({
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  base: { minHeight: 48, alignItems: 'center', justifyContent: 'center' },
-});

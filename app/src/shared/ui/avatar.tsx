@@ -1,7 +1,7 @@
 import { Image } from 'expo-image';
 import { View } from 'react-native';
 
-import { useTheme } from '@/shared/theme';
+import { fonts, useTheme } from '@/shared/theme';
 
 import { Text } from './text';
 
@@ -18,9 +18,10 @@ export function initials(name: string): string {
   return (first + last).toUpperCase();
 }
 
-export function Avatar({ name, uri, size = 40 }: AvatarProps) {
-  const { colors } = useTheme();
-  const shape = { width: size, height: size, borderRadius: size / 2 };
+export function Avatar({ name, uri, size }: AvatarProps) {
+  const { colors, sizes } = useTheme();
+  const diameter = size ?? sizes.avatarDefault;
+  const shape = { width: diameter, height: diameter, borderRadius: diameter / 2 };
 
   if (uri) {
     return <Image source={{ uri }} style={shape} accessibilityLabel={name} contentFit="cover" />;
@@ -30,7 +31,15 @@ export function Avatar({ name, uri, size = 40 }: AvatarProps) {
       accessibilityLabel={name}
       style={[shape, { backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center' }]}
     >
-      <Text style={{ color: colors.onPrimary, fontSize: size * 0.4, fontWeight: '700' }}>
+      <Text
+        style={{
+          color: colors.onPrimary,
+          fontFamily: fonts.displayHeavy,
+          fontSize: diameter * 0.42,
+          lineHeight: diameter * 0.5,
+          letterSpacing: 0.5,
+        }}
+      >
         {initials(name)}
       </Text>
     </View>

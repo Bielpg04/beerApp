@@ -3,6 +3,7 @@ import { Text as RNText, type TextProps as RNTextProps } from 'react-native';
 import { useTheme, type TypographyVariant } from '@/shared/theme';
 
 export interface TextProps extends RNTextProps {
+  /** `hero` and `title` use the display face; `data` the mono face for ABV, IBU, ml and prices. */
   variant?: TypographyVariant;
   muted?: boolean;
 }

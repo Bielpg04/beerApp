@@ -96,5 +96,10 @@
     "errors": {
       "bioTooLong": "Màxim 160 caràcters."
     }
+  },
+  "verification": {
+    "verified": "Verificada",
+    "partial": "Parcial",
+    "unverified": "No verificada"
   }
 }
