@@ -7,11 +7,10 @@ import { createReadStream } from 'node:fs';
 import { Readable } from 'node:stream';
 import type { Sql } from 'postgres';
 
-import { acceptRow, groupRows } from '../../supabase/functions/_shared/catalog/index.ts';
+import { USER_AGENT, acceptRow, groupRows } from '../../supabase/functions/_shared/catalog/index.ts';
 import type { BeerGroup, OffRow } from '../../supabase/functions/_shared/catalog/index.ts';
 
 export const OFF_CSV_URL = 'https://static.openfoodfacts.org/data/en.openfoodfacts.org.products.csv.gz';
-export const USER_AGENT = 'BeerApp/1.0 (https://github.com/Bielpg04/beerApp)';
 
 const COLUMNS = {
   code: 'code',

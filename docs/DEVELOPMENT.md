@@ -70,3 +70,14 @@ CATALOG_DB_URL=<url del session pooler> npm run catalog:import -- --source all  
 - L'informe llista les cerveses que han agrupat diversos productes: revisa-les per detectar fusions errònies.
 - Conflictes (codis d'una mateixa cervesa repartits entre dues fitxes) → taula `catalog_import.conflicts`; es fusionen a mà amb `select catalog_import.merge_beers('<duplicat>', '<bona>');`.
 - La normalització viu a `supabase/functions/_shared/catalog/` (la fa servir també la Edge Function `beer-lookup`).
+
+### Cerca en viu per codi de barres (Edge Function `beer-lookup`)
+
+Si un codi escanejat no és al catàleg, l'app crida `beer-lookup`: consulta Open Food Facts i, si és una cervesa, la importa (màxim 30 consultes per usuari i hora).
+
+```bash
+supabase functions serve                         # local (a més de `npm run db:start`)
+supabase functions deploy beer-lookup --project-ref <ref>   # dev i prod
+```
+
+La lògica és a `supabase/functions/_shared/catalog/lookup.ts` i es prova amb `npm run test:scripts`.
