@@ -103,5 +103,34 @@
     "dataTitle": "Data",
     "offLicence": "Beer data under the ODbL licence; images under CC BY-SA. © Open Food Facts contributors.",
     "obdbLicence": "Brewery data under the MIT licence."
+  },
+  "beers": {
+    "brewery": "Brewery",
+    "style": "Style",
+    "abv": "Alcohol",
+    "country": "Country",
+    "source": "Data: Open Food Facts",
+    "notFound": "We couldn’t find this beer",
+    "imageLabel": "Photo of {{name}}",
+    "styles": {
+      "non_alcoholic": "Non-alcoholic",
+      "trappist": "Trappist",
+      "abbey": "Abbey",
+      "sour": "Sour",
+      "fruit": "Fruit beer",
+      "witbier": "Witbier",
+      "wheat": "Wheat beer",
+      "ipa": "IPA",
+      "pale_ale": "Pale ale",
+      "saison": "Saison",
+      "bock": "Bock",
+      "stout": "Stout",
+      "porter": "Porter",
+      "pilsner": "Pilsner",
+      "amber": "Amber",
+      "blonde": "Blonde",
+      "dark": "Dark",
+      "lager": "Lager"
+    }
   }
 }

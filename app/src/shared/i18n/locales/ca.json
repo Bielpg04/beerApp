@@ -103,5 +103,34 @@
     "dataTitle": "Dades",
     "offLicence": "Dades de les cerveses sota llicència ODbL; imatges sota CC BY-SA. © Col·laboradors d’Open Food Facts.",
     "obdbLicence": "Dades de les cerveseres sota llicència MIT."
+  },
+  "beers": {
+    "brewery": "Cervesera",
+    "style": "Estil",
+    "abv": "Alcohol",
+    "country": "País",
+    "source": "Dades: Open Food Facts",
+    "notFound": "No hem trobat aquesta cervesa",
+    "imageLabel": "Foto de {{name}}",
+    "styles": {
+      "non_alcoholic": "Sense alcohol",
+      "trappist": "Trapenca",
+      "abbey": "D’abadia",
+      "sour": "Àcida",
+      "fruit": "Afruitada",
+      "witbier": "Blanca (witbier)",
+      "wheat": "De blat",
+      "ipa": "IPA",
+      "pale_ale": "Pale ale",
+      "saison": "Saison",
+      "bock": "Bock",
+      "stout": "Stout",
+      "porter": "Porter",
+      "pilsner": "Pilsner",
+      "amber": "Ambrada",
+      "blonde": "Rossa",
+      "dark": "Negra",
+      "lager": "Lager"
+    }
   }
 }

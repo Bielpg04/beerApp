@@ -35,6 +35,7 @@ function RootNavigator() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="profile-edit" options={{ presentation: 'modal' }} />
         <Stack.Screen name="about" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="beer/[id]" options={{ headerShown: true, title: '' }} />
       </Stack.Protected>
     </Stack>
   );
