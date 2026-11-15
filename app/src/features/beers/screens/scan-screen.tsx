@@ -27,6 +27,15 @@ export function ScanScreen() {
   const [state, dispatch] = useReducer(scanReducer, initialScanState);
   // The camera can fire again before React re-renders with the new state.
   const busy = useRef(false);
+  // A lookup can finish after the user closed the scanner: then it must not navigate.
+  const closed = useRef(false);
+
+  useEffect(() => {
+    closed.current = false; // also after a StrictMode remount
+    return () => {
+      closed.current = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (state.kind === 'scanning') busy.current = false;
@@ -37,6 +46,7 @@ export function ScanScreen() {
     busy.current = true;
     dispatch({ type: 'detected', code: data });
     void findBeerByBarcode(data, type).then((result) => {
+      if (closed.current) return;
       if (result.status === 'found' || result.status === 'imported') {
         router.replace(`/beer/${result.beerId}`);
       } else {

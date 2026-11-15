@@ -122,3 +122,13 @@ it('the scan button opens the scanner', async () => {
   await fireEvent.press(screen.getByRole('button', { name: t('beers.scan.open') }));
   expect(router.push).toHaveBeenCalledWith('/scan');
 });
+
+it('does nothing when the lookup finishes after the scanner was closed', async () => {
+  let resolve: (r: LookupResult) => void = () => {};
+  find.mockReturnValue(new Promise<LookupResult>((r) => (resolve = r)));
+  const { unmount } = await render(<ScanScreen />);
+  await scan();
+  await unmount();
+  await act(async () => resolve({ status: 'imported', beerId: 'b9' }));
+  expect(router.replace).not.toHaveBeenCalled();
+});
