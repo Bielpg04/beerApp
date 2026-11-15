@@ -1,6 +1,6 @@
 import { countryFromOffTag } from './countries.ts';
 import { normalizeGtin } from './gtin.ts';
-import { beerNameKey, brandKey, displayName } from './keys.ts';
+import { beerNameKey, brandKey, displayName, isGenericOnly } from './keys.ts';
 import { parseAbv } from './off.ts';
 import { styleFromName, styleFromTags } from './styles.ts';
 import type { BeerGroup, OffRow } from './types.ts';
@@ -20,8 +20,9 @@ function prepare(row: OffRow): Prepared | null {
   const code = normalizeGtin(row.code);
   if (!code) return null;
   const name = row.productName.trim() || firstBrand(row.brands);
-  if (!name) return null;
-  return { row, code, name, brand: firstBrand(row.brands) || name };
+  const brand = firstBrand(row.brands) || name;
+  if (!name || (isGenericOnly(name) && isGenericOnly(brand))) return null;
+  return { row, code, name, brand };
 }
 
 /** The value of the most-scanned row that has one. */

@@ -101,6 +101,7 @@ const BREWERY_WORDS = new Set([
 ]);
 
 const VOLUME_PATTERNS = [
+  /\d+(?:[.,]\d+)?\s*(?:degres?|°)(?:\s*(?:d\s*)?(?:alcool|alc|vol))?/g, // 5.0 DEGRE ALCOOL, 6°
   /\d+\s*x\s*\d+(?:[.,]\d+)?\s*(?:cl|ml|l|oz|fl\s*oz)\b/g, // 6x33cl, 4 x 500 ml
   /\d+(?:[.,]\d+)?\s*(?:cl|ml|l|oz|fl\s*oz|pt)\b/g, // 33cl, 500 ml, 0,5l, 12 fl oz
   /\d+(?:[.,]\d+)?\s*%(?:\s*vol)?/g, // 5%, 4,5 % vol
@@ -111,6 +112,11 @@ function words(text: string): string[] {
   let t = (text ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/['’`]/g, '');
   for (const re of VOLUME_PATTERNS) t = t.replace(re, ' ');
   return t.split(/[^a-z0-9]+/).filter(Boolean);
+}
+
+/** True when the text has no word besides generic ones ("Bière", "Cerveza 33cl"). */
+export function isGenericOnly(text: string): boolean {
+  return words(text).every((w) => GENERIC.has(w));
 }
 
 export function brandKey(brand: string): string {
@@ -132,10 +138,33 @@ function titleCase(text: string): string {
     .replace(/(^|[\s\-'(])(\p{L})/gu, (_, sep: string, ch: string) => sep + ch.toUpperCase());
 }
 
-/** The most frequent spelling (first one on ties), title-cased if it came all in one case. */
+// Same noise as VOLUME_PATTERNS, matched on the original text (any case, with accents).
+const DISPLAY_NOISE = [
+  /\d+(?:[.,]\d+)?\s*(?:degr[ée]s?|°)(?:\s*(?:d['’]?\s*)?(?:alcool|alc\.?|vol\.?))?/giu,
+  /\d+\s*x\s*\d+(?:[.,]\d+)?\s*(?:cl|ml|l|oz|fl\.?\s*oz)\b\.?/giu,
+  /\b\d+(?:[.,]\d+)?\s*(?:cl|ml|l|oz|fl\.?\s*oz)\b\.?/giu,
+  /\d+(?:[.,]\d+)?\s*%(?:\s*vol\.?)?/giu,
+];
+
+/** Drops pack sizes and ABV labels and repeated words: "1664 6x25cl 1664 Millesime 6.7 Degre Alcool" → "1664 Millesime". */
+function cleanName(name: string): string {
+  let text = name;
+  for (const re of DISPLAY_NOISE) text = text.replace(re, ' ');
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const word of text.split(/\s+/).filter(Boolean)) {
+    const key = word.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(word);
+  }
+  return out.join(' ').replace(/^[\s\-–,.]+|[\s\-–,]+$/g, '') || name.trim();
+}
+
+/** The most frequent (cleaned) spelling, first one on ties, title-cased if it came all in one case. */
 export function displayName(names: string[]): string {
   const counts = new Map<string, number>();
-  for (const n of names.map((x) => x.trim()).filter(Boolean)) counts.set(n, (counts.get(n) ?? 0) + 1);
+  for (const n of names.map(cleanName).filter(Boolean)) counts.set(n, (counts.get(n) ?? 0) + 1);
   let best = '';
   let bestCount = 0;
   for (const [n, c] of counts) {
