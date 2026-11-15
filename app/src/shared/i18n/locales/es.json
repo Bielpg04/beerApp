@@ -96,5 +96,12 @@
     "errors": {
       "bioTooLong": "Máximo 160 caracteres."
     }
+  },
+  "about": {
+    "title": "Acerca de la app",
+    "version": "Versión {{version}}",
+    "dataTitle": "Datos",
+    "offLicence": "Datos de las cervezas bajo licencia ODbL; imágenes bajo CC BY-SA. © Colaboradores de Open Food Facts.",
+    "obdbLicence": "Datos de las cerveceras bajo licencia MIT."
   }
 }

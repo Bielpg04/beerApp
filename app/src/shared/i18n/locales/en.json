@@ -96,5 +96,12 @@
     "errors": {
       "bioTooLong": "Up to 160 characters."
     }
+  },
+  "about": {
+    "title": "About the app",
+    "version": "Version {{version}}",
+    "dataTitle": "Data",
+    "offLicence": "Beer data under the ODbL licence; images under CC BY-SA. © Open Food Facts contributors.",
+    "obdbLicence": "Brewery data under the MIT licence."
   }
 }
