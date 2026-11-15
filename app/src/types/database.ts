@@ -290,6 +290,8 @@ export type Database = {
     };
     Functions: {
       beer_by_barcode: { Args: { code: string }; Returns: string };
+      catalog_register_lookup: { Args: { uid: string }; Returns: boolean };
+      catalog_upsert_beer: { Args: { g: Json }; Returns: string };
       complete_profile: { Args: { display_name: string; username: string }; Returns: undefined };
       f_unaccent: { Args: { value: string }; Returns: string };
       is_valid_username: { Args: { candidate: string }; Returns: boolean };
