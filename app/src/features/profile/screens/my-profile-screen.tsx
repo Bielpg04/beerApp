@@ -26,6 +26,7 @@ export function MyProfileScreen() {
         </Text>
       </View>
       <Button title={t('profile.edit')} variant="secondary" onPress={() => router.push('/profile-edit')} />
+      <Button title={t('about.title')} variant="ghost" onPress={() => router.push('/about')} />
     </Screen>
   );
 }

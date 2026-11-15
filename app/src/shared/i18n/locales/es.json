@@ -96,5 +96,41 @@
     "errors": {
       "bioTooLong": "Máximo 160 caracteres."
     }
+  },
+  "about": {
+    "title": "Acerca de la app",
+    "version": "Versión {{version}}",
+    "dataTitle": "Datos",
+    "offLicence": "Datos de las cervezas bajo licencia ODbL; imágenes bajo CC BY-SA. © Colaboradores de Open Food Facts.",
+    "obdbLicence": "Datos de las cerveceras bajo licencia MIT."
+  },
+  "beers": {
+    "brewery": "Cervecera",
+    "style": "Estilo",
+    "abv": "Alcohol",
+    "country": "País",
+    "source": "Datos: Open Food Facts",
+    "notFound": "No hemos encontrado esta cerveza",
+    "imageLabel": "Foto de {{name}}",
+    "styles": {
+      "non_alcoholic": "Sin alcohol",
+      "trappist": "Trapense",
+      "abbey": "De abadía",
+      "sour": "Ácida",
+      "fruit": "Afrutada",
+      "witbier": "Blanca (witbier)",
+      "wheat": "De trigo",
+      "ipa": "IPA",
+      "pale_ale": "Pale ale",
+      "saison": "Saison",
+      "bock": "Bock",
+      "stout": "Stout",
+      "porter": "Porter",
+      "pilsner": "Pilsner",
+      "amber": "Ámbar",
+      "blonde": "Rubia",
+      "dark": "Negra",
+      "lager": "Lager"
+    }
   }
 }
