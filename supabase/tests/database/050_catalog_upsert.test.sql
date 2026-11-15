@@ -2,7 +2,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(25);
+select plan(26);
 
 create function pg_temp.grp(
   name text, name_key text, codes text[], abv numeric default null, brand text default 'Heineken',
@@ -108,6 +108,7 @@ select is((select count(*)::int from catalog_import.staged_groups), 0, 'merge em
 
 insert into public.breweries (name, name_key, country, source, obdb_id)
 values ('Sierra Nevada Brewing Co.', 'sierra nevada', 'US', 'obdb', 'sn'),
+       ('Sierra Nevada Brewing Co.', 'sierra nevada', 'US', 'obdb', 'sn2'),
        ('Twin A', 'twin', 'DE', 'obdb', 't1'), ('Twin B', 'twin', 'BE', 'obdb', 't2');
 
 insert into ids values ('sierra', catalog_import.upsert_beer(
@@ -115,7 +116,12 @@ insert into ids values ('sierra', catalog_import.upsert_beer(
 select is(
   (select br.name || '/' || b.country from public.beers b join public.breweries br on br.id = b.brewery_id
    where b.id = (select id from ids where label = 'sierra')),
-  'Sierra Nevada Brewing Co./US', 'a brand matching one brewery links it and takes its country'
+  'Sierra Nevada Brewing Co./US', 'a brand matching one brewery (with several sites) links it and takes its country'
+);
+select is(
+  (select br.obdb_id from public.beers b join public.breweries br on br.id = b.brewery_id
+   where b.id = (select id from ids where label = 'sierra')),
+  'sn', 'the site with the lowest obdb_id is chosen'
 );
 select is(
   (select brewery_id from public.beers where id = catalog_import.upsert_beer(

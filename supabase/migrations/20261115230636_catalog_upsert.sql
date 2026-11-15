@@ -94,10 +94,19 @@ begin
       and merged_into is null;
   end if;
 
-  -- The brewery is only linked when exactly one brewery has the brand's key.
-  select count(*) into brewery_count from public.breweries where name_key = g ->> 'brandKey';
+  -- The brewery is only linked when the brand's key points to one brewery. Open Brewery DB
+  -- lists big breweries once per site, so several rows with the same name and country count
+  -- as one (the lowest obdb_id is used); different names or countries stay ambiguous.
+  select count(distinct lower(name)) + count(distinct country) - 1
+  into brewery_count
+  from public.breweries
+  where name_key = g ->> 'brandKey';
   if brewery_count = 1 then
-    select * into brewery from public.breweries where name_key = g ->> 'brandKey';
+    select * into brewery
+    from public.breweries
+    where name_key = g ->> 'brandKey'
+    order by obdb_id nulls last, id
+    limit 1;
   end if;
 
   created := target.id is null;
