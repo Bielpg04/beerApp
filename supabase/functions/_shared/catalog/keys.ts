@@ -58,6 +58,13 @@ const GENERIC = new Set([
   'oz',
   'fl',
   'pt',
+  'degre',
+  'degres',
+  'alcool',
+  'пиво',
+  'μπυρα',
+  'мл',
+  'л',
 ]);
 
 // Style words: a name made only of these (after removing the brand) is just the brand's beer.
@@ -106,12 +113,14 @@ const VOLUME_PATTERNS = [
   /\d+(?:[.,]\d+)?\s*(?:cl|ml|l|oz|fl\s*oz|pt)\b/g, // 33cl, 500 ml, 0,5l, 12 fl oz
   /\d+(?:[.,]\d+)?\s*%(?:\s*vol)?/g, // 5%, 4,5 % vol
   /\b\d+\s*x\b/g, // 6x
+  /\d+(?:[.,]\d+)?\s*(?:мл|л)(?![\p{L}])/gu, // 500мл, 0,5 л
 ];
 
 function words(text: string): string[] {
   let t = (text ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/['’`]/g, '');
   for (const re of VOLUME_PATTERNS) t = t.replace(re, ' ');
-  return t.split(/[^a-z0-9]+/).filter(Boolean);
+  // Letters and digits of any script: Cyrillic and Greek brands need real keys too.
+  return t.split(/[^\p{L}\p{N}]+/u).filter(Boolean);
 }
 
 /** True when the text has no word besides generic ones ("Bière", "Cerveza 33cl"). */

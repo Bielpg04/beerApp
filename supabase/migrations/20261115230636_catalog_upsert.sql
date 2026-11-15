@@ -27,6 +27,16 @@ create table catalog_import.conflicts (
 comment on table catalog_import.conflicts is
   'Groups whose barcodes already belonged to several beers. Review and fix with catalog_import.merge_beers().';
 
+create table catalog_import.errors (
+  id bigint generated always as identity primary key,
+  payload jsonb not null,
+  error text not null,
+  seen_at timestamptz not null default now()
+);
+
+comment on table catalog_import.errors is
+  'Groups the database rejected during an import (skipped so the rest of the import goes through).';
+
 create table catalog_import.lookups (
   user_id uuid not null references auth.users (id) on delete cascade,
   created_at timestamptz not null default now()
@@ -112,6 +122,8 @@ begin
   created := target.id is null;
 
   if created then
+    -- Two first lookups of the same new beer can race: the loser inserts nothing and
+    -- picks up the winner's row below instead of failing on the unique key.
     insert into public.beers (
       name, name_key, brand, brand_key, brewery_id, style_code, abv, country,
       image_url, image_thumb_url, source, status
@@ -122,8 +134,21 @@ begin
       new_image, case when new_image is not null then nullif(g ->> 'imageThumbUrl', '') end,
       'off', 'approved'
     )
+    on conflict (brand_key, name_key) where merged_into is null and source = 'off' do nothing
     returning * into target;
-  elsif target.source = 'off' then
+
+    if target.id is null then
+      created := false;
+      select * into target
+      from public.beers
+      where brand_key = g ->> 'brandKey'
+        and name_key = g ->> 'nameKey'
+        and source = 'off'
+        and merged_into is null;
+    end if;
+  end if;
+
+  if not created and target.source = 'off' then
     update public.beers
     set abv = coalesce(new_abv, abv),
         style_code = coalesce(nullif(g ->> 'styleCode', ''), style_code),
@@ -169,7 +194,8 @@ create function catalog_import.merge(
   out created int,
   out updated int,
   out barcodes_added int,
-  out conflicts int
+  out conflicts int,
+  out skipped int
 )
 language plpgsql
 set search_path = ''
@@ -182,17 +208,24 @@ begin
   updated := 0;
   barcodes_added := 0;
   conflicts := 0;
+  skipped := 0;
   for row in select * from catalog_import.staged_groups order by id loop
-    r := catalog_import.apply_group(row.payload);
-    if r.created then
-      created := created + 1;
-    else
-      updated := updated + 1;
-    end if;
-    barcodes_added := barcodes_added + r.barcodes_added;
-    if r.conflict then
-      conflicts := conflicts + 1;
-    end if;
+    -- One bad group (e.g. a value a check rejects) must not roll back the whole import.
+    begin
+      r := catalog_import.apply_group(row.payload);
+      if r.created then
+        created := created + 1;
+      else
+        updated := updated + 1;
+      end if;
+      barcodes_added := barcodes_added + r.barcodes_added;
+      if r.conflict then
+        conflicts := conflicts + 1;
+      end if;
+    exception when others then
+      insert into catalog_import.errors (payload, error) values (row.payload, sqlerrm);
+      skipped := skipped + 1;
+    end;
   end loop;
   delete from catalog_import.staged_groups;
 end;
