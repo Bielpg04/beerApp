@@ -179,3 +179,28 @@ test('groupRows drops rows whose barcode is invalid and takes the origin country
   assert.equal(groups[0].country, 'BE');
   assert.equal(groups[0].name, 'Tripel');
 });
+
+test('products named only with generic words and no brand are dropped', () => {
+  const groups = groupRows([
+    row({ code: '20317553', productName: 'Bière', brands: '' }),
+    row({ code: '4515445800079', productName: 'Cerveza', brands: '' }),
+  ]);
+  assert.equal(groups.length, 0);
+});
+
+test('French "DEGRE ALCOOL" labels do not change the key', () => {
+  assert.equal(
+    beerNameKey('Carlsberg 33 cl Carlsberg 5.0 DEGRE ALCOOL', 'Carlsberg'),
+    beerNameKey('Carlsberg', 'Carlsberg'),
+  );
+  assert.equal(
+    beerNameKey('1664 6x25cl 1664 Millesime 6.7 Degre Alcool', '1664'),
+    beerNameKey('1664 Millésime', '1664'),
+  );
+});
+
+test('display names drop pack sizes, ABV labels and repeated words', () => {
+  assert.equal(displayName(['1664 6x25cl 1664 Millesime 6.7 Degre Alcool']), '1664 Millesime');
+  assert.equal(displayName(['Carlsberg 33 cl Carlsberg 5.0 DEGRE ALCOOL']), 'Carlsberg');
+  assert.equal(displayName(['Estrella Damm 0,0']), 'Estrella Damm 0,0');
+});

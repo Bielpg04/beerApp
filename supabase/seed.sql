@@ -2,6 +2,7 @@
 
 -- ---------- beer catalog (US-201) ----------
 -- A complete beer, one with only the essentials, and a duplicate merged into the first.
+-- Barcodes starting with 2 are in-store codes, so they never clash with real products.
 insert into public.breweries (id, name, name_key, country, city, source, obdb_id)
 values ('b0000000-0000-0000-0000-000000000001', 'Brouwerij Westmalle', 'westmalle', 'BE', 'Westmalle', 'obdb', 'seed-westmalle');
 
@@ -23,4 +24,4 @@ insert into public.beer_barcodes (barcode, beer_id)
 values
   ('5410204740018', 'beef0000-0000-0000-0000-000000000001'),
   ('0071990301033', 'beef0000-0000-0000-0000-000000000002'),
-  ('8712000900045', 'beef0000-0000-0000-0000-000000000003');
+  ('2000000000015', 'beef0000-0000-0000-0000-000000000003');
