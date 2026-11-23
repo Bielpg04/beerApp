@@ -190,7 +190,10 @@
       "continue": "Continue",
       "photoPreview": "Photo you will post",
       "photoPermission": "Camera or photo access is needed. You can allow it in Settings.",
-      "photoGone": "The photo you picked is no longer there. Choose another or carry on without one."
+      "photoGone": "The photo you picked is no longer there. Choose another or carry on without one.",
+      "discard": "Discard",
+      "discardConfirm": "Discard this post?",
+      "discardConfirmYes": "Yes, discard it"
     }
   }
 }

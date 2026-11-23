@@ -157,3 +157,21 @@ it('goes back a step without losing the beer', async () => {
   expect(await screen.findByLabelText(t('posts.new.searchLabel'))).toBeOnTheScreen();
   expect(usePostDraft.getState().beer?.id).toBe('b1');
 });
+
+it('discards a draft after confirming', async () => {
+  usePostDraft.setState({
+    beer: { id: 'b1', name: 'Estrella Damm', brand: 'Damm', imageThumbUrl: null, abv: null, styleCode: null },
+    step: 'details',
+    caption: 'x',
+  });
+  await renderScreen();
+  await fireEvent.press(screen.getByRole('button', { name: t('posts.new.discard') }));
+  await fireEvent.press(await screen.findByRole('button', { name: t('posts.new.discardConfirmYes') }));
+  expect(usePostDraft.getState().beer).toBeNull();
+  expect(await screen.findByLabelText(t('posts.new.searchLabel'))).toBeOnTheScreen();
+});
+
+it('does not offer to discard an empty draft', async () => {
+  await renderScreen();
+  expect(screen.queryByRole('button', { name: t('posts.new.discard') })).toBeNull();
+});

@@ -190,7 +190,10 @@
       "continue": "Sigue",
       "photoPreview": "Foto que publicarás",
       "photoPermission": "Hace falta permiso para usar la cámara o las fotos. Puedes darlo en Ajustes.",
-      "photoGone": "La foto que habías elegido ya no está. Elige otra o sigue sin ella."
+      "photoGone": "La foto que habías elegido ya no está. Elige otra o sigue sin ella.",
+      "discard": "Descarta",
+      "discardConfirm": "¿Quieres descartar este registro?",
+      "discardConfirmYes": "Sí, descártalo"
     }
   }
 }
