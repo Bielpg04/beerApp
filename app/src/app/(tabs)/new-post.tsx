@@ -1,7 +1,10 @@
-import { useTranslation } from '@/shared/i18n';
-import { EmptyState } from '@/shared/ui';
+import { useSession } from '@/features/auth';
+import { NewPostScreen } from '@/features/posts';
+import { Screen } from '@/shared/ui';
 
-export default function NewPostScreen() {
-  const { t } = useTranslation();
-  return <EmptyState emoji="📸" title={t('tabs.newPost')} message={t('common.comingSoon')} />;
+export default function NewPost() {
+  const { userId } = useSession();
+  // The tabs are only reachable when signed in; the session is restored right after start.
+  if (!userId) return <Screen />;
+  return <NewPostScreen userId={userId} />;
 }

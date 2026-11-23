@@ -41,9 +41,17 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "BeerApp uses your photos so you can choose a profile picture.",
-          "cameraPermission": "BeerApp uses the camera so you can take a profile picture.",
+          "photosPermission": "BeerApp uses your photos so you can choose a profile picture or add a photo of your beer.",
+          "cameraPermission": "BeerApp uses the camera to take your profile picture, photograph your beers and scan barcodes.",
           "microphonePermission": false
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "BeerApp uses the camera to take your profile picture, photograph your beers and scan barcodes.",
+          "microphonePermission": false,
+          "recordAudioAndroid": false
         }
       ],
       "expo-apple-authentication"

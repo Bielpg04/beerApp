@@ -1,6 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 
+import { router } from 'expo-router';
+import { Text } from 'react-native';
+
 import { i18n } from '@/shared/i18n';
 
 import { EditProfileScreen, myProfileKey, MyProfileScreen } from '..';
@@ -55,6 +58,21 @@ describe('MyProfileScreen', () => {
     expect(screen.getByText('Biel')).toBeOnTheScreen();
     expect(screen.getByText('@biel')).toBeOnTheScreen();
     expect(screen.getByText('Amant de les IPA')).toBeOnTheScreen();
+  });
+
+  it('shows what the route adds below the header (e.g. my latest posts)', async () => {
+    await renderWith(
+      <MyProfileScreen>
+        <Text>latest posts</Text>
+      </MyProfileScreen>,
+    );
+    expect(screen.getByText('latest posts')).toBeOnTheScreen();
+  });
+
+  it('links to the about screen', async () => {
+    await renderWith(<MyProfileScreen />);
+    fireEvent.press(screen.getByRole('button', { name: t('about.title') }));
+    expect(router.push).toHaveBeenCalledWith('/about');
   });
 });
 
