@@ -208,6 +208,119 @@ export type Database = {
         };
         Relationships: [];
       };
+      post_photos: {
+        Row: {
+          created_at: string;
+          exif_taken_at: string | null;
+          height: number;
+          id: string;
+          path: string;
+          post_id: string;
+          source: string;
+          thumb_path: string;
+          width: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          exif_taken_at?: string | null;
+          height: number;
+          id?: string;
+          path: string;
+          post_id: string;
+          source: string;
+          thumb_path: string;
+          width: number;
+        };
+        Update: {
+          created_at?: string;
+          exif_taken_at?: string | null;
+          height?: number;
+          id?: string;
+          path?: string;
+          post_id?: string;
+          source?: string;
+          thumb_path?: string;
+          width?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'post_photos_post_id_fkey';
+            columns: ['post_id'];
+            isOneToOne: true;
+            referencedRelation: 'posts';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      posts: {
+        Row: {
+          author_id: string;
+          beer_id: string;
+          caption: string | null;
+          consumed_at: string;
+          created_at: string;
+          id: string;
+          is_retroactive: boolean;
+          publish_to_feed: boolean;
+          serving: string;
+          updated_at: string;
+          verification_level: string;
+          volume_ml: number | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          author_id: string;
+          beer_id: string;
+          caption?: string | null;
+          consumed_at: string;
+          created_at?: string;
+          id?: string;
+          is_retroactive?: boolean;
+          publish_to_feed?: boolean;
+          serving: string;
+          updated_at?: string;
+          verification_level?: string;
+          volume_ml?: number | null;
+        };
+        Update: {
+          author_id?: string;
+          beer_id?: string;
+          caption?: string | null;
+          consumed_at?: string;
+          created_at?: string;
+          id?: string;
+          is_retroactive?: boolean;
+          publish_to_feed?: boolean;
+          serving?: string;
+          updated_at?: string;
+          verification_level?: string;
+          volume_ml?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'posts_author_id_fkey';
+            columns: ['author_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'posts_author_id_fkey';
+            columns: ['author_id'];
+            isOneToOne: false;
+            referencedRelation: 'public_profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'posts_beer_id_fkey';
+            columns: ['beer_id'];
+            isOneToOne: false;
+            referencedRelation: 'beers';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       profiles: {
         Row: {
           avatar_path: string | null;
@@ -290,9 +403,14 @@ export type Database = {
     };
     Functions: {
       beer_by_barcode: { Args: { code: string }; Returns: string };
+      can_see_post: { Args: { author: string; published: boolean }; Returns: boolean };
       catalog_register_lookup: { Args: { uid: string }; Returns: boolean };
       catalog_upsert_beer: { Args: { g: Json }; Returns: string };
       complete_profile: { Args: { display_name: string; username: string }; Returns: undefined };
+      create_post: {
+        Args: { beer_id: string; caption?: string; photo?: Json; serving: string; volume_ml?: number };
+        Returns: string;
+      };
       f_unaccent: { Args: { value: string }; Returns: string };
       is_valid_username: { Args: { candidate: string }; Returns: boolean };
       min_drinking_age: { Args: { country: string }; Returns: number };
