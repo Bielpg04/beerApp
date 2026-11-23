@@ -31,7 +31,9 @@ const post: Post = {
 };
 
 async function renderWith(value: Post | null, renderActions?: (p: Post) => React.ReactNode) {
-  const client = new QueryClient({ defaultOptions: { queries: { retry: false, staleTime: Infinity } } });
+  const client = new QueryClient({
+    defaultOptions: { queries: { retry: false, staleTime: Infinity, gcTime: Infinity } },
+  });
   client.setQueryData(postKey('p1'), value);
   await render(
     <QueryClientProvider client={client}>
@@ -105,7 +107,7 @@ it('offers a retry when loading fails', async () => {
     .mockResolvedValueOnce({ data: null, error: new Error('offline') })
     .mockResolvedValueOnce({ data: null, error: null });
   supabase.from.mockReturnValue({ select: () => ({ eq: () => ({ maybeSingle }) }) });
-  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  const client = new QueryClient({ defaultOptions: { queries: { retry: false, gcTime: Infinity } } });
   await render(
     <QueryClientProvider client={client}>
       <PostScreen id="p1" />
