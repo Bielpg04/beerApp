@@ -206,6 +206,11 @@
       "feedOnHint": "Lo verán los demás.",
       "feedOffHint": "Solo se guardará en tu registro.",
       "usePhotoDate": "Usa la fecha de la foto ({{date}})"
+    },
+    "mine": {
+      "title": "Mis últimos registros",
+      "empty": "Todavía no has registrado ninguna cerveza.",
+      "logFirst": "Registra la primera"
     }
   }
 }

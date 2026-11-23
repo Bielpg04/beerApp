@@ -1,4 +1,5 @@
 export { publishPost, type PhotoStorage } from './api/create-post';
+export { myPostsKey, useMyRecentPosts } from './api/my-posts';
 export { usePhotoUrl } from './api/photos';
 export {
   PhotoPermissionError,
@@ -24,6 +25,7 @@ export { exifDate } from './lib/exif';
 export { formatConsumedAt, formatServing } from './lib/format';
 export { defaultPublishToFeed, FEED_DEFAULT_MAX_AGE_MS, isRetroactive, RETRO_AFTER_MS } from './lib/timing';
 export { DetailsStep } from './components/details-step';
+export { MyRecentPosts } from './components/my-recent-posts';
 export { NewPostScreen, type NewPostScreenProps } from './screens/new-post-screen';
 export { PostScreen, type PostScreenProps } from './screens/post-screen';
 export type { Post, PostPhoto, Serving, VerificationLevel } from './types';

@@ -206,6 +206,11 @@
       "feedOnHint": "El veuran els altres.",
       "feedOffHint": "Només es guardarà al teu registre.",
       "usePhotoDate": "Fes servir la data de la foto ({{date}})"
+    },
+    "mine": {
+      "title": "Els meus últims registres",
+      "empty": "Encara no has registrat cap cervesa.",
+      "logFirst": "Registra la primera"
     }
   }
 }
