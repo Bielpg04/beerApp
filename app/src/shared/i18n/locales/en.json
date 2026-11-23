@@ -206,6 +206,11 @@
       "feedOnHint": "Others will see it.",
       "feedOffHint": "It will only be saved to your log.",
       "usePhotoDate": "Use the photo’s date ({{date}})"
+    },
+    "mine": {
+      "title": "My latest posts",
+      "empty": "You haven’t logged a beer yet.",
+      "logFirst": "Log your first one"
     }
   }
 }
