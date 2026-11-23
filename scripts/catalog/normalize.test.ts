@@ -7,6 +7,7 @@ import {
   brandKey,
   countryFromName,
   countryFromOffTag,
+  decodeHtmlEntities,
   displayName,
   groupRows,
   isBeer,
@@ -232,4 +233,23 @@ test('names and brands are cut to the 200 characters the database accepts', () =
   ]);
   assert.ok(g.name.length <= 200);
   assert.ok(g.brand.length <= 200);
+});
+
+test('"бира" (Bulgarian for beer) is a generic word', () => {
+  assert.equal(beerNameKey('Каменица бира', 'Каменица'), beerNameKey('Каменица', 'Каменица'));
+  assert.equal(beerNameKey('Бира Загорка Ретро', 'Загорка'), beerNameKey('Загорка Ретро', 'Загорка'));
+});
+
+test('HTML entities from OFF are decoded', () => {
+  assert.equal(decodeHtmlEntities('Cerveza &quot;Judas&quot;'), 'Cerveza "Judas"');
+  assert.equal(decodeHtmlEntities('Smith &amp; Sons'), 'Smith & Sons');
+  assert.equal(
+    decodeHtmlEntities('L&#039;Ambrée &#39;x&#x27; 5.5 &deg; &lt;3 &gt; &apos;'),
+    "L'Ambrée 'x' 5.5 ° <3 > '",
+  );
+  assert.equal(decodeHtmlEntities('&amp;quot;'), '&quot;', 'decoded once, like a browser');
+  assert.equal(
+    decodeHtmlEntities('Britt &dremm. &unknown; &#xD800; & co'),
+    'Britt &dremm. &unknown; &#xD800; & co',
+  );
 });

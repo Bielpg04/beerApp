@@ -62,6 +62,7 @@ const GENERIC = new Set([
   'degres',
   'alcool',
   'пиво',
+  'бира',
   'μπυρα',
   'мл',
   'л',

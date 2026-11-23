@@ -78,6 +78,21 @@ test('a beer found on OFF is imported, whatever country it is sold in', async ()
   assert.deepEqual(g.barcodes, [{ code: '8712000900045', offLastModified: '2023-11-14T22:13:20.000Z' }]);
 });
 
+test('HTML entities in OFF names and brands are decoded before keying', async () => {
+  const { d, calls } = deps({
+    fetchOff: async () =>
+      Response.json({
+        ...BEER,
+        product: { ...BEER.product, product_name: 'Cerveza &quot;Judas&quot;', brands: 'Smith &amp; Sons' },
+      }),
+  });
+  await lookupBarcode('8712000900045', 'u1', d);
+  const [g] = calls.upsert;
+  assert.equal(g.name, 'Cerveza "Judas"');
+  assert.equal(g.brand, 'Smith & Sons');
+  assert.equal(g.brandKey, 'smith sons');
+});
+
 test('impossible OFF values are imported as empty', async () => {
   const { d, calls } = deps({
     fetchOff: async () =>

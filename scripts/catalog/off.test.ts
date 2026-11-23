@@ -60,3 +60,13 @@ test('a gzipped dump gives the same rows', async () => {
   const zipped = await collect(streamOf(gzipSync(FIXTURE), 1000));
   assert.deepEqual(zipped, plain);
 });
+
+test('readOffRows decodes HTML entities in names and brands', async () => {
+  const tsv = [
+    'code\tproduct_name\tbrands\tcategories_tags',
+    '2999999000017\tCerveza &quot;Judas&quot;\tSmith &amp; Sons\ten:beverages,en:beers',
+  ].join('\n');
+  const [r] = await collect(streamOf(new TextEncoder().encode(tsv)));
+  assert.equal(r.productName, 'Cerveza "Judas"');
+  assert.equal(r.brands, 'Smith & Sons');
+});

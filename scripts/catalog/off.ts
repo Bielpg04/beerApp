@@ -7,7 +7,12 @@ import { createReadStream } from 'node:fs';
 import { Readable } from 'node:stream';
 import type { Sql } from 'postgres';
 
-import { USER_AGENT, acceptRow, groupRows } from '../../supabase/functions/_shared/catalog/index.ts';
+import {
+  USER_AGENT,
+  acceptRow,
+  decodeHtmlEntities,
+  groupRows,
+} from '../../supabase/functions/_shared/catalog/index.ts';
 import type { BeerGroup, OffRow } from '../../supabase/functions/_shared/catalog/index.ts';
 
 export const OFF_CSV_URL = 'https://static.openfoodfacts.org/data/en.openfoodfacts.org.products.csv.gz';
@@ -76,8 +81,8 @@ export async function* readOffRows(stream: ReadableStream<Uint8Array>): AsyncGen
     if (!categoriesTags.includes('en:beers')) continue;
     yield {
       code: get('code'),
-      productName: get('productName').trim(),
-      brands: get('brands').trim(),
+      productName: decodeHtmlEntities(get('productName')).trim(),
+      brands: decodeHtmlEntities(get('brands')).trim(),
       categoriesTags,
       countriesTags: list(get('countriesTags')),
       originsTags: list(get('originsTags')),

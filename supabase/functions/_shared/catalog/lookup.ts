@@ -4,7 +4,7 @@
  */
 import { groupRows } from './group.ts';
 import { normalizeGtin } from './gtin.ts';
-import { isBeer } from './off.ts';
+import { decodeHtmlEntities, isBeer } from './off.ts';
 import type { BeerGroup, LookupResult, OffRow } from './types.ts';
 
 export const USER_AGENT = 'BeerApp/1.0 (https://github.com/Bielpg04/beerApp)';
@@ -63,8 +63,8 @@ type OffProduct = {
 function toRow(code: string, p: OffProduct): OffRow {
   return {
     code,
-    productName: p.product_name?.trim() ?? '',
-    brands: p.brands?.trim() ?? '',
+    productName: decodeHtmlEntities(p.product_name ?? '').trim(),
+    brands: decodeHtmlEntities(p.brands ?? '').trim(),
     categoriesTags: p.categories_tags ?? [],
     countriesTags: p.countries_tags ?? [],
     originsTags: p.origins_tags ?? [],
