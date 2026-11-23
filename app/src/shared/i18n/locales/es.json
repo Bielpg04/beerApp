@@ -204,7 +204,8 @@
       "retroNotice": "Se marcará como registro retroactivo.",
       "feed": "Publica en el feed",
       "feedOnHint": "Lo verán los demás.",
-      "feedOffHint": "Solo se guardará en tu registro."
+      "feedOffHint": "Solo se guardará en tu registro.",
+      "usePhotoDate": "Usa la fecha de la foto ({{date}})"
     }
   }
 }

@@ -204,7 +204,8 @@
       "retroNotice": "Es marcarà com a registre retroactiu.",
       "feed": "Publica al feed",
       "feedOnHint": "El veuran els altres.",
-      "feedOffHint": "Només es guardarà al teu registre."
+      "feedOffHint": "Només es guardarà al teu registre.",
+      "usePhotoDate": "Fes servir la data de la foto ({{date}})"
     }
   }
 }

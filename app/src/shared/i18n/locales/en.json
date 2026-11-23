@@ -204,7 +204,8 @@
       "retroNotice": "It will be marked as a retroactive post.",
       "feed": "Post to the feed",
       "feedOnHint": "Others will see it.",
-      "feedOffHint": "It will only be saved to your log."
+      "feedOffHint": "It will only be saved to your log.",
+      "usePhotoDate": "Use the photo’s date ({{date}})"
     }
   }
 }

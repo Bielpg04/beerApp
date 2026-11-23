@@ -20,6 +20,7 @@ export {
   type DraftStep,
   type PostDraft,
 } from './lib/draft';
+export { exifDate } from './lib/exif';
 export { formatConsumedAt, formatServing } from './lib/format';
 export { defaultPublishToFeed, FEED_DEFAULT_MAX_AGE_MS, isRetroactive, RETRO_AFTER_MS } from './lib/timing';
 export { DetailsStep } from './components/details-step';
