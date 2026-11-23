@@ -181,7 +181,16 @@
       "caption": "Text (opcional)",
       "captionPlaceholder": "Amb qui? Què tal?",
       "publish": "Publica",
-      "publishError": "No s’ha pogut publicar. Comprova la connexió i torna-ho a provar."
+      "publishError": "No s’ha pogut publicar. Comprova la connexió i torna-ho a provar.",
+      "takePhoto": "Fes una foto",
+      "choosePhoto": "Tria de la galeria",
+      "takeAnother": "Fes-ne una altra",
+      "chooseAnother": "Tria’n una altra de la galeria",
+      "removePhoto": "Treu la foto",
+      "continue": "Continua",
+      "photoPreview": "Foto que publicaràs",
+      "photoPermission": "Cal permís per fer servir la càmera o les fotos. El pots donar a Ajustos.",
+      "photoGone": "La foto que havies triat ja no hi és. Tria’n una altra o continua sense."
     }
   }
 }

@@ -181,7 +181,16 @@
       "caption": "Texto (opcional)",
       "captionPlaceholder": "¿Con quién? ¿Qué tal?",
       "publish": "Publica",
-      "publishError": "No se ha podido publicar. Comprueba la conexión y vuelve a intentarlo."
+      "publishError": "No se ha podido publicar. Comprueba la conexión y vuelve a intentarlo.",
+      "takePhoto": "Haz una foto",
+      "choosePhoto": "Elige de la galería",
+      "takeAnother": "Haz otra",
+      "chooseAnother": "Elige otra de la galería",
+      "removePhoto": "Quita la foto",
+      "continue": "Sigue",
+      "photoPreview": "Foto que publicarás",
+      "photoPermission": "Hace falta permiso para usar la cámara o las fotos. Puedes darlo en Ajustes.",
+      "photoGone": "La foto que habías elegido ya no está. Elige otra o sigue sin ella."
     }
   }
 }

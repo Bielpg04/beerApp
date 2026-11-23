@@ -181,7 +181,16 @@
       "caption": "Text (optional)",
       "captionPlaceholder": "Who with? How is it?",
       "publish": "Post",
-      "publishError": "Couldn’t post. Check your connection and try again."
+      "publishError": "Couldn’t post. Check your connection and try again.",
+      "takePhoto": "Take a photo",
+      "choosePhoto": "Choose from library",
+      "takeAnother": "Take another",
+      "chooseAnother": "Choose another from library",
+      "removePhoto": "Remove photo",
+      "continue": "Continue",
+      "photoPreview": "Photo you will post",
+      "photoPermission": "Camera or photo access is needed. You can allow it in Settings.",
+      "photoGone": "The photo you picked is no longer there. Choose another or carry on without one."
     }
   }
 }
