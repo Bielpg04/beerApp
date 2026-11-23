@@ -92,3 +92,46 @@ it('goes back to now', async () => {
   expect(usePostDraft.getState().consumedAt).toBeNull();
   expect(screen.queryByText(t('posts.when.retroNotice'))).toBeNull();
 });
+
+it('offers the date a gallery photo was taken', async () => {
+  const twoDaysAgo = new Date(Date.now() - 2 * DAY);
+  twoDaysAgo.setSeconds(0, 0);
+  usePostDraft.setState({
+    photo: {
+      uri: 'file:///p.jpg',
+      width: 1,
+      height: 1,
+      source: 'library',
+      exifTakenAt: twoDaysAgo.toISOString(),
+    },
+  });
+  await renderDetails();
+  const when = new Intl.DateTimeFormat('ca', { dateStyle: 'medium', timeStyle: 'short' }).format(twoDaysAgo);
+  await fireEvent.press(screen.getByRole('button', { name: t('posts.when.usePhotoDate', { date: when }) }));
+  expect(usePostDraft.getState().consumedAt).toBe(twoDaysAgo.toISOString());
+  expect(screen.queryByRole('button', { name: t('posts.when.usePhotoDate', { date: when }) })).toBeNull();
+});
+
+it('does not offer a photo date close to now, or in the future', async () => {
+  usePostDraft.setState({
+    photo: {
+      uri: 'file:///p.jpg',
+      width: 1,
+      height: 1,
+      source: 'library',
+      exifTakenAt: new Date(Date.now() - 20 * 60_000).toISOString(),
+    },
+  });
+  await renderDetails();
+  expect(screen.queryByText(/foto/i, { exact: false })).toBeNull();
+  usePostDraft.setState({
+    photo: {
+      uri: 'file:///p.jpg',
+      width: 1,
+      height: 1,
+      source: 'library',
+      exifTakenAt: new Date(Date.now() + DAY).toISOString(),
+    },
+  });
+  expect(screen.queryByText(/foto/i, { exact: false })).toBeNull();
+});

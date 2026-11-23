@@ -128,6 +128,24 @@ it('takes a photo with the camera without asking for EXIF', async () => {
   expect(picker.launchCameraAsync).toHaveBeenCalledWith(expect.objectContaining({ exif: false }));
 });
 
+it('keeps the EXIF date of a library photo', async () => {
+  picker.launchImageLibraryAsync.mockResolvedValue({
+    canceled: false,
+    assets: [
+      {
+        uri: 'file:///l.jpg',
+        width: 10,
+        height: 10,
+        exif: { DateTimeOriginal: '2026:11:20 21:15:00', OffsetTimeOriginal: '+01:00' },
+      },
+    ],
+  } as never);
+  await expect(pickPhoto('library')).resolves.toMatchObject({
+    source: 'library',
+    exifTakenAt: '2026-11-20T20:15:00.000Z',
+  });
+});
+
 it('picks from the library and returns null when cancelled', async () => {
   picker.launchImageLibraryAsync.mockResolvedValue({ canceled: true, assets: null } as never);
   await expect(pickPhoto('library')).resolves.toBeNull();

@@ -6,6 +6,8 @@ import { useTheme } from '@/shared/theme';
 import { Button, Input, Text } from '@/shared/ui';
 
 import { usePostDraft } from '../lib/draft';
+import { formatConsumedAt } from '../lib/format';
+import { RETRO_AFTER_MS } from '../lib/timing';
 import type { Serving } from '../types';
 import { ChoiceChips } from './choice-chips';
 import { FeedToggle } from './feed-toggle';
@@ -24,9 +26,10 @@ export function DetailsStep({
   publishing: boolean;
   error: string | null;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { spacing } = useTheme();
   const draft = usePostDraft();
+  const photoDate = suggestedPhotoDate(draft.photo?.exifTakenAt ?? null, draft.consumedAt, new Date());
   const [otherVolume, setOtherVolume] = useState(
     draft.volumeMl !== null && !VOLUMES.includes(draft.volumeMl as (typeof VOLUMES)[number]),
   );
@@ -82,6 +85,13 @@ export function DetailsStep({
       </View>
 
       <WhenField value={draft.consumedAt} onChange={draft.setConsumedAt} />
+      {photoDate ? (
+        <Button
+          title={t('posts.when.usePhotoDate', { date: formatConsumedAt(photoDate, i18n.language) })}
+          variant="secondary"
+          onPress={() => draft.setConsumedAt(photoDate)}
+        />
+      ) : null}
       <FeedToggle
         consumedAt={draft.consumedAt}
         value={draft.publishToFeed}
@@ -111,4 +121,11 @@ export function DetailsStep({
 
 export function isValidVolume(volumeMl: number | null): boolean {
   return volumeMl === null || (volumeMl >= 50 && volumeMl <= 5000);
+}
+
+/** A gallery photo's date is offered when it is in the past, over 1 h from now, and not chosen yet. */
+function suggestedPhotoDate(exifTakenAt: string | null, consumedAt: string | null, now: Date): string | null {
+  if (!exifTakenAt || exifTakenAt === consumedAt) return null;
+  const age = now.getTime() - new Date(exifTakenAt).getTime();
+  return age > RETRO_AFTER_MS ? exifTakenAt : null;
 }

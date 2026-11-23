@@ -7,6 +7,7 @@ import { Platform } from 'react-native';
 import { supabase } from '@/shared/lib/supabase';
 
 import type { DraftPhoto } from '../lib/draft';
+import { exifDate } from '../lib/exif';
 import { fitLongestSide, PHOTO_MAX_SIDE, PHOTO_QUALITY, THUMB_MAX_SIDE, THUMB_QUALITY } from '../lib/photo';
 import type { PostPhoto } from '../types';
 import { PHOTO_BUCKET } from './photos';
@@ -39,7 +40,13 @@ export async function pickPhoto(source: PhotoSource): Promise<DraftPhoto | null>
       : await ImagePicker.launchImageLibraryAsync(options);
   const asset = result.canceled ? null : result.assets[0];
   if (!asset) return null;
-  return { uri: asset.uri, width: asset.width, height: asset.height, source, exifTakenAt: null };
+  return {
+    uri: asset.uri,
+    width: asset.width,
+    height: asset.height,
+    source,
+    exifTakenAt: source === 'library' ? exifDate(asset.exif) : null,
+  };
 }
 
 /** Re-encodes to JPEG, which also drops the original metadata (GPS included). */
