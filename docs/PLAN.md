@@ -260,9 +260,9 @@ Com a usuari vull saber on puc trobar una cervesa.
 
 **US-301 · Crear un post bàsic** (8)
 Com a usuari vull publicar quina cervesa estic bevent.
-- AC: cervesa obligatòria; format (tirador/ampolla/llauna); volum opcional; foto; text opcional; data = ara.
+- AC: cervesa obligatòria; format (tirador/ampolla/llauna); volum opcional; foto opcional; text opcional; data = ara.
 - T1 Migracions `posts`, `post_photos` + RLS
-- T2 Flux de creació multi-pas (cervesa → foto → detalls → publicar)
+- T2 Flux de creació multi-pas (cervesa → foto → detalls → publicar) i cerca de cervesa pel nom
 - T3 Càmera in-app + compressió + miniatura + pujada
 - T4 Draft local (Zustand) per no perdre dades
 - T5 Pantalla de detall del post
@@ -277,6 +277,7 @@ Com a usuari vull afegir una cervesa que vaig beure fa temps.
 **US-303 · Editar i esborrar un post** (2)
 - T1 Edició de camps permesos (no la foto ni la data si està 🟢 → perdria verificació)
 - T2 Esborrat amb confirmació (i fotos de Storage)
+- T3 "Els meus últims registres" al perfil (accés als posts fins a l'historial de US-304)
 
 **US-304 · El meu historial** (3)
 - T1 Llista/calendari dels meus registres (incloent no publicats al feed)
