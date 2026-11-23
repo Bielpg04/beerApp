@@ -211,6 +211,13 @@
       "title": "Mis últimos registros",
       "empty": "Todavía no has registrado ninguna cerveza.",
       "logFirst": "Registra la primera"
+    },
+    "edit": {
+      "title": "Edita el registro",
+      "open": "Edita",
+      "beerFixed": "La cerveza y la foto no se pueden cambiar. Si te has equivocado, borra el registro y haz otro.",
+      "dateLocked": "Este registro está verificado: la fecha no se puede cambiar.",
+      "saveError": "No se ha podido guardar. Comprueba la conexión y vuelve a intentarlo."
     }
   }
 }
