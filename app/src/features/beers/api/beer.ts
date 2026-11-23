@@ -6,8 +6,12 @@ import type { Beer } from '../types';
 
 export const beerKey = (id: string) => ['beer', id] as const;
 
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 /** A beer by id, following merged_into to the final beer; null if it does not exist. */
 async function fetchBeer(id: string): Promise<Beer | null> {
+  // A link like /beer/abc points to no beer; asking Postgres would fail as a uuid error instead.
+  if (!UUID.test(id)) return null;
   const { data: finalId, error: rpcError } = await supabase.rpc('resolve_beer', { beer: id });
   if (rpcError) throw rpcError;
   if (!finalId) return null;
