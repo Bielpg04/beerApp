@@ -36,7 +36,21 @@ it('creates a post without a photo', async () => {
     volume_ml: 330,
     caption: 'Al sol',
     photo: null,
+    consumed_at: undefined,
+    publish_to_feed: undefined,
   });
+});
+
+it('sends when it was drunk and the feed choice when the user set them', async () => {
+  rpc.mockResolvedValue({ data: 'post-3', error: null });
+  await publishPost({ ...draft, consumedAt: '2026-11-20T20:15:00.000Z', publishToFeed: true }, 'u1', {
+    upload: jest.fn(),
+    remove: jest.fn(),
+  });
+  expect(rpc).toHaveBeenCalledWith(
+    'create_post',
+    expect.objectContaining({ consumed_at: '2026-11-20T20:15:00.000Z', publish_to_feed: true }),
+  );
 });
 
 it('uploads the photo first and attaches it', async () => {
