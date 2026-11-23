@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import { router } from 'expo-router';
 
 import { i18n } from '@/shared/i18n';
@@ -73,8 +73,8 @@ it('lists my latest posts, newest drunk first, and opens one', async () => {
     row('p1', 'Estrella Damm', '2026-11-20T20:00:00Z'),
   ];
   await renderList();
-  expect(await screen.findByText(t('posts.mine.title'))).toBeOnTheScreen();
-  const items = screen.getAllByRole('button', { name: /Moritz|Estrella Damm/ });
+  expect(screen.getByText(t('posts.mine.title'))).toBeOnTheScreen();
+  const items = await screen.findAllByRole('button', { name: /Moritz|Estrella Damm/ });
   expect(items.map((i) => i.props.accessibilityLabel)).toEqual([
     expect.stringContaining('Moritz'),
     expect.stringContaining('Estrella Damm'),
@@ -86,7 +86,7 @@ it('lists my latest posts, newest drunk first, and opens one', async () => {
       { method: 'limit', args: [20] },
     ]),
   );
-  expect(mockCreateSignedUrl).toHaveBeenCalledWith('u1/a_thumb.jpg', 3600);
+  await waitFor(() => expect(mockCreateSignedUrl).toHaveBeenCalledWith('u1/a_thumb.jpg', 3600));
   await fireEvent.press(items[1]!);
   expect(router.push).toHaveBeenCalledWith('/post/p1');
 });

@@ -124,14 +124,16 @@ it('does not offer a photo date close to now, or in the future', async () => {
   });
   await renderDetails();
   expect(screen.queryByText(/foto/i, { exact: false })).toBeNull();
-  usePostDraft.setState({
-    photo: {
-      uri: 'file:///p.jpg',
-      width: 1,
-      height: 1,
-      source: 'library',
-      exifTakenAt: new Date(Date.now() + DAY).toISOString(),
-    },
-  });
+  await act(async () =>
+    usePostDraft.setState({
+      photo: {
+        uri: 'file:///p.jpg',
+        width: 1,
+        height: 1,
+        source: 'library',
+        exifTakenAt: new Date(Date.now() + DAY).toISOString(),
+      },
+    }),
+  );
   expect(screen.queryByText(/foto/i, { exact: false })).toBeNull();
 });
