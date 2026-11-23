@@ -37,6 +37,7 @@ function RootNavigator() {
         <Stack.Screen name="about" options={{ presentation: 'modal' }} />
         <Stack.Screen name="beer/[id]" options={{ headerShown: true, title: '' }} />
         <Stack.Screen name="scan" options={{ presentation: 'fullScreenModal' }} />
+        <Stack.Screen name="post/[id]/index" options={{ headerShown: true, title: '' }} />
       </Stack.Protected>
     </Stack>
   );

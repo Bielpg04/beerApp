@@ -149,5 +149,16 @@
       "cameraDenied": "No tenim permís per fer servir la càmera. El pots donar a Ajustos.",
       "openSettings": "Obre Ajustos"
     }
+  },
+  "posts": {
+    "serving": {
+      "tap": "Tirador",
+      "bottle": "Ampolla",
+      "can": "Llauna"
+    },
+    "notFound": "No hem trobat aquest registre",
+    "retroactive": "Retroactiu",
+    "notOnFeed": "Només al teu registre",
+    "photoLabel": "Foto de {{name}}"
   }
 }
