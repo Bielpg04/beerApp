@@ -194,6 +194,17 @@
       "discard": "Descarta",
       "discardConfirm": "Vols descartar aquest registre?",
       "discardConfirmYes": "Sí, descarta’l"
+    },
+    "when": {
+      "label": "Quan?",
+      "now": "Ara",
+      "earlier": "Abans",
+      "day": "Dia",
+      "time": "Hora",
+      "retroNotice": "Es marcarà com a registre retroactiu.",
+      "feed": "Publica al feed",
+      "feedOnHint": "El veuran els altres.",
+      "feedOffHint": "Només es guardarà al teu registre."
     }
   }
 }

@@ -194,6 +194,17 @@
       "discard": "Descarta",
       "discardConfirm": "¿Quieres descartar este registro?",
       "discardConfirmYes": "Sí, descártalo"
+    },
+    "when": {
+      "label": "¿Cuándo?",
+      "now": "Ahora",
+      "earlier": "Antes",
+      "day": "Día",
+      "time": "Hora",
+      "retroNotice": "Se marcará como registro retroactivo.",
+      "feed": "Publica en el feed",
+      "feedOnHint": "Lo verán los demás.",
+      "feedOffHint": "Solo se guardará en tu registro."
     }
   }
 }
