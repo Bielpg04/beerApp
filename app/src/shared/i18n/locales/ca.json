@@ -211,6 +211,13 @@
       "title": "Els meus últims registres",
       "empty": "Encara no has registrat cap cervesa.",
       "logFirst": "Registra la primera"
+    },
+    "edit": {
+      "title": "Edita el registre",
+      "open": "Edita",
+      "beerFixed": "La cervesa i la foto no es poden canviar. Si t’has equivocat, esborra el registre i fes-ne un altre.",
+      "dateLocked": "Aquest registre està verificat: la data no es pot canviar.",
+      "saveError": "No s’ha pogut desar. Comprova la connexió i torna-ho a provar."
     }
   }
 }

@@ -436,6 +436,17 @@ export type Database = {
         }[];
       };
       set_birthdate: { Args: { birthdate: string; country: string }; Returns: undefined };
+      update_post: {
+        Args: {
+          caption: string;
+          consumed_at: string;
+          post_id: string;
+          publish_to_feed: boolean;
+          serving: string;
+          volume_ml: number;
+        };
+        Returns: undefined;
+      };
       username_available: { Args: { candidate: string }; Returns: boolean };
     };
     Enums: {
