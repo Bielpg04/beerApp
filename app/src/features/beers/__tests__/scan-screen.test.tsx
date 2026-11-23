@@ -132,3 +132,20 @@ it('does nothing when the lookup finishes after the scanner was closed', async (
   await act(async () => resolve({ status: 'imported', beerId: 'b9' }));
   expect(router.replace).not.toHaveBeenCalled();
 });
+
+it('hands the beer to the caller instead of opening it when picking for a post', async () => {
+  find.mockResolvedValue({ status: 'found', beerId: 'b1' });
+  const onFound = jest.fn().mockResolvedValue(undefined);
+  await render(<ScanScreen onFound={onFound} />);
+  await scan();
+  await act(async () => {});
+  expect(onFound).toHaveBeenCalledWith('b1');
+  expect(router.replace).not.toHaveBeenCalled();
+});
+
+it('says the lookup is unavailable when the caller cannot use the beer', async () => {
+  find.mockResolvedValue({ status: 'imported', beerId: 'b1' });
+  await render(<ScanScreen onFound={() => Promise.reject(new Error('offline'))} />);
+  await scan();
+  expect(await screen.findByText(t('beers.scan.unavailable'))).toBeOnTheScreen();
+});

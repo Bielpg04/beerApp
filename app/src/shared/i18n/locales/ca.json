@@ -159,6 +159,29 @@
     "notFound": "No hem trobat aquest registre",
     "retroactive": "Retroactiu",
     "notOnFeed": "Només al teu registre",
-    "photoLabel": "Foto de {{name}}"
+    "photoLabel": "Foto de {{name}}",
+    "new": {
+      "beerTitle": "Quina cervesa beus?",
+      "photoTitle": "Una foto?",
+      "detailsTitle": "Detalls",
+      "back": "Enrere",
+      "searchLabel": "Cerca la cervesa",
+      "searchPlaceholder": "Nom o marca",
+      "scan": "Escaneja el codi de barres",
+      "recent": "Les teves últimes",
+      "noResults": "No la trobem",
+      "noResultsHint": "Prova amb una altra paraula o escaneja el codi de barres. Aviat podràs afegir-la tu.",
+      "photoHint": "Pots afegir-hi una foto o continuar sense.",
+      "noPhoto": "Continua sense foto",
+      "serving": "Com la beus?",
+      "volume": "Quantitat (opcional)",
+      "otherVolume": "Una altra",
+      "volumeMl": "Mil·lilitres",
+      "volumeRange": "Entre 50 i 5000 ml.",
+      "caption": "Text (opcional)",
+      "captionPlaceholder": "Amb qui? Què tal?",
+      "publish": "Publica",
+      "publishError": "No s’ha pogut publicar. Comprova la connexió i torna-ho a provar."
+    }
   }
 }
