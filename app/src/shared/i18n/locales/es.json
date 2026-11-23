@@ -218,6 +218,13 @@
       "beerFixed": "La cerveza y la foto no se pueden cambiar. Si te has equivocado, borra el registro y haz otro.",
       "dateLocked": "Este registro está verificado: la fecha no se puede cambiar.",
       "saveError": "No se ha podido guardar. Comprueba la conexión y vuelve a intentarlo."
+    },
+    "delete": {
+      "open": "Borra",
+      "confirm": "¿Quieres borrar este registro?",
+      "cannotUndo": "Se borrarán el registro y su foto. No se puede deshacer.",
+      "confirmYes": "Sí, bórralo",
+      "error": "No se ha podido borrar. Comprueba la conexión y vuelve a intentarlo."
     }
   }
 }

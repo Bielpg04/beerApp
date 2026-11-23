@@ -218,6 +218,13 @@
       "beerFixed": "La cervesa i la foto no es poden canviar. Si t’has equivocat, esborra el registre i fes-ne un altre.",
       "dateLocked": "Aquest registre està verificat: la data no es pot canviar.",
       "saveError": "No s’ha pogut desar. Comprova la connexió i torna-ho a provar."
+    },
+    "delete": {
+      "open": "Esborra",
+      "confirm": "Vols esborrar aquest registre?",
+      "cannotUndo": "S’esborraran el registre i la seva foto. No es pot desfer.",
+      "confirmYes": "Sí, esborra’l",
+      "error": "No s’ha pogut esborrar. Comprova la connexió i torna-ho a provar."
     }
   }
 }

@@ -1,4 +1,5 @@
 export { publishPost, type PhotoStorage } from './api/create-post';
+export { deletePost, useDeletePost } from './api/delete-post';
 export { myPostsKey, useMyRecentPosts } from './api/my-posts';
 export { usePhotoUrl } from './api/photos';
 export {
@@ -25,6 +26,7 @@ export {
 export { exifDate } from './lib/exif';
 export { formatConsumedAt, formatServing } from './lib/format';
 export { defaultPublishToFeed, FEED_DEFAULT_MAX_AGE_MS, isRetroactive, RETRO_AFTER_MS } from './lib/timing';
+export { DeletePostButton } from './components/delete-post-button';
 export { DetailsStep } from './components/details-step';
 export { MyRecentPosts } from './components/my-recent-posts';
 export { EditPostScreen } from './screens/edit-post-screen';
