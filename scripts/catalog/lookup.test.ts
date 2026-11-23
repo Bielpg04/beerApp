@@ -112,6 +112,43 @@ test('OFF errors and timeouts make the lookup unavailable', async () => {
   assert.deepEqual(await lookupBarcode('8712000900045', 'u1', slow.d), { status: 'unavailable' });
 });
 
+test('a 404 from OFF is not found, even without a JSON body', async () => {
+  const { d } = deps({ fetchOff: async () => new Response('<html>Not found</html>', { status: 404 }) });
+  assert.deepEqual(await lookupBarcode('8712000900045', 'u1', d), { status: 'not_found' });
+});
+
+test('other OFF client errors, like rate limiting, make the lookup unavailable', async () => {
+  const limited = deps({ fetchOff: async () => Response.json({ status: 0 }, { status: 429 }) });
+  assert.deepEqual(await lookupBarcode('8712000900045', 'u1', limited.d), { status: 'unavailable' });
+
+  const forbidden = deps({ fetchOff: async () => new Response('denied', { status: 403 }) });
+  assert.deepEqual(await lookupBarcode('8712000900045', 'u1', forbidden.d), { status: 'unavailable' });
+});
+
+// The time limit makes a hang fail instead of blocking the run.
+test('the timeout aborts the OFF request and also covers reading the body', { timeout: 2000 }, async () => {
+  let signal: AbortSignal | undefined;
+  const stalled = deps({
+    // Headers arrive at once, the body never does.
+    fetchOff: async (_code, s) => ((signal = s), new Response(new ReadableStream({ start() {} }))),
+    timeoutMs: 20,
+  });
+  const started = Date.now();
+  assert.deepEqual(await lookupBarcode('8712000900045', 'u1', stalled.d), { status: 'unavailable' });
+  assert.ok(Date.now() - started < 1000, 'gives up after the timeout');
+  assert.equal(signal?.aborted, true, 'and aborts the request');
+});
+
+test('fetchOff passes the abort signal to fetch', async () => {
+  const seen: (AbortSignal | null | undefined)[] = [];
+  const fetchOff = createFetchOff(
+    async (_url, init) => (seen.push(init?.signal), Response.json({ status: 0 })),
+  );
+  const controller = new AbortController();
+  await fetchOff('8712000900045', controller.signal);
+  assert.equal(seen[0], controller.signal);
+});
+
 test("fetchOff asks the product API with BeerApp's User-Agent", async () => {
   const seen: { url: string; init?: RequestInit }[] = [];
   const fetchOff = createFetchOff(
