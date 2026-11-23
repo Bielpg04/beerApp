@@ -218,6 +218,13 @@
       "beerFixed": "The beer and the photo can’t be changed. If you got it wrong, delete the post and make a new one.",
       "dateLocked": "This post is verified: its date can’t be changed.",
       "saveError": "Couldn’t save. Check your connection and try again."
+    },
+    "delete": {
+      "open": "Delete",
+      "confirm": "Delete this post?",
+      "cannotUndo": "The post and its photo will be deleted. This can’t be undone.",
+      "confirmYes": "Yes, delete it",
+      "error": "Couldn’t delete. Check your connection and try again."
     }
   }
 }

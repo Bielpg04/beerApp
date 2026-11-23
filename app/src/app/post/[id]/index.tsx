@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from 'expo-router';
 
 import { useSession } from '@/features/auth';
-import { PostScreen } from '@/features/posts';
+import { DeletePostButton, PostScreen } from '@/features/posts';
 import { useTranslation } from '@/shared/i18n';
 import { Button } from '@/shared/ui';
 
@@ -14,11 +14,14 @@ export default function PostRoute() {
       id={id}
       renderActions={(post) =>
         post.authorId === userId ? (
-          <Button
-            title={t('posts.edit.open')}
-            variant="secondary"
-            onPress={() => router.push(`/post/${post.id}/edit`)}
-          />
+          <>
+            <Button
+              title={t('posts.edit.open')}
+              variant="secondary"
+              onPress={() => router.push(`/post/${post.id}/edit`)}
+            />
+            <DeletePostButton post={post} />
+          </>
         ) : null
       }
     />
