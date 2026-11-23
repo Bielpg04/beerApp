@@ -190,7 +190,10 @@
       "continue": "Continua",
       "photoPreview": "Foto que publicaràs",
       "photoPermission": "Cal permís per fer servir la càmera o les fotos. El pots donar a Ajustos.",
-      "photoGone": "La foto que havies triat ja no hi és. Tria’n una altra o continua sense."
+      "photoGone": "La foto que havies triat ja no hi és. Tria’n una altra o continua sense.",
+      "discard": "Descarta",
+      "discardConfirm": "Vols descartar aquest registre?",
+      "discardConfirmYes": "Sí, descarta’l"
     }
   }
 }

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import { useTranslation } from '@/shared/i18n';
-import { Button, Screen, Text } from '@/shared/ui';
+import { Button, EmptyState, Screen, Sheet, Text } from '@/shared/ui';
 
 import { publishPost, type PhotoStorage } from '../api/create-post';
 import {
@@ -19,7 +19,7 @@ import { BeerRow } from '../components/beer-row';
 import { BeerStep } from '../components/beer-step';
 import { DetailsStep } from '../components/details-step';
 import { PhotoStep } from '../components/photo-step';
-import { usePostDraft, type DraftStep } from '../lib/draft';
+import { hasDraftContent, useDraftHydrated, usePostDraft, type DraftStep } from '../lib/draft';
 
 const PREVIOUS: Record<DraftStep, DraftStep | null> = { beer: null, photo: 'beer', details: 'photo' };
 const TITLE = {
@@ -43,6 +43,8 @@ export function NewPostScreen({ userId, storage = photoStorage }: NewPostScreenP
   const [picking, setPicking] = useState(false);
   const [photoError, setPhotoError] = useState<string | null>(null);
   const [photoGone, setPhotoGone] = useState(false);
+  const [confirmDiscard, setConfirmDiscard] = useState(false);
+  const hydrated = useDraftHydrated();
   const photoUri = draft.photo?.uri ?? null;
 
   // A restored draft may point to a cached file the system has already cleaned up.
@@ -85,11 +87,20 @@ export function NewPostScreen({ userId, storage = photoStorage }: NewPostScreenP
     },
   });
 
+  if (!hydrated) return <EmptyState emoji="🍺" title={t('common.loading')} />;
+
   return (
     <Screen scroll>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, minHeight: 48 }}>
+      <View
+        style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: 48 }}
+      >
         {previous ? (
           <Button title={t('posts.new.back')} variant="ghost" onPress={() => draft.goTo(previous)} />
+        ) : (
+          <View />
+        )}
+        {hasDraftContent(draft) ? (
+          <Button title={t('posts.new.discard')} variant="ghost" onPress={() => setConfirmDiscard(true)} />
         ) : null}
       </View>
       <Text variant="title" accessibilityRole="header">
@@ -118,6 +129,23 @@ export function NewPostScreen({ userId, storage = photoStorage }: NewPostScreenP
           error={publish.isError ? t('posts.new.publishError') : null}
         />
       ) : null}
+
+      <Sheet
+        visible={confirmDiscard}
+        onClose={() => setConfirmDiscard(false)}
+        title={t('posts.new.discardConfirm')}
+      >
+        <Button
+          title={t('posts.new.discardConfirmYes')}
+          variant="danger"
+          onPress={() => {
+            setConfirmDiscard(false);
+            setPhotoGone(false);
+            draft.reset();
+          }}
+        />
+        <Button title={t('common.cancel')} variant="secondary" onPress={() => setConfirmDiscard(false)} />
+      </Sheet>
     </Screen>
   );
 }
