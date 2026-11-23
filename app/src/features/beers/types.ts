@@ -13,3 +13,13 @@ export type Beer = {
 export type LookupResult =
   | { status: 'found' | 'imported'; beerId: string }
   | { status: 'not_found' | 'not_beer' | 'unavailable' | 'rate_limited' | 'invalid' };
+
+/** What a beer picker shows. */
+export type BeerSummary = {
+  id: string;
+  name: string;
+  brand: string;
+  imageThumbUrl: string | null;
+  abv: number | null;
+  styleCode: string | null;
+};

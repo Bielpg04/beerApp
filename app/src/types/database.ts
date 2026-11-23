@@ -416,6 +416,17 @@ export type Database = {
       min_drinking_age: { Args: { country: string }; Returns: number };
       normalize_gtin: { Args: { code: string }; Returns: string };
       resolve_beer: { Args: { beer: string }; Returns: string };
+      search_beers: {
+        Args: { max_results?: number; q: string };
+        Returns: {
+          abv: number;
+          brand: string;
+          id: string;
+          image_thumb_url: string;
+          name: string;
+          style_code: string;
+        }[];
+      };
       set_birthdate: { Args: { birthdate: string; country: string }; Returns: undefined };
       username_available: { Args: { candidate: string }; Returns: boolean };
     };

@@ -4,4 +4,5 @@ export { ScanButton } from './components/scan-button';
 export { expandUpcE } from './lib/upc-e';
 export { BeerScreen } from './screens/beer-screen';
 export { ScanScreen } from './screens/scan-screen';
-export type { Beer, LookupResult } from './types';
+export { useBeerSearch } from './api/search';
+export type { Beer, BeerSummary, LookupResult } from './types';
