@@ -159,6 +159,29 @@
     "notFound": "We couldn’t find this post",
     "retroactive": "Retroactive",
     "notOnFeed": "Only in your log",
-    "photoLabel": "Photo of {{name}}"
+    "photoLabel": "Photo of {{name}}",
+    "new": {
+      "beerTitle": "What are you drinking?",
+      "photoTitle": "Add a photo?",
+      "detailsTitle": "Details",
+      "back": "Back",
+      "searchLabel": "Find the beer",
+      "searchPlaceholder": "Name or brand",
+      "scan": "Scan the barcode",
+      "recent": "Your latest",
+      "noResults": "We can’t find it",
+      "noResultsHint": "Try another word or scan the barcode. Soon you’ll be able to add it yourself.",
+      "photoHint": "You can add a photo or carry on without one.",
+      "noPhoto": "Continue without a photo",
+      "serving": "How are you drinking it?",
+      "volume": "Amount (optional)",
+      "otherVolume": "Other",
+      "volumeMl": "Millilitres",
+      "volumeRange": "Between 50 and 5000 ml.",
+      "caption": "Text (optional)",
+      "captionPlaceholder": "Who with? How is it?",
+      "publish": "Post",
+      "publishError": "Couldn’t post. Check your connection and try again."
+    }
   }
 }

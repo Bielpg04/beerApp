@@ -28,3 +28,26 @@ export function useBeerSearch(query: string) {
     },
   });
 }
+
+/** One beer as a picker shows it (following merges), or null if it does not exist. */
+export async function fetchBeerSummary(id: string): Promise<BeerSummary | null> {
+  const { data: finalId, error: rpcError } = await supabase.rpc('resolve_beer', { beer: id });
+  if (rpcError) throw rpcError;
+  if (!finalId) return null;
+  const { data, error } = await supabase
+    .from('beers')
+    .select('id, name, brand, image_thumb_url, abv, style_code')
+    .eq('id', finalId)
+    .maybeSingle();
+  if (error) throw error;
+  return data
+    ? {
+        id: data.id,
+        name: data.name,
+        brand: data.brand,
+        imageThumbUrl: data.image_thumb_url,
+        abv: data.abv,
+        styleCode: data.style_code,
+      }
+    : null;
+}

@@ -21,7 +21,12 @@ const MESSAGE_KEY = {
   invalid: 'beers.scan.invalid',
 } as const;
 
-export function ScanScreen() {
+export interface ScanScreenProps {
+  /** When set, a found beer is handed to the caller (e.g. the create-post flow) instead of opened. */
+  onFound?: (beerId: string) => Promise<void>;
+}
+
+export function ScanScreen({ onFound }: ScanScreenProps = {}) {
   const { t } = useTranslation();
   const [permission, requestPermission] = useCameraPermissions();
   const [state, dispatch] = useReducer(scanReducer, initialScanState);
@@ -47,7 +52,11 @@ export function ScanScreen() {
     dispatch({ type: 'detected', code: data });
     void findBeerByBarcode(data, type).then((result) => {
       if (closed.current) return;
-      if (result.status === 'found' || result.status === 'imported') {
+      if ((result.status === 'found' || result.status === 'imported') && onFound) {
+        onFound(result.beerId).catch(() => {
+          if (!closed.current) dispatch({ type: 'resolved', result: { status: 'unavailable' } });
+        });
+      } else if (result.status === 'found' || result.status === 'imported') {
         router.replace(`/beer/${result.beerId}`);
       } else {
         dispatch({ type: 'resolved', result });

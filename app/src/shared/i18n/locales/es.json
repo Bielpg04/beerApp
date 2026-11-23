@@ -159,6 +159,29 @@
     "notFound": "No hemos encontrado este registro",
     "retroactive": "Retroactivo",
     "notOnFeed": "Solo en tu registro",
-    "photoLabel": "Foto de {{name}}"
+    "photoLabel": "Foto de {{name}}",
+    "new": {
+      "beerTitle": "¿Qué cerveza bebes?",
+      "photoTitle": "¿Una foto?",
+      "detailsTitle": "Detalles",
+      "back": "Atrás",
+      "searchLabel": "Busca la cerveza",
+      "searchPlaceholder": "Nombre o marca",
+      "scan": "Escanea el código de barras",
+      "recent": "Tus últimas",
+      "noResults": "No la encontramos",
+      "noResultsHint": "Prueba con otra palabra o escanea el código de barras. Pronto podrás añadirla tú.",
+      "photoHint": "Puedes añadir una foto o seguir sin ella.",
+      "noPhoto": "Sigue sin foto",
+      "serving": "¿Cómo la bebes?",
+      "volume": "Cantidad (opcional)",
+      "otherVolume": "Otra",
+      "volumeMl": "Mililitros",
+      "volumeRange": "Entre 50 y 5000 ml.",
+      "caption": "Texto (opcional)",
+      "captionPlaceholder": "¿Con quién? ¿Qué tal?",
+      "publish": "Publica",
+      "publishError": "No se ha podido publicar. Comprueba la conexión y vuelve a intentarlo."
+    }
   }
 }

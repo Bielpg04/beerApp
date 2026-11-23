@@ -7,6 +7,7 @@ let mockState: RouteState = 'ready';
 jest.mock('@/features/auth', () => ({
   ...jest.requireActual('@/features/auth'),
   useRouteState: () => mockState,
+  useSession: () => ({ status: 'signedIn', userId: 'user-1' }),
 }));
 
 const t = (key: string) => i18n.t(key as never) as unknown as string;
@@ -19,7 +20,7 @@ describe('when ready', () => {
   it.each([
     ['/', 'Feed'],
     ['/search', 'Cerca'],
-    ['/new-post', 'Nova cervesa'],
+    ['/new-post', 'Quina cervesa beus?'],
     ['/map', 'Mapa'],
   ])('%s renders the %s tab', async (url, title) => {
     await renderRouter('./src/app', { initialUrl: url });
