@@ -8,6 +8,8 @@ import { Button, Input, Text } from '@/shared/ui';
 import { usePostDraft } from '../lib/draft';
 import type { Serving } from '../types';
 import { ChoiceChips } from './choice-chips';
+import { FeedToggle } from './feed-toggle';
+import { WhenField } from './when-field';
 
 export const VOLUMES = [200, 330, 500, 568] as const;
 const SERVINGS: Serving[] = ['tap', 'bottle', 'can'];
@@ -78,6 +80,13 @@ export function DetailsStep({
           />
         ) : null}
       </View>
+
+      <WhenField value={draft.consumedAt} onChange={draft.setConsumedAt} />
+      <FeedToggle
+        consumedAt={draft.consumedAt}
+        value={draft.publishToFeed}
+        onChange={draft.setPublishToFeed}
+      />
 
       <Input
         label={t('posts.new.caption')}

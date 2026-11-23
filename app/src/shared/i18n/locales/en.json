@@ -194,6 +194,17 @@
       "discard": "Discard",
       "discardConfirm": "Discard this post?",
       "discardConfirmYes": "Yes, discard it"
+    },
+    "when": {
+      "label": "When?",
+      "now": "Now",
+      "earlier": "Earlier",
+      "day": "Day",
+      "time": "Time",
+      "retroNotice": "It will be marked as a retroactive post.",
+      "feed": "Post to the feed",
+      "feedOnHint": "Others will see it.",
+      "feedOffHint": "It will only be saved to your log."
     }
   }
 }
