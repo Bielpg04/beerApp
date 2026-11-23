@@ -26,6 +26,8 @@ export async function publishPost(draft: PostDraft, userId: string, storage: Pho
       uploaded && draft.photo
         ? { ...uploaded, source: draft.photo.source, exifTakenAt: draft.photo.exifTakenAt }
         : null,
+    consumed_at: draft.consumedAt ?? undefined,
+    publish_to_feed: draft.publishToFeed ?? undefined,
   });
   if (error || !data) {
     if (uploaded) await storage.remove([uploaded.path, uploaded.thumbPath]).catch(() => undefined);

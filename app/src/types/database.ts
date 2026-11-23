@@ -408,7 +408,15 @@ export type Database = {
       catalog_upsert_beer: { Args: { g: Json }; Returns: string };
       complete_profile: { Args: { display_name: string; username: string }; Returns: undefined };
       create_post: {
-        Args: { beer_id: string; caption?: string; photo?: Json; serving: string; volume_ml?: number };
+        Args: {
+          beer_id: string;
+          caption?: string;
+          consumed_at?: string;
+          photo?: Json;
+          publish_to_feed?: boolean;
+          serving: string;
+          volume_ml?: number;
+        };
         Returns: string;
       };
       f_unaccent: { Args: { value: string }; Returns: string };
