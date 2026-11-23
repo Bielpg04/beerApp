@@ -23,6 +23,175 @@ export type Database = {
   };
   public: {
     Tables: {
+      beer_barcodes: {
+        Row: {
+          barcode: string;
+          beer_id: string;
+          off_last_modified: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          barcode: string;
+          beer_id: string;
+          off_last_modified?: string | null;
+        };
+        Update: {
+          barcode?: string;
+          beer_id?: string;
+          off_last_modified?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'beer_barcodes_beer_id_fkey';
+            columns: ['beer_id'];
+            isOneToOne: false;
+            referencedRelation: 'beers';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      beer_styles: {
+        Row: {
+          code: string;
+          sort_order: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          code: string;
+          sort_order: number;
+        };
+        Update: {
+          code?: string;
+          sort_order?: number;
+        };
+        Relationships: [];
+      };
+      beers: {
+        Row: {
+          abv: number | null;
+          brand: string;
+          brand_key: string;
+          brewery_id: string | null;
+          country: string | null;
+          created_at: string;
+          created_by: string | null;
+          id: string;
+          image_thumb_url: string | null;
+          image_url: string | null;
+          merged_into: string | null;
+          name: string;
+          name_key: string;
+          source: string;
+          status: string;
+          style_code: string | null;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          abv?: number | null;
+          brand: string;
+          brand_key: string;
+          brewery_id?: string | null;
+          country?: string | null;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          image_thumb_url?: string | null;
+          image_url?: string | null;
+          merged_into?: string | null;
+          name: string;
+          name_key: string;
+          source: string;
+          status?: string;
+          style_code?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          abv?: number | null;
+          brand?: string;
+          brand_key?: string;
+          brewery_id?: string | null;
+          country?: string | null;
+          created_at?: string;
+          created_by?: string | null;
+          id?: string;
+          image_thumb_url?: string | null;
+          image_url?: string | null;
+          merged_into?: string | null;
+          name?: string;
+          name_key?: string;
+          source?: string;
+          status?: string;
+          style_code?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'beers_brewery_id_fkey';
+            columns: ['brewery_id'];
+            isOneToOne: false;
+            referencedRelation: 'breweries';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'beers_merged_into_fkey';
+            columns: ['merged_into'];
+            isOneToOne: false;
+            referencedRelation: 'beers';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'beers_style_code_fkey';
+            columns: ['style_code'];
+            isOneToOne: false;
+            referencedRelation: 'beer_styles';
+            referencedColumns: ['code'];
+          },
+        ];
+      };
+      breweries: {
+        Row: {
+          city: string | null;
+          country: string | null;
+          created_at: string;
+          id: string;
+          location: unknown;
+          name: string;
+          name_key: string;
+          obdb_id: string | null;
+          source: string;
+          updated_at: string;
+          website: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          city?: string | null;
+          country?: string | null;
+          created_at?: string;
+          id?: string;
+          location?: unknown;
+          name: string;
+          name_key: string;
+          obdb_id?: string | null;
+          source: string;
+          updated_at?: string;
+          website?: string | null;
+        };
+        Update: {
+          city?: string | null;
+          country?: string | null;
+          created_at?: string;
+          id?: string;
+          location?: unknown;
+          name?: string;
+          name_key?: string;
+          obdb_id?: string | null;
+          source?: string;
+          updated_at?: string;
+          website?: string | null;
+        };
+        Relationships: [];
+      };
       legal_drinking_age: {
         Row: {
           country: string;
@@ -120,9 +289,15 @@ export type Database = {
       };
     };
     Functions: {
+      beer_by_barcode: { Args: { code: string }; Returns: string };
+      catalog_register_lookup: { Args: { uid: string }; Returns: boolean };
+      catalog_upsert_beer: { Args: { g: Json }; Returns: string };
       complete_profile: { Args: { display_name: string; username: string }; Returns: undefined };
+      f_unaccent: { Args: { value: string }; Returns: string };
       is_valid_username: { Args: { candidate: string }; Returns: boolean };
       min_drinking_age: { Args: { country: string }; Returns: number };
+      normalize_gtin: { Args: { code: string }; Returns: string };
+      resolve_beer: { Args: { beer: string }; Returns: string };
       set_birthdate: { Args: { birthdate: string; country: string }; Returns: undefined };
       username_available: { Args: { candidate: string }; Returns: boolean };
     };

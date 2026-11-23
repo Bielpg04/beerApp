@@ -96,5 +96,58 @@
     "errors": {
       "bioTooLong": "Màxim 160 caràcters."
     }
+  },
+  "about": {
+    "title": "Sobre l’app",
+    "version": "Versió {{version}}",
+    "dataTitle": "Dades",
+    "offLicence": "Dades de les cerveses sota llicència ODbL; imatges sota CC BY-SA. © Col·laboradors d’Open Food Facts.",
+    "obdbLicence": "Dades de les cerveseres sota llicència MIT."
+  },
+  "beers": {
+    "brewery": "Cervesera",
+    "style": "Estil",
+    "abv": "Alcohol",
+    "country": "País",
+    "source": "Dades: Open Food Facts",
+    "notFound": "No hem trobat aquesta cervesa",
+    "imageLabel": "Foto de {{name}}",
+    "styles": {
+      "non_alcoholic": "Sense alcohol",
+      "trappist": "Trapenca",
+      "abbey": "D’abadia",
+      "sour": "Àcida",
+      "fruit": "Afruitada",
+      "witbier": "Blanca (witbier)",
+      "wheat": "De blat",
+      "ipa": "IPA",
+      "pale_ale": "Pale ale",
+      "saison": "Saison",
+      "bock": "Bock",
+      "stout": "Stout",
+      "porter": "Porter",
+      "pilsner": "Pilsner",
+      "amber": "Ambrada",
+      "blonde": "Rossa",
+      "dark": "Negra",
+      "lager": "Lager"
+    },
+    "scan": {
+      "open": "Escaneja una cervesa",
+      "title": "Escaneja una cervesa",
+      "hint": "Apunta al codi de barres de l’ampolla o la llauna.",
+      "looking": "Buscant la cervesa…",
+      "notFound": "Encara no tenim aquesta cervesa",
+      "addSoon": "Aviat la podràs afegir tu.",
+      "notBeer": "Aquest producte no és una cervesa",
+      "unavailable": "Ara mateix no podem buscar-la. Comprova la connexió i torna-ho a provar.",
+      "rateLimited": "Has fet massa cerques. Torna-ho a provar d’aquí a una estona.",
+      "invalid": "Aquest codi no és vàlid. Torna’l a escanejar.",
+      "again": "Escaneja’n una altra",
+      "cameraWhy": "Necessitem la càmera per llegir el codi de barres.",
+      "allowCamera": "Permet la càmera",
+      "cameraDenied": "No tenim permís per fer servir la càmera. El pots donar a Ajustos.",
+      "openSettings": "Obre Ajustos"
+    }
   }
 }

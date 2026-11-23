@@ -96,5 +96,58 @@
     "errors": {
       "bioTooLong": "Up to 160 characters."
     }
+  },
+  "about": {
+    "title": "About the app",
+    "version": "Version {{version}}",
+    "dataTitle": "Data",
+    "offLicence": "Beer data under the ODbL licence; images under CC BY-SA. © Open Food Facts contributors.",
+    "obdbLicence": "Brewery data under the MIT licence."
+  },
+  "beers": {
+    "brewery": "Brewery",
+    "style": "Style",
+    "abv": "Alcohol",
+    "country": "Country",
+    "source": "Data: Open Food Facts",
+    "notFound": "We couldn’t find this beer",
+    "imageLabel": "Photo of {{name}}",
+    "styles": {
+      "non_alcoholic": "Non-alcoholic",
+      "trappist": "Trappist",
+      "abbey": "Abbey",
+      "sour": "Sour",
+      "fruit": "Fruit beer",
+      "witbier": "Witbier",
+      "wheat": "Wheat beer",
+      "ipa": "IPA",
+      "pale_ale": "Pale ale",
+      "saison": "Saison",
+      "bock": "Bock",
+      "stout": "Stout",
+      "porter": "Porter",
+      "pilsner": "Pilsner",
+      "amber": "Amber",
+      "blonde": "Blonde",
+      "dark": "Dark",
+      "lager": "Lager"
+    },
+    "scan": {
+      "open": "Scan a beer",
+      "title": "Scan a beer",
+      "hint": "Point at the barcode on the bottle or can.",
+      "looking": "Looking for the beer…",
+      "notFound": "We don’t have this beer yet",
+      "addSoon": "Soon you’ll be able to add it yourself.",
+      "notBeer": "This product isn’t a beer",
+      "unavailable": "We can’t look it up right now. Check your connection and try again.",
+      "rateLimited": "You’ve done too many lookups. Try again in a while.",
+      "invalid": "This code isn’t valid. Scan it again.",
+      "again": "Scan another",
+      "cameraWhy": "We need the camera to read the barcode.",
+      "allowCamera": "Allow camera",
+      "cameraDenied": "We don’t have permission to use the camera. You can allow it in Settings.",
+      "openSettings": "Open Settings"
+    }
   }
 }
