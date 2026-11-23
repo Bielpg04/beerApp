@@ -204,3 +204,32 @@ test('display names drop pack sizes, ABV labels and repeated words', () => {
   assert.equal(displayName(['Carlsberg 33 cl Carlsberg 5.0 DEGRE ALCOOL']), 'Carlsberg');
   assert.equal(displayName(['Estrella Damm 0,0']), 'Estrella Damm 0,0');
 });
+
+test('Cyrillic and Greek names get real keys', () => {
+  assert.notEqual(brandKey('Оболонь'), '');
+  assert.notEqual(brandKey('Оболонь'), brandKey('Балтика'));
+  assert.notEqual(beerNameKey('Оболонь Світле', 'Оболонь'), beerNameKey('Оболонь Нефільтроване', 'Оболонь'));
+  assert.equal(
+    beerNameKey('Шуменско оригинал 500мл', 'Шуменско'),
+    beerNameKey('Шуменско оригинал', 'Шуменско'),
+  );
+  assert.equal(beerNameKey('Пиво Балтика 7', 'Балтика'), beerNameKey('Балтика 7', 'Балтика'));
+});
+
+test('a Greek beer named after its brand is kept', () => {
+  const groups = groupRows([row({ code: '5201004021113', productName: 'Μύθος', brands: 'Μύθος' })]);
+  assert.equal(groups.length, 1);
+  assert.equal(groups[0].brandKey, 'μυθος');
+});
+
+test('products whose brand has no letters or digits are skipped instead of sharing an empty key', () => {
+  assert.equal(groupRows([row({ productName: '★', brands: '★' })]).length, 0);
+});
+
+test('names and brands are cut to the 200 characters the database accepts', () => {
+  const [g] = groupRows([
+    row({ productName: `Long ${'x'.repeat(300)}`, brands: `Brand ${'y'.repeat(300)}` }),
+  ]);
+  assert.ok(g.name.length <= 200);
+  assert.ok(g.brand.length <= 200);
+});

@@ -2,7 +2,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 
-select plan(26);
+select plan(28);
 
 create function pg_temp.grp(
   name text, name_key text, codes text[], abv numeric default null, brand text default 'Heineken',
@@ -94,8 +94,8 @@ values ('0012345678905', '30000000-0000-0000-0000-000000000001'), ('541022814224
 insert into catalog_import.staged_groups (payload)
 values (pg_temp.grp('Dup', 'dup', array['0012345678905', '5410228142249', '5000112548167'], null, 'Dup', 'dup'));
 select results_eq(
-  'select created, updated, barcodes_added, conflicts from catalog_import.merge()',
-  $$ values (0, 1, 1, 1) $$,
+  'select created, updated, barcodes_added, conflicts, skipped from catalog_import.merge()',
+  $$ values (0, 1, 1, 1, 0) $$,
   'merge reports one updated beer, one new barcode and one conflict'
 );
 select is(
@@ -103,6 +103,22 @@ select is(
   'new barcodes of a split group go to the oldest beer'
 );
 select is((select count(*)::int from catalog_import.staged_groups), 0, 'merge empties the staging table');
+
+-- ---------- one bad group does not stop the import ----------
+
+insert into catalog_import.staged_groups (payload)
+values
+  (pg_temp.grp(repeat('x', 250), 'too long', array['0083783000085'], null, 'Long', 'long')),
+  (pg_temp.grp('Fine', 'fine', array['0083783110036'], null, 'Fine', 'fine'));
+select results_eq(
+  'select created, skipped from catalog_import.merge()',
+  $$ values (1, 1) $$,
+  'a group the database rejects is skipped and the rest is imported'
+);
+select is(
+  (select count(*)::int from catalog_import.errors where payload ->> 'nameKey' = 'too long'), 1,
+  'and the skipped group is kept with its error for review'
+);
 
 -- ---------- breweries ----------
 

@@ -99,6 +99,7 @@ export type ImportReport = {
   updated: number;
   barcodesAdded: number;
   conflicts: number;
+  skipped: number;
   samples: BeerGroup[];
 };
 
@@ -129,6 +130,7 @@ export async function importOff(
     updated: 0,
     barcodesAdded: 0,
     conflicts: 0,
+    skipped: 0,
     samples: groups.filter((g) => g.barcodes.length > 1).slice(0, 50),
   };
   if (opts.dryRun || !sql) return report;
@@ -145,6 +147,7 @@ export async function importOff(
     report.updated = r.updated;
     report.barcodesAdded = r.barcodes_added;
     report.conflicts = r.conflicts;
+    report.skipped = r.skipped;
   });
   return report;
 }
