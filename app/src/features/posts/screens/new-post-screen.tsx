@@ -1,11 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import { useTranslation } from '@/shared/i18n';
 import { Button, Screen, Text } from '@/shared/ui';
 
 import { publishPost, type PhotoStorage } from '../api/create-post';
+import {
+  photoFileExists,
+  pickPhoto,
+  PhotoPermissionError,
+  removePhotos,
+  uploadPhoto,
+  type PhotoSource,
+} from '../api/upload-photo';
 import { BeerRow } from '../components/beer-row';
 import { BeerStep } from '../components/beer-step';
 import { DetailsStep } from '../components/details-step';
@@ -19,22 +28,53 @@ const TITLE = {
   details: 'posts.new.detailsTitle',
 } as const;
 
-/** Until photos can be uploaded (US-301-T3) a draft never has one. */
-const noPhotoStorage: PhotoStorage = {
-  upload: () => Promise.reject(new Error('photos_not_supported')),
-  remove: () => Promise.resolve(),
-};
+const photoStorage: PhotoStorage = { upload: uploadPhoto, remove: removePhotos };
 
 export interface NewPostScreenProps {
   userId: string;
   storage?: PhotoStorage;
 }
 
-export function NewPostScreen({ userId, storage = noPhotoStorage }: NewPostScreenProps) {
+export function NewPostScreen({ userId, storage = photoStorage }: NewPostScreenProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const draft = usePostDraft();
   const previous = PREVIOUS[draft.step];
+  const [picking, setPicking] = useState(false);
+  const [photoError, setPhotoError] = useState<string | null>(null);
+  const [photoGone, setPhotoGone] = useState(false);
+  const photoUri = draft.photo?.uri ?? null;
+
+  // A restored draft may point to a cached file the system has already cleaned up.
+  useEffect(() => {
+    if (!photoUri) return;
+    let active = true;
+    void photoFileExists(photoUri).then((exists) => {
+      if (active && !exists && usePostDraft.getState().photo?.uri === photoUri) {
+        usePostDraft.getState().setPhoto(null);
+        setPhotoGone(true);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, [photoUri]);
+
+  const pick = async (source: PhotoSource) => {
+    setPhotoError(null);
+    setPhotoGone(false);
+    setPicking(true);
+    try {
+      const picked = await pickPhoto(source);
+      if (picked) draft.setPhoto(picked);
+    } catch (e) {
+      setPhotoError(
+        e instanceof PhotoPermissionError ? t('posts.new.photoPermission') : t('auth.errors.generic'),
+      );
+    } finally {
+      setPicking(false);
+    }
+  };
 
   const publish = useMutation({
     mutationFn: () => publishPost(usePostDraft.getState(), userId, storage),
@@ -59,12 +99,16 @@ export function NewPostScreen({ userId, storage = noPhotoStorage }: NewPostScree
       {draft.step !== 'beer' && draft.beer ? <BeerRow beer={draft.beer} /> : null}
 
       {draft.step === 'beer' ? <BeerStep userId={userId} onPick={draft.setBeer} /> : null}
+      {photoGone ? <Text accessibilityRole="alert">{t('posts.new.photoGone')}</Text> : null}
+
       {draft.step === 'photo' ? (
         <PhotoStep
-          onSkip={() => {
-            draft.setPhoto(null);
-            draft.goTo('details');
-          }}
+          photo={draft.photo}
+          busy={picking}
+          error={photoError}
+          onPick={(source) => void pick(source)}
+          onRemove={() => draft.setPhoto(null)}
+          onContinue={() => draft.goTo('details')}
         />
       ) : null}
       {draft.step === 'details' ? (

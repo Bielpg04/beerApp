@@ -1,5 +1,13 @@
 export { publishPost, type PhotoStorage } from './api/create-post';
 export { usePhotoUrl } from './api/photos';
+export {
+  PhotoPermissionError,
+  photoFileExists,
+  pickPhoto,
+  removePhotos,
+  uploadPhoto,
+  type PhotoSource,
+} from './api/upload-photo';
 export { postKey, usePost } from './api/post';
 export { useRecentBeers } from './api/recent-beers';
 export { initialDraft, usePostDraft, type DraftPhoto, type DraftStep, type PostDraft } from './lib/draft';
