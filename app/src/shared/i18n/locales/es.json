@@ -149,5 +149,16 @@
       "cameraDenied": "No tenemos permiso para usar la cámara. Puedes darlo en Ajustes.",
       "openSettings": "Abrir Ajustes"
     }
+  },
+  "posts": {
+    "serving": {
+      "tap": "Grifo",
+      "bottle": "Botella",
+      "can": "Lata"
+    },
+    "notFound": "No hemos encontrado este registro",
+    "retroactive": "Retroactivo",
+    "notOnFeed": "Solo en tu registro",
+    "photoLabel": "Foto de {{name}}"
   }
 }

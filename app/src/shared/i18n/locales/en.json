@@ -149,5 +149,16 @@
       "cameraDenied": "We don’t have permission to use the camera. You can allow it in Settings.",
       "openSettings": "Open Settings"
     }
+  },
+  "posts": {
+    "serving": {
+      "tap": "Draught",
+      "bottle": "Bottle",
+      "can": "Can"
+    },
+    "notFound": "We couldn’t find this post",
+    "retroactive": "Retroactive",
+    "notOnFeed": "Only in your log",
+    "photoLabel": "Photo of {{name}}"
   }
 }
