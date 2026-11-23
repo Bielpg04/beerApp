@@ -9,8 +9,10 @@ jest.mock('@/shared/lib/supabase', () => ({ supabase: { rpc: jest.fn(), from: je
 
 const t = (key: string, options?: object) => i18n.t(key as never, options as never) as unknown as string;
 
+const ID = '3f2b8c1e-5d4a-4e6f-9a7b-1c2d3e4f5a6b';
+
 const westmalle: Beer = {
-  id: 'w',
+  id: ID,
   name: 'Westmalle Tripel',
   brand: 'Westmalle',
   abv: 9.5,
@@ -22,10 +24,10 @@ const westmalle: Beer = {
 
 async function renderWith(beer: Beer | null) {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false, staleTime: Infinity } } });
-  client.setQueryData(beerKey('w'), beer);
+  client.setQueryData(beerKey(ID), beer);
   await render(
     <QueryClientProvider client={client}>
-      <BeerScreen id="w" />
+      <BeerScreen id={ID} />
     </QueryClientProvider>,
   );
 }
@@ -70,6 +72,25 @@ it('says so when the beer does not exist', async () => {
   expect(screen.getByText(t('beers.notFound'))).toBeOnTheScreen();
 });
 
+it('says the beer does not exist when the id in the link is not a valid id', async () => {
+  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  const { supabase } = jest.requireMock('@/shared/lib/supabase');
+  supabase.rpc.mockClear();
+  // What Postgres answers for a uuid argument that is not one.
+  supabase.rpc.mockResolvedValue({
+    data: null,
+    error: { code: '22P02', message: 'invalid input syntax for type uuid: "not-a-beer"' },
+  });
+  await render(
+    <QueryClientProvider client={client}>
+      <BeerScreen id="not-a-beer" />
+    </QueryClientProvider>,
+  );
+  expect(await screen.findByText(t('beers.notFound'))).toBeOnTheScreen();
+  expect(supabase.rpc).not.toHaveBeenCalled();
+  supabase.rpc.mockReset();
+});
+
 it('offers a retry when loading fails', async () => {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
   const { supabase } = jest.requireMock('@/shared/lib/supabase');
@@ -77,7 +98,7 @@ it('offers a retry when loading fails', async () => {
   supabase.rpc.mockResolvedValueOnce({ data: null, error: null });
   await render(
     <QueryClientProvider client={client}>
-      <BeerScreen id="w" />
+      <BeerScreen id={ID} />
     </QueryClientProvider>,
   );
   fireEvent.press(await screen.findByRole('button', { name: t('common.retry') }));

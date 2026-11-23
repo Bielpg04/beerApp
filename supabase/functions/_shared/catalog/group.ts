@@ -22,6 +22,8 @@ function prepare(row: OffRow): Prepared | null {
   const name = row.productName.trim() || firstBrand(row.brands);
   const brand = firstBrand(row.brands) || name;
   if (!name || (isGenericOnly(name) && isGenericOnly(brand))) return null;
+  // A brand with no letters or digits ("★") would share the empty key with every other such brand.
+  if (brandKey(brand) === '') return null;
   return { row, code, name, brand };
 }
 
@@ -51,8 +53,13 @@ function mode(values: number[]): number | null {
 
 function toGroup(items: Prepared[]): BeerGroup {
   const rows = items.map((i) => i.row);
-  const brand = displayName(items.map((i) => i.brand));
-  const name = displayName(items.map((i) => i.name));
+  // The database accepts at most 200 characters.
+  const brand = displayName(items.map((i) => i.brand))
+    .slice(0, 200)
+    .trim();
+  const name = displayName(items.map((i) => i.name))
+    .slice(0, 200)
+    .trim();
   const imageRow = fromMostScanned(rows, (r) => (r.imageUrl ? r : null));
 
   const lastModified = new Map<string, number>();

@@ -7,7 +7,12 @@ import { createReadStream } from 'node:fs';
 import { Readable } from 'node:stream';
 import type { Sql } from 'postgres';
 
-import { USER_AGENT, acceptRow, groupRows } from '../../supabase/functions/_shared/catalog/index.ts';
+import {
+  USER_AGENT,
+  acceptRow,
+  decodeHtmlEntities,
+  groupRows,
+} from '../../supabase/functions/_shared/catalog/index.ts';
 import type { BeerGroup, OffRow } from '../../supabase/functions/_shared/catalog/index.ts';
 
 export const OFF_CSV_URL = 'https://static.openfoodfacts.org/data/en.openfoodfacts.org.products.csv.gz';
@@ -76,8 +81,8 @@ export async function* readOffRows(stream: ReadableStream<Uint8Array>): AsyncGen
     if (!categoriesTags.includes('en:beers')) continue;
     yield {
       code: get('code'),
-      productName: get('productName').trim(),
-      brands: get('brands').trim(),
+      productName: decodeHtmlEntities(get('productName')).trim(),
+      brands: decodeHtmlEntities(get('brands')).trim(),
       categoriesTags,
       countriesTags: list(get('countriesTags')),
       originsTags: list(get('originsTags')),
@@ -99,6 +104,7 @@ export type ImportReport = {
   updated: number;
   barcodesAdded: number;
   conflicts: number;
+  skipped: number;
   samples: BeerGroup[];
 };
 
@@ -129,6 +135,7 @@ export async function importOff(
     updated: 0,
     barcodesAdded: 0,
     conflicts: 0,
+    skipped: 0,
     samples: groups.filter((g) => g.barcodes.length > 1).slice(0, 50),
   };
   if (opts.dryRun || !sql) return report;
@@ -145,6 +152,7 @@ export async function importOff(
     report.updated = r.updated;
     report.barcodesAdded = r.barcodes_added;
     report.conflicts = r.conflicts;
+    report.skipped = r.skipped;
   });
   return report;
 }

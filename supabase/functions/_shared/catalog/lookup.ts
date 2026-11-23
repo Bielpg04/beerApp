@@ -4,7 +4,7 @@
  */
 import { groupRows } from './group.ts';
 import { normalizeGtin } from './gtin.ts';
-import { isBeer } from './off.ts';
+import { decodeHtmlEntities, isBeer } from './off.ts';
 import type { BeerGroup, LookupResult, OffRow } from './types.ts';
 
 export const USER_AGENT = 'BeerApp/1.0 (https://github.com/Bielpg04/beerApp)';
@@ -27,17 +27,21 @@ const FIELDS = [
 export type LookupDeps = {
   findByBarcode(code: string): Promise<string | null>;
   registerLookup(userId: string): Promise<boolean>;
-  fetchOff(code: string): Promise<Response>;
+  /** Should pass `signal` on to fetch, so the timeout cancels the request. */
+  fetchOff(code: string, signal?: AbortSignal): Promise<Response>;
   upsert(group: BeerGroup): Promise<string>;
   timeoutMs?: number;
 };
 
 type Fetch = (url: string, init?: RequestInit) => Promise<Response>;
 
-export function createFetchOff(fetchImpl: Fetch = fetch): (code: string) => Promise<Response> {
-  return (code) =>
+export function createFetchOff(
+  fetchImpl: Fetch = fetch,
+): (code: string, signal?: AbortSignal) => Promise<Response> {
+  return (code, signal) =>
     fetchImpl(`https://world.openfoodfacts.org/api/v2/product/${code}.json?fields=${FIELDS}`, {
       headers: { 'User-Agent': USER_AGENT },
+      signal,
     });
 }
 
@@ -59,8 +63,8 @@ type OffProduct = {
 function toRow(code: string, p: OffProduct): OffRow {
   return {
     code,
-    productName: p.product_name?.trim() ?? '',
-    brands: p.brands?.trim() ?? '',
+    productName: decodeHtmlEntities(p.product_name ?? '').trim(),
+    brands: decodeHtmlEntities(p.brands ?? '').trim(),
     categoriesTags: p.categories_tags ?? [],
     countriesTags: p.countries_tags ?? [],
     originsTags: p.origins_tags ?? [],
@@ -72,12 +76,33 @@ function toRow(code: string, p: OffProduct): OffRow {
   };
 }
 
-function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  const timeout = new Promise<never>((_, reject) => {
-    timer = setTimeout(() => reject(new Error('timeout')), ms);
+type OffBody = { status?: number; product?: OffProduct };
+
+/**
+ * The OFF answer, or null for an unknown product (404). Throws on any other failure.
+ * The timeout covers the whole exchange, body included, and aborts the request.
+ */
+async function readOff(deps: LookupDeps, code: string): Promise<OffBody | null> {
+  const controller = new AbortController();
+  const timedOut = new Promise<never>((_, reject) => {
+    controller.signal.addEventListener('abort', () => reject(new Error('timeout')), { once: true });
   });
-  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+  const timer = setTimeout(() => controller.abort(), deps.timeoutMs ?? OFF_TIMEOUT_MS);
+  const exchange = async () => {
+    const res = await deps.fetchOff(code, controller.signal);
+    if (res.status === 404) {
+      await res.body?.cancel();
+      return null;
+    }
+    // Rate limiting (429) and other errors say nothing about the product.
+    if (!res.ok) throw new Error(`Open Food Facts: HTTP ${res.status}`);
+    return (await res.json()) as OffBody;
+  };
+  try {
+    return await Promise.race([exchange(), timedOut]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 export async function lookupBarcode(raw: string, userId: string, deps: LookupDeps): Promise<LookupResult> {
@@ -89,16 +114,14 @@ export async function lookupBarcode(raw: string, userId: string, deps: LookupDep
 
   if (!(await deps.registerLookup(userId))) return { status: 'rate_limited' };
 
-  let body: { status?: number; product?: OffProduct };
+  let body: OffBody | null;
   try {
-    const res = await withTimeout(deps.fetchOff(code), deps.timeoutMs ?? OFF_TIMEOUT_MS);
-    if (res.status >= 500) return { status: 'unavailable' };
-    body = await res.json();
+    body = await readOff(deps, code);
   } catch {
     return { status: 'unavailable' };
   }
 
-  if (body.status !== 1 || !body.product) return { status: 'not_found' };
+  if (!body || body.status !== 1 || !body.product) return { status: 'not_found' };
   const row = toRow(code, body.product);
   if (!isBeer(row.categoriesTags)) return { status: 'not_beer' };
 

@@ -21,6 +21,8 @@ beforeEach(() => {
   (supabase.from as jest.Mock).mockReturnValue({ select });
 });
 
+const OLD_ID = '3f2b8c1e-5d4a-4e6f-9a7b-1c2d3e4f5a6b';
+
 it('follows a merged beer to the final one and maps its row', async () => {
   (supabase.rpc as jest.Mock).mockResolvedValue({ data: 'final-id', error: null });
   maybeSingle.mockResolvedValue({
@@ -37,10 +39,10 @@ it('follows a merged beer to the final one and maps its row', async () => {
     error: null,
   });
 
-  const { result } = await renderHook(() => useBeer('old-id'), { wrapper });
+  const { result } = await renderHook(() => useBeer(OLD_ID), { wrapper });
   await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-  expect(supabase.rpc).toHaveBeenCalledWith('resolve_beer', { beer: 'old-id' });
+  expect(supabase.rpc).toHaveBeenCalledWith('resolve_beer', { beer: OLD_ID });
   expect(eq).toHaveBeenCalledWith('id', 'final-id');
   expect(result.current.data).toEqual({
     id: 'final-id',
@@ -56,7 +58,7 @@ it('follows a merged beer to the final one and maps its row', async () => {
 
 it('returns null when the beer does not exist', async () => {
   (supabase.rpc as jest.Mock).mockResolvedValue({ data: null, error: null });
-  const { result } = await renderHook(() => useBeer('missing'), { wrapper });
+  const { result } = await renderHook(() => useBeer('00000000-0000-4000-8000-000000000000'), { wrapper });
   await waitFor(() => expect(result.current.isSuccess).toBe(true));
   expect(result.current.data).toBeNull();
   expect(supabase.from).not.toHaveBeenCalled();
