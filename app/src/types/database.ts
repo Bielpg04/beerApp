@@ -480,6 +480,16 @@ export type Database = {
       };
       decline_friend_request: { Args: { user_id: string }; Returns: undefined };
       f_unaccent: { Args: { value: string }; Returns: string };
+      find_people: {
+        Args: { max?: number; q: string };
+        Returns: {
+          avatar_path: string;
+          display_name: string;
+          id: string;
+          relationship: string;
+          username: string;
+        }[];
+      };
       get_profile: {
         Args: { user_id: string };
         Returns: {

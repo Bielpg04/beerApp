@@ -268,6 +268,12 @@
       "emptyHint": "Busca algú pel seu @usuari i envia-li una sol·licitud.",
       "link_one": "Amics · {{count}}",
       "link_other": "Amics · {{count}}"
+    },
+    "find": {
+      "label": "Busca per @usuari",
+      "placeholder": "@usuari",
+      "none": "Ningú amb aquest nom d’usuari.",
+      "incoming": "T’ha enviat una sol·licitud"
     }
   }
 }

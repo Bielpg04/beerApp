@@ -268,6 +268,12 @@
       "emptyHint": "Find someone by their @username and send them a request.",
       "link_one": "Friends · {{count}}",
       "link_other": "Friends · {{count}}"
+    },
+    "find": {
+      "label": "Search by @username",
+      "placeholder": "@username",
+      "none": "Nobody with that username.",
+      "incoming": "Sent you a request"
     }
   }
 }

@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 import { router } from 'expo-router';
 
 import { i18n } from '@/shared/i18n';
@@ -25,6 +25,7 @@ const friend = (id: string, name: string) => ({
   since: '2026-11-24T10:00:00Z',
 });
 let friends: ReturnType<typeof friend>[] = [];
+let found: (ReturnType<typeof friend> & { relationship: string })[] = [];
 
 async function renderUi(ui: React.ReactElement) {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false, gcTime: Infinity } } });
@@ -35,9 +36,15 @@ beforeAll(() => i18n.changeLanguage('ca'));
 beforeEach(() => {
   jest.clearAllMocks();
   friends = [friend('user-b', 'Bea'), friend('user-c', 'Carles')];
-  rpc.mockImplementation(async (fn: string) =>
-    fn === 'my_friends' ? { data: friends, error: null } : { data: [], error: null },
-  );
+  found = [
+    { ...friend('user-d', 'Biel'), relationship: 'none' },
+    { ...friend('user-e', 'Bielet'), relationship: 'outgoing' },
+  ];
+  rpc.mockImplementation(async (fn: string) => {
+    if (fn === 'my_friends') return { data: friends, error: null };
+    if (fn === 'find_people') return { data: found, error: null };
+    return { data: null, error: null };
+  });
 });
 
 it('lists my friends in the order the server gives', async () => {
@@ -64,4 +71,41 @@ it('links to my friends with their count', async () => {
   await renderUi(<FriendsLink />);
   await fireEvent.press(await screen.findByRole('button', { name: t('social.friends.link', { count: 2 }) }));
   expect(router.push).toHaveBeenCalledWith('/friends');
+});
+
+describe('finding people by username', () => {
+  const search = () => screen.getByLabelText(t('social.find.label'));
+
+  it('searches after a pause, without the @', async () => {
+    await renderUi(<FriendsScreen />);
+    await fireEvent.changeText(search(), '@Bi');
+    expect(rpc).not.toHaveBeenCalledWith('find_people', expect.anything());
+    expect(await screen.findByText('Biel')).toBeOnTheScreen();
+    expect(rpc).toHaveBeenCalledWith('find_people', { q: 'bi' });
+    expect(screen.queryByText('Bea')).toBeNull(); // the friends list makes way for the results
+  });
+
+  it('does not search for a single character', async () => {
+    await renderUi(<FriendsScreen />);
+    await fireEvent.changeText(search(), 'b');
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    expect(rpc).not.toHaveBeenCalledWith('find_people', expect.anything());
+    expect(screen.getByText('Bea')).toBeOnTheScreen();
+  });
+
+  it('sends a request from the results, and shows where each one stands', async () => {
+    await renderUi(<FriendsScreen />);
+    await fireEvent.changeText(search(), 'biel');
+    await screen.findByText('Biel');
+    expect(screen.getByText(t('social.friendship.sent'))).toBeOnTheScreen(); // Bielet
+    await fireEvent.press(screen.getByRole('button', { name: t('social.friendship.add') }));
+    await waitFor(() => expect(rpc).toHaveBeenCalledWith('send_friend_request', { user_id: 'user-d' }));
+  });
+
+  it('says when nobody matches', async () => {
+    found = [];
+    await renderUi(<FriendsScreen />);
+    await fireEvent.changeText(search(), 'zzz');
+    expect(await screen.findByText(t('social.find.none'))).toBeOnTheScreen();
+  });
 });
