@@ -103,7 +103,9 @@
       "beers_other": "{{count}} cervezas",
       "friends_one": "{{count}} amigo",
       "friends_other": "{{count}} amigos"
-    }
+    },
+    "notFound": "Este usuario no existe",
+    "privateNotice": "Este perfil es privado. Hazte amigo de @{{username}} para ver sus cervezas."
   },
   "about": {
     "title": "Acerca de la app",
