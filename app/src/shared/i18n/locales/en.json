@@ -239,5 +239,21 @@
       "empty": "No posts yet.",
       "emptyMine": "You haven’t logged a beer yet."
     }
+  },
+  "social": {
+    "friendship": {
+      "add": "Add friend",
+      "sent": "Request sent",
+      "cancel": "Cancel request",
+      "received": "@{{username}} wants to be your friend",
+      "accept": "Accept",
+      "decline": "Decline",
+      "friends": "✓ Friends",
+      "remove": "Remove friend",
+      "removeConfirm": "Stop being friends with @{{username}}?",
+      "removeHint": "You’ll stop seeing each other’s private posts. You can send a new request later.",
+      "removeYes": "Yes, remove friend",
+      "error": "That didn’t work. Please try again."
+    }
   }
 }
