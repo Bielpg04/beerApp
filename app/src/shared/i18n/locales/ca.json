@@ -95,6 +95,149 @@
     "signOutConfirmYes": "Sí, tanca la sessió",
     "errors": {
       "bioTooLong": "Màxim 160 caràcters."
+    },
+    "stats": {
+      "posts_one": "{{count}} registre",
+      "posts_other": "{{count}} registres",
+      "beers_one": "{{count}} cervesa",
+      "beers_other": "{{count}} cerveses",
+      "friends_one": "{{count}} amic",
+      "friends_other": "{{count}} amics"
+    },
+    "notFound": "Aquest usuari no existeix",
+    "privateNotice": "Aquest perfil és privat. Fes-te amic de @{{username}} per veure les seves cerveses."
+  },
+  "about": {
+    "title": "Sobre l’app",
+    "version": "Versió {{version}}",
+    "dataTitle": "Dades",
+    "offLicence": "Dades de les cerveses sota llicència ODbL; imatges sota CC BY-SA. © Col·laboradors d’Open Food Facts.",
+    "obdbLicence": "Dades de les cerveseres sota llicència MIT."
+  },
+  "beers": {
+    "brewery": "Cervesera",
+    "style": "Estil",
+    "abv": "Alcohol",
+    "country": "País",
+    "source": "Dades: Open Food Facts",
+    "notFound": "No hem trobat aquesta cervesa",
+    "imageLabel": "Foto de {{name}}",
+    "styles": {
+      "non_alcoholic": "Sense alcohol",
+      "trappist": "Trapenca",
+      "abbey": "D’abadia",
+      "sour": "Àcida",
+      "fruit": "Afruitada",
+      "witbier": "Blanca (witbier)",
+      "wheat": "De blat",
+      "ipa": "IPA",
+      "pale_ale": "Pale ale",
+      "saison": "Saison",
+      "bock": "Bock",
+      "stout": "Stout",
+      "porter": "Porter",
+      "pilsner": "Pilsner",
+      "amber": "Ambrada",
+      "blonde": "Rossa",
+      "dark": "Negra",
+      "lager": "Lager"
+    },
+    "scan": {
+      "open": "Escaneja una cervesa",
+      "title": "Escaneja una cervesa",
+      "hint": "Apunta al codi de barres de l’ampolla o la llauna.",
+      "looking": "Buscant la cervesa…",
+      "notFound": "Encara no tenim aquesta cervesa",
+      "addSoon": "Aviat la podràs afegir tu.",
+      "notBeer": "Aquest producte no és una cervesa",
+      "unavailable": "Ara mateix no podem buscar-la. Comprova la connexió i torna-ho a provar.",
+      "rateLimited": "Has fet massa cerques. Torna-ho a provar d’aquí a una estona.",
+      "invalid": "Aquest codi no és vàlid. Torna’l a escanejar.",
+      "again": "Escaneja’n una altra",
+      "cameraWhy": "Necessitem la càmera per llegir el codi de barres.",
+      "allowCamera": "Permet la càmera",
+      "cameraDenied": "No tenim permís per fer servir la càmera. El pots donar a Ajustos.",
+      "openSettings": "Obre Ajustos"
+    }
+  },
+  "posts": {
+    "serving": {
+      "tap": "Tirador",
+      "bottle": "Ampolla",
+      "can": "Llauna"
+    },
+    "notFound": "No hem trobat aquest registre",
+    "retroactive": "Retroactiu",
+    "notOnFeed": "Només al teu registre",
+    "photoLabel": "Foto de {{name}}",
+    "new": {
+      "beerTitle": "Quina cervesa beus?",
+      "photoTitle": "Una foto?",
+      "detailsTitle": "Detalls",
+      "back": "Enrere",
+      "searchLabel": "Cerca la cervesa",
+      "searchPlaceholder": "Nom o marca",
+      "scan": "Escaneja el codi de barres",
+      "recent": "Les teves últimes",
+      "noResults": "No la trobem",
+      "noResultsHint": "Prova amb una altra paraula o escaneja el codi de barres. Aviat podràs afegir-la tu.",
+      "photoHint": "Pots afegir-hi una foto o continuar sense.",
+      "noPhoto": "Continua sense foto",
+      "serving": "Com la beus?",
+      "volume": "Quantitat (opcional)",
+      "otherVolume": "Una altra",
+      "volumeMl": "Mil·lilitres",
+      "volumeRange": "Entre 50 i 5000 ml.",
+      "caption": "Text (opcional)",
+      "captionPlaceholder": "Amb qui? Què tal?",
+      "publish": "Publica",
+      "publishError": "No s’ha pogut publicar. Comprova la connexió i torna-ho a provar.",
+      "takePhoto": "Fes una foto",
+      "choosePhoto": "Tria de la galeria",
+      "takeAnother": "Fes-ne una altra",
+      "chooseAnother": "Tria’n una altra de la galeria",
+      "removePhoto": "Treu la foto",
+      "continue": "Continua",
+      "photoPreview": "Foto que publicaràs",
+      "photoPermission": "Cal permís per fer servir la càmera o les fotos. El pots donar a Ajustos.",
+      "photoGone": "La foto que havies triat ja no hi és. Tria’n una altra o continua sense.",
+      "discard": "Descarta",
+      "discardConfirm": "Vols descartar aquest registre?",
+      "discardConfirmYes": "Sí, descarta’l"
+    },
+    "when": {
+      "label": "Quan?",
+      "now": "Ara",
+      "earlier": "Abans",
+      "day": "Dia",
+      "time": "Hora",
+      "retroNotice": "Es marcarà com a registre retroactiu.",
+      "feed": "Publica al feed",
+      "feedOnHint": "El veuran els altres.",
+      "feedOffHint": "Només es guardarà al teu registre.",
+      "usePhotoDate": "Fes servir la data de la foto ({{date}})"
+    },
+    "mine": {
+      "logFirst": "Registra la primera"
+    },
+    "edit": {
+      "title": "Edita el registre",
+      "open": "Edita",
+      "beerFixed": "La cervesa i la foto no es poden canviar. Si t’has equivocat, esborra el registre i fes-ne un altre.",
+      "dateLocked": "Aquest registre està verificat: la data no es pot canviar.",
+      "saveError": "No s’ha pogut desar. Comprova la connexió i torna-ho a provar."
+    },
+    "delete": {
+      "open": "Esborra",
+      "confirm": "Vols esborrar aquest registre?",
+      "cannotUndo": "S’esborraran el registre i la seva foto. No es pot desfer.",
+      "confirmYes": "Sí, esborra’l",
+      "error": "No s’ha pogut esborrar. Comprova la connexió i torna-ho a provar."
+    },
+    "grid": {
+      "more": "Mostra’n més",
+      "empty": "Encara no hi ha cap registre.",
+      "emptyMine": "Encara no has registrat cap cervesa."
     }
   }
 }

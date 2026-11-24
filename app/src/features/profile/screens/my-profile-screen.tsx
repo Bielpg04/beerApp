@@ -1,31 +1,40 @@
 import { router } from 'expo-router';
-import { View } from 'react-native';
+import type { ReactNode } from 'react';
 
 import { useTranslation } from '@/shared/i18n';
-import { Avatar, Button, Screen, Text } from '@/shared/ui';
+import { Button, Screen } from '@/shared/ui';
 
-import { avatarUrl } from '../api/avatar';
 import { useOwnProfile } from '../api/my-profile';
+import { ProfileScreen } from './profile-screen';
 
-export function MyProfileScreen() {
+export interface MyProfileScreenProps {
+  /** Composed by the route below my own buttons (friends, requests…). */
+  actions?: ReactNode;
+  /** Composed by the route: my posts. */
+  children?: ReactNode;
+}
+
+/** My profile: the shared profile screen plus my own buttons. */
+export function MyProfileScreen({ actions, children }: MyProfileScreenProps = {}) {
   const { t } = useTranslation();
-  const { data: profile } = useOwnProfile();
-  if (!profile) return <Screen />;
+  const { data: me } = useOwnProfile();
+  if (!me) return <Screen />;
 
-  const name = profile.display_name ?? profile.username ?? '';
   return (
-    <Screen scroll>
-      <View style={{ alignItems: 'center', gap: 8 }}>
-        <Avatar name={name} uri={avatarUrl(profile.avatar_path)} size={96} />
-        <Text variant="title" accessibilityRole="header">
-          {name}
-        </Text>
-        <Text muted>@{profile.username}</Text>
-        <Text style={{ textAlign: 'center' }} muted={!profile.bio}>
-          {profile.bio || t('profile.noBio')}
-        </Text>
-      </View>
-      <Button title={t('profile.edit')} variant="secondary" onPress={() => router.push('/profile-edit')} />
-    </Screen>
+    <ProfileScreen
+      id={me.id}
+      renderActions={() => (
+        <>
+          <Button
+            title={t('profile.edit')}
+            variant="secondary"
+            onPress={() => router.push('/profile-edit')}
+          />
+          {actions}
+          <Button title={t('about.title')} variant="ghost" onPress={() => router.push('/about')} />
+        </>
+      )}
+      renderContent={() => children}
+    />
   );
 }
