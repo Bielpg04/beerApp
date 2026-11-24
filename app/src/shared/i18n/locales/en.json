@@ -261,6 +261,13 @@
       "gone": "This request no longer exists.",
       "link_one": "Friend requests · {{count}}",
       "link_other": "Friend requests · {{count}}"
+    },
+    "friends": {
+      "title": "Friends",
+      "empty": "No friends yet.",
+      "emptyHint": "Find someone by their @username and send them a request.",
+      "link_one": "Friends · {{count}}",
+      "link_other": "Friends · {{count}}"
     }
   }
 }

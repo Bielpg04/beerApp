@@ -261,6 +261,13 @@
       "gone": "Aquesta sol·licitud ja no existeix.",
       "link_one": "Sol·licituds d’amistat · {{count}}",
       "link_other": "Sol·licituds d’amistat · {{count}}"
+    },
+    "friends": {
+      "title": "Amics",
+      "empty": "Encara no tens amics.",
+      "emptyHint": "Busca algú pel seu @usuari i envia-li una sol·licitud.",
+      "link_one": "Amics · {{count}}",
+      "link_other": "Amics · {{count}}"
     }
   }
 }

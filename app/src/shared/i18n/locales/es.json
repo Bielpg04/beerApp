@@ -261,6 +261,13 @@
       "gone": "Esta solicitud ya no existe.",
       "link_one": "Solicitudes de amistad · {{count}}",
       "link_other": "Solicitudes de amistad · {{count}}"
+    },
+    "friends": {
+      "title": "Amigos",
+      "empty": "Todavía no tienes amigos.",
+      "emptyHint": "Busca a alguien por su @usuario y envíale una solicitud.",
+      "link_one": "Amigos · {{count}}",
+      "link_other": "Amigos · {{count}}"
     }
   }
 }
