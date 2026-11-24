@@ -216,8 +216,6 @@
       "usePhotoDate": "Fes servir la data de la foto ({{date}})"
     },
     "mine": {
-      "title": "Els meus últims registres",
-      "empty": "Encara no has registrat cap cervesa.",
       "logFirst": "Registra la primera"
     },
     "edit": {
@@ -233,6 +231,11 @@
       "cannotUndo": "S’esborraran el registre i la seva foto. No es pot desfer.",
       "confirmYes": "Sí, esborra’l",
       "error": "No s’ha pogut esborrar. Comprova la connexió i torna-ho a provar."
+    },
+    "grid": {
+      "more": "Mostra’n més",
+      "empty": "Encara no hi ha cap registre.",
+      "emptyMine": "Encara no has registrat cap cervesa."
     }
   }
 }

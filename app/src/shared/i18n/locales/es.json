@@ -216,8 +216,6 @@
       "usePhotoDate": "Usa la fecha de la foto ({{date}})"
     },
     "mine": {
-      "title": "Mis últimos registros",
-      "empty": "Todavía no has registrado ninguna cerveza.",
       "logFirst": "Registra la primera"
     },
     "edit": {
@@ -233,6 +231,11 @@
       "cannotUndo": "Se borrarán el registro y su foto. No se puede deshacer.",
       "confirmYes": "Sí, bórralo",
       "error": "No se ha podido borrar. Comprueba la conexión y vuelve a intentarlo."
+    },
+    "grid": {
+      "more": "Mostrar más",
+      "empty": "Todavía no hay ningún registro.",
+      "emptyMine": "Todavía no has registrado ninguna cerveza."
     }
   }
 }
