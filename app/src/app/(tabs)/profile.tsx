@@ -1,7 +1,7 @@
 import { useSession } from '@/features/auth';
 import { ProfilePostsGrid } from '@/features/posts';
 import { MyProfileScreen } from '@/features/profile';
-import { FriendRequestsLink, FriendsLink } from '@/features/social';
+import { BlockedUsersLink, FriendRequestsLink, FriendsLink } from '@/features/social';
 
 export default function Profile() {
   const { userId } = useSession();
@@ -11,6 +11,7 @@ export default function Profile() {
         <>
           <FriendRequestsLink />
           <FriendsLink />
+          <BlockedUsersLink />
         </>
       }
     >
