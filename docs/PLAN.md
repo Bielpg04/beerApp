@@ -234,10 +234,8 @@ Com a plataforma he d'assegurar que l'usuari té l'edat legal.
 - T5 Atribucions de llicència a "Sobre l'app"
 
 **US-202 · Fitxa de cervesa** (3)
-Com a usuari vull veure la info d'una cervesa i qui dels meus amics l'ha begut.
-- T1 Pantalla fitxa (imatge, cervesera, estil, % alcohol, país)
-- T2 "L'has begut X vegades" + amics que l'han begut
-- T3 On la serveixen (bars propers, enllaç al mapa)
+Com a usuari vull veure la info d'una cervesa.
+- T1 Pantalla fitxa (imatge, marca, cervesera, estil, % alcohol, país)
 
 **US-203 · Afegir una cervesa que no existeix** (3)
 - AC: formulari mínim; queda `pending`; avís de possibles duplicats mentre escrius.
@@ -248,15 +246,23 @@ Com a usuari vull veure la info d'una cervesa i qui dels meus amics l'ha begut.
 **US-204 · Identificar cervesa per codi de barres** (3)
 - T1 Escàner amb expo-camera
 - T2 Cerca per barcode a la BD; si no hi és, consulta en viu a Open Food Facts i importa
-- T3 Si no existeix enlloc → flux US-203 amb el codi pre-omplert
+- T3 Si no existeix enlloc → missatge "no la tenim" amb el codi (el formulari arriba amb US-203)
+
+**US-205 · Historial i amics a la fitxa de cervesa** (2)
+Com a usuari vull saber quantes vegades he begut una cervesa i quins amics l'han begut.
+- T1 "L'has begut X vegades" + amics que l'han begut
+
+**US-206 · On serveixen la cervesa** (2)
+Com a usuari vull saber on puc trobar una cervesa.
+- T1 Bars propers que la serveixen i enllaç al mapa
 
 ### EPIC 3 — Posts (registre de cerveses)
 
 **US-301 · Crear un post bàsic** (8)
 Com a usuari vull publicar quina cervesa estic bevent.
-- AC: cervesa obligatòria; format (tirador/ampolla/llauna); volum opcional; foto; text opcional; data = ara.
+- AC: cervesa obligatòria; format (tirador/ampolla/llauna); volum opcional; foto opcional; text opcional; data = ara.
 - T1 Migracions `posts`, `post_photos` + RLS
-- T2 Flux de creació multi-pas (cervesa → foto → detalls → publicar)
+- T2 Flux de creació multi-pas (cervesa → foto → detalls → publicar) i cerca de cervesa pel nom
 - T3 Càmera in-app + compressió + miniatura + pujada
 - T4 Draft local (Zustand) per no perdre dades
 - T5 Pantalla de detall del post
@@ -271,6 +277,7 @@ Com a usuari vull afegir una cervesa que vaig beure fa temps.
 **US-303 · Editar i esborrar un post** (2)
 - T1 Edició de camps permesos (no la foto ni la data si està 🟢 → perdria verificació)
 - T2 Esborrat amb confirmació (i fotos de Storage)
+- T3 "Els meus últims registres" al perfil (accés als posts fins a l'historial de US-304)
 
 **US-304 · El meu historial** (3)
 - T1 Llista/calendari dels meus registres (incloent no publicats al feed)
@@ -287,6 +294,7 @@ Com a usuari vull afegir una cervesa que vaig beure fa temps.
 - T2 Botó d'estat al perfil (Afegir / Pendent / Amics)
 - T3 Pantalla de sol·licituds rebudes
 - T4 Llista d'amics al perfil
+- T5 Cerca de persones per @usuari a la pantalla d'amics
 
 **US-402 · Bloquejar usuaris** (2) *(obligatori per App Store, guideline 1.2)*
 - T1 Taula `blocks` + efecte a RLS (no et veuen ni t'etiqueten)
@@ -487,9 +495,9 @@ Com a usuari, després de publicar en un bar, vull indicar quines altres cervese
 | S2 | Catàleg de cerveses | US-201, US-202, US-204 |
 | S3 | Registrar cerveses | US-301, US-302, US-303 |
 | S4 | Social bàsic | US-401, US-402, US-104 |
-| S5 | Feed | US-501, US-502, US-503 |
+| S5 | Feed | US-501, US-502, US-503, US-205 |
 | S6 | Etiquetes + cercador | US-601, US-602, US-1001, US-203 |
-| S7 | Bars i mapa | US-701, US-702, US-703 |
+| S7 | Bars i mapa | US-701, US-702, US-703, US-206 |
 | S8 | Crowdsourcing | US-801, US-802, US-704, US-304 |
 | S9 | Verificació | US-901, US-902 |
 | S10 | Stats | US-1101, US-1102, US-1103 |

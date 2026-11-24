@@ -2,9 +2,10 @@ import { randomUUID } from 'expo-crypto';
 import { ImageManipulator, SaveFormat } from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 
+import { AVATAR_BUCKET as BUCKET, avatarUrl } from '@/shared/lib/avatars';
 import { supabase } from '@/shared/lib/supabase';
 
-const BUCKET = 'avatars';
+export { avatarUrl };
 const SIZE = 512;
 const QUALITY = 0.7;
 
@@ -68,8 +69,4 @@ export async function pickAndUploadAvatar(
 /** Deletes an avatar file (best effort: a leftover file is harmless, a missing one is not). */
 export async function removeAvatar(path: string): Promise<void> {
   await supabase.storage.from(BUCKET).remove([path]);
-}
-
-export function avatarUrl(path: string | null | undefined): string | null {
-  return path ? supabase.storage.from(BUCKET).getPublicUrl(path).data.publicUrl : null;
 }

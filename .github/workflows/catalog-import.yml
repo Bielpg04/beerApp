@@ -1,0 +1,68 @@
+# Monthly beer catalog import (US-201): Open Brewery DB + Open Food Facts → Supabase.
+# Re-running is safe: beer ids never change and nothing is deleted
+# (see supabase/migrations/*_catalog_upsert.sql).
+#
+# Secrets (same as maintenance.yml): SUPABASE_DB_URL_DEV, SUPABASE_DB_URL_PROD
+# (session pooler connection strings). A project without its secret is skipped.
+name: Catalog import
+
+on:
+  schedule:
+    - cron: '23 4 3 * *' # 3rd of every month, 04:23 UTC
+  workflow_dispatch:
+    inputs:
+      project:
+        description: Which project to import into
+        type: choice
+        options: [both, dev, prod]
+        default: both
+      dry_run:
+        description: Only report what would change
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: catalog-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: 1 # one download of the dump at a time
+      matrix:
+        project: [DEV, PROD]
+    env:
+      LEFTHOOK: 0
+      CATALOG_DB_URL: ${{ matrix.project == 'DEV' && secrets.SUPABASE_DB_URL_DEV || secrets.SUPABASE_DB_URL_PROD }}
+      SELECTED: ${{ inputs.project || 'both' }}
+    steps:
+      - name: Check secret and selection
+        id: check
+        run: |
+          project=$(echo "${{ matrix.project }}" | tr '[:upper:]' '[:lower:]')
+          if [ "$SELECTED" != "both" ] && [ "$SELECTED" != "$project" ]; then
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          elif [ -z "$CATALOG_DB_URL" ]; then
+            echo "::notice::SUPABASE_DB_URL_${{ matrix.project }} is not configured; skipping"
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v7
+        if: steps.check.outputs.ok == 'true'
+      - uses: actions/setup-node@v7
+        if: steps.check.outputs.ok == 'true'
+        with:
+          node-version: 26
+          cache: npm
+      - run: npm ci
+        if: steps.check.outputs.ok == 'true'
+      - name: Import (${{ matrix.project }})
+        if: steps.check.outputs.ok == 'true'
+        run: npm run catalog:import -- --source all ${{ inputs.dry_run && '--dry-run' || '' }}
