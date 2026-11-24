@@ -239,5 +239,21 @@
       "empty": "Encara no hi ha cap registre.",
       "emptyMine": "Encara no has registrat cap cervesa."
     }
+  },
+  "social": {
+    "friendship": {
+      "add": "Afegeix com a amic",
+      "sent": "Sol·licitud enviada",
+      "cancel": "Cancel·la la sol·licitud",
+      "received": "@{{username}} vol ser el teu amic",
+      "accept": "Accepta",
+      "decline": "Rebutja",
+      "friends": "✓ Sou amics",
+      "remove": "Elimina l’amistat",
+      "removeConfirm": "Vols deixar de ser amic de @{{username}}?",
+      "removeHint": "Deixareu de veure els posts privats de l’altre. Podràs tornar a enviar-li una sol·licitud.",
+      "removeYes": "Sí, elimina l’amistat",
+      "error": "No s’ha pogut fer. Torna-ho a provar."
+    }
   }
 }

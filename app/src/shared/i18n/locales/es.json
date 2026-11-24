@@ -239,5 +239,21 @@
       "empty": "Todavía no hay ningún registro.",
       "emptyMine": "Todavía no has registrado ninguna cerveza."
     }
+  },
+  "social": {
+    "friendship": {
+      "add": "Añadir como amigo",
+      "sent": "Solicitud enviada",
+      "cancel": "Cancelar la solicitud",
+      "received": "@{{username}} quiere ser tu amigo",
+      "accept": "Aceptar",
+      "decline": "Rechazar",
+      "friends": "✓ Sois amigos",
+      "remove": "Eliminar la amistad",
+      "removeConfirm": "¿Quieres dejar de ser amigo de @{{username}}?",
+      "removeHint": "Dejaréis de ver los posts privados del otro. Podrás volver a enviarle una solicitud.",
+      "removeYes": "Sí, eliminar la amistad",
+      "error": "No se ha podido hacer. Inténtalo de nuevo."
+    }
   }
 }
