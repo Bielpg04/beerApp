@@ -38,7 +38,13 @@ export function ProfileScreen({ id, renderActions, renderContent }: ProfileScree
     <Screen scroll>
       <ProfileHeader profile={profile} />
       {renderActions?.(profile)}
-      {profile.canSeePosts ? (
+      {profile.relationship === 'blocked' ? (
+        <Card>
+          <Text style={{ textAlign: 'center' }}>
+            {t('profile.blockedNotice', { username: profile.username })}
+          </Text>
+        </Card>
+      ) : profile.canSeePosts ? (
         renderContent?.(profile)
       ) : (
         <Card>

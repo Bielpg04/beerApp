@@ -1,7 +1,9 @@
+export { blockedUsersKey, useBlockActions, useBlockedUsers } from './api/blocks';
 export { friendsKey, useFriends } from './api/friends';
 export { SocialError, useFriendshipActions } from './api/friendships';
 export { invalidateSocial } from './api/invalidate';
 export { friendRequestsKey, useFriendRequests } from './api/requests';
+export { BlockButton, type BlockButtonProps } from './components/block-button';
 export { FriendRequestsLink } from './components/friend-requests-link';
 export { FriendsLink } from './components/friends-link';
 export { FriendshipButton, type FriendshipButtonProps } from './components/friendship-button';

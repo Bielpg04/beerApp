@@ -105,7 +105,8 @@
       "friends_other": "{{count}} amigos"
     },
     "notFound": "Este usuario no existe",
-    "privateNotice": "Este perfil es privado. Hazte amigo de @{{username}} para ver sus cervezas."
+    "privateNotice": "Este perfil es privado. Hazte amigo de @{{username}} para ver sus cervezas.",
+    "blockedNotice": "Has bloqueado a @{{username}}. No ve nada tuyo y tú tampoco nada suyo."
   },
   "about": {
     "title": "Acerca de la app",
@@ -274,6 +275,13 @@
       "placeholder": "@usuario",
       "none": "Nadie con este nombre de usuario.",
       "incoming": "Te ha enviado una solicitud"
+    },
+    "block": {
+      "open": "Bloquear a @{{username}}",
+      "confirm": "¿Quieres bloquear a @{{username}}?",
+      "explain": "Dejaréis de ser amigos, no veréis nada el uno del otro y no podrá encontrarte ni enviarte solicitudes. No le avisaremos.",
+      "confirmYes": "Sí, bloquear",
+      "unblock": "Desbloquear"
     }
   }
 }

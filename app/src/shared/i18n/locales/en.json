@@ -105,7 +105,8 @@
       "friends_other": "{{count}} friends"
     },
     "notFound": "This user doesn’t exist",
-    "privateNotice": "This profile is private. Become friends with @{{username}} to see their beers."
+    "privateNotice": "This profile is private. Become friends with @{{username}} to see their beers.",
+    "blockedNotice": "You blocked @{{username}}. Neither of you can see the other."
   },
   "about": {
     "title": "About the app",
@@ -274,6 +275,13 @@
       "placeholder": "@username",
       "none": "Nobody with that username.",
       "incoming": "Sent you a request"
+    },
+    "block": {
+      "open": "Block @{{username}}",
+      "confirm": "Block @{{username}}?",
+      "explain": "You’ll stop being friends, neither of you will see the other, and they won’t be able to find you or send you requests. We won’t tell them.",
+      "confirmYes": "Yes, block",
+      "unblock": "Unblock"
     }
   }
 }

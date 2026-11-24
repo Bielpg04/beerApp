@@ -130,3 +130,30 @@ describe('privacy states', () => {
     expect(screen.queryByText(t('profile.privateNotice', { username: 'anna' }))).toBeNull();
   });
 });
+
+describe('a profile I blocked', () => {
+  const t = (key: string, options?: object) => i18n.t(key as never, options as never) as unknown as string;
+
+  it('shows only the name, the actions and a notice', async () => {
+    rpc.mockResolvedValue({
+      data: [
+        {
+          ...row,
+          bio: null,
+          relationship: 'blocked',
+          can_see_posts: false,
+          posts_count: null,
+          beers_count: null,
+          friends_count: null,
+        },
+      ],
+      error: null,
+    });
+    const renderContent = jest.fn(() => <Text>grid</Text>);
+    await renderProfile({ renderActions: () => <Text>unblock</Text>, renderContent });
+    expect(await screen.findByText(t('profile.blockedNotice', { username: 'anna' }))).toBeTruthy();
+    expect(screen.getByText('unblock')).toBeTruthy();
+    expect(renderContent).not.toHaveBeenCalled();
+    expect(screen.queryByText(t('profile.privateNotice', { username: 'anna' }))).toBeNull();
+  });
+});

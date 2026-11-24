@@ -149,6 +149,54 @@ export type Database = {
           },
         ];
       };
+      blocks: {
+        Row: {
+          blocked_id: string;
+          blocker_id: string;
+          created_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          blocked_id: string;
+          blocker_id: string;
+          created_at?: string;
+        };
+        Update: {
+          blocked_id?: string;
+          blocker_id?: string;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'blocks_blocked_id_fkey';
+            columns: ['blocked_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'blocks_blocked_id_fkey';
+            columns: ['blocked_id'];
+            isOneToOne: false;
+            referencedRelation: 'public_profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'blocks_blocker_id_fkey';
+            columns: ['blocker_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'blocks_blocker_id_fkey';
+            columns: ['blocker_id'];
+            isOneToOne: false;
+            referencedRelation: 'public_profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       breweries: {
         Row: {
           city: string | null;
@@ -462,6 +510,7 @@ export type Database = {
       accept_friend_request: { Args: { user_id: string }; Returns: undefined };
       are_friends: { Args: { a: string; b: string }; Returns: boolean };
       beer_by_barcode: { Args: { code: string }; Returns: string };
+      block_user: { Args: { user_id: string }; Returns: undefined };
       can_see_post: { Args: { author: string; published: boolean }; Returns: boolean };
       catalog_register_lookup: { Args: { uid: string }; Returns: boolean };
       catalog_upsert_beer: { Args: { g: Json }; Returns: string };
@@ -506,8 +555,19 @@ export type Database = {
           username: string;
         }[];
       };
+      is_blocked_between: { Args: { a: string; b: string }; Returns: boolean };
       is_valid_username: { Args: { candidate: string }; Returns: boolean };
       min_drinking_age: { Args: { country: string }; Returns: number };
+      my_blocked_users: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          avatar_path: string;
+          blocked_at: string;
+          display_name: string;
+          id: string;
+          username: string;
+        }[];
+      };
       my_friend_requests: {
         Args: Record<PropertyKey, never>;
         Returns: {
@@ -544,6 +604,7 @@ export type Database = {
       };
       send_friend_request: { Args: { user_id: string }; Returns: string };
       set_birthdate: { Args: { birthdate: string; country: string }; Returns: undefined };
+      unblock_user: { Args: { user_id: string }; Returns: undefined };
       update_post: {
         Args: {
           caption: string;
