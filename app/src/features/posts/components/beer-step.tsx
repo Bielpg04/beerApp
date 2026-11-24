@@ -1,24 +1,16 @@
 import { router } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 
 import { useBeerSearch, type BeerSummary } from '@/features/beers';
 import { useTranslation } from '@/shared/i18n';
+import { useDebounced } from '@/shared/lib/use-debounced';
 import { Button, Input, Text } from '@/shared/ui';
 
 import { useRecentBeers } from '../api/recent-beers';
 import { BeerRow } from './beer-row';
 
 const DEBOUNCE_MS = 300;
-
-function useDebounced<T>(value: T, ms: number): T {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced(value), ms);
-    return () => clearTimeout(timer);
-  }, [value, ms]);
-  return debounced;
-}
 
 export function BeerStep({ userId, onPick }: { userId: string; onPick: (beer: BeerSummary) => void }) {
   const { t } = useTranslation();
