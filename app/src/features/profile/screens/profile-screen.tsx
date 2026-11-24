@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import { useTranslation } from '@/shared/i18n';
 import { useTheme } from '@/shared/theme';
-import { Avatar, Button, EmptyState, Screen, Text } from '@/shared/ui';
+import { Avatar, Button, Card, EmptyState, Screen, Text } from '@/shared/ui';
 
 import { avatarUrl } from '../api/avatar';
 import { useProfile } from '../api/profile';
@@ -31,13 +31,25 @@ export function ProfileScreen({ id, renderActions, renderContent }: ProfileScree
   }
   if (query.isPending) return <Screen />;
   const profile = query.data;
-  if (!profile) return <Screen />;
+  // Unknown, not onboarded, or blocked me: all look the same.
+  if (!profile) return <EmptyState emoji="🤷" title={t('profile.notFound')} />;
 
   return (
     <Screen scroll>
       <ProfileHeader profile={profile} />
       {renderActions?.(profile)}
-      {renderContent?.(profile)}
+      {profile.canSeePosts ? (
+        renderContent?.(profile)
+      ) : (
+        <Card>
+          <Text style={{ textAlign: 'center' }} accessible={false}>
+            🔒
+          </Text>
+          <Text style={{ textAlign: 'center' }}>
+            {t('profile.privateNotice', { username: profile.username })}
+          </Text>
+        </Card>
+      )}
     </Screen>
   );
 }

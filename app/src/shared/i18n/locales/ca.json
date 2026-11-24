@@ -103,7 +103,9 @@
       "beers_other": "{{count}} cerveses",
       "friends_one": "{{count}} amic",
       "friends_other": "{{count}} amics"
-    }
+    },
+    "notFound": "Aquest usuari no existeix",
+    "privateNotice": "Aquest perfil és privat. Fes-te amic de @{{username}} per veure les seves cerveses."
   },
   "about": {
     "title": "Sobre l’app",

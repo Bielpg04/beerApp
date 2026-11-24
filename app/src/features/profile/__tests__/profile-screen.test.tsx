@@ -88,3 +88,45 @@ it('offers to retry when it cannot load', async () => {
   await fireEvent.press(retry);
   await waitFor(() => expect(screen.getByText('Anna')).toBeTruthy());
 });
+
+describe('privacy states', () => {
+  const t = (key: string, options?: object) => i18n.t(key as never, options as never) as unknown as string;
+
+  it('says the user does not exist when get_profile finds nothing', async () => {
+    rpc.mockResolvedValue({ data: [], error: null });
+    const renderActions = jest.fn(() => <Text>actions</Text>);
+    await renderProfile({ renderActions });
+    expect(await screen.findByText(t('profile.notFound'))).toBeTruthy();
+    expect(renderActions).not.toHaveBeenCalled();
+  });
+
+  it('shows only the header and the actions of a private profile I cannot see', async () => {
+    rpc.mockResolvedValue({
+      data: [
+        {
+          ...row,
+          is_private: true,
+          can_see_posts: false,
+          posts_count: null,
+          beers_count: null,
+          friends_count: null,
+        },
+      ],
+      error: null,
+    });
+    const renderContent = jest.fn(() => <Text>grid</Text>);
+    await renderProfile({ renderActions: () => <Text>actions</Text>, renderContent });
+    expect(await screen.findByText('Anna')).toBeTruthy();
+    expect(screen.getByText('actions')).toBeTruthy();
+    expect(screen.getByText(t('profile.privateNotice', { username: 'anna' }))).toBeTruthy();
+    expect(screen.queryByText('grid')).toBeNull();
+    expect(renderContent).not.toHaveBeenCalled();
+    expect(screen.queryByText(/registres?$/)).toBeNull();
+  });
+
+  it('shows no private notice on a public profile', async () => {
+    await renderProfile({ renderContent: () => <Text>grid</Text> });
+    expect(await screen.findByText('grid')).toBeTruthy();
+    expect(screen.queryByText(t('profile.privateNotice', { username: 'anna' }))).toBeNull();
+  });
+});
