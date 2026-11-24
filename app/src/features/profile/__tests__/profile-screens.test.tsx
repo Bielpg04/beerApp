@@ -1,9 +1,12 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react-native';
 
+import { router } from 'expo-router';
+import { Text } from 'react-native';
+
 import { i18n } from '@/shared/i18n';
 
-import { EditProfileScreen, myProfileKey, MyProfileScreen } from '..';
+import { EditProfileScreen, myProfileKey, MyProfileScreen, profileKey, type Profile } from '..';
 import { pickAndUploadAvatar, removeAvatar } from '../api/avatar';
 
 const mockEq = jest.fn();
@@ -34,9 +37,22 @@ const profile = {
   country: 'ES',
 };
 
+const shownProfile: Profile = {
+  id: 'user-1',
+  username: 'biel',
+  displayName: 'Biel',
+  avatarPath: null,
+  bio: 'Amant de les IPA',
+  isPrivate: false,
+  relationship: 'self',
+  canSeePosts: true,
+  stats: { posts: 0, beers: 0, friends: 0 },
+};
+
 async function renderWith(ui: React.ReactElement, overrides: Partial<typeof profile> = {}) {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false, staleTime: Infinity } } });
   client.setQueryData(myProfileKey, { ...profile, ...overrides });
+  client.setQueryData(profileKey('user-1'), shownProfile);
   const invalidate = jest.spyOn(client, 'invalidateQueries');
   await render(<QueryClientProvider client={client}>{ui}</QueryClientProvider>);
   return { invalidate };
@@ -55,6 +71,26 @@ describe('MyProfileScreen', () => {
     expect(screen.getByText('Biel')).toBeOnTheScreen();
     expect(screen.getByText('@biel')).toBeOnTheScreen();
     expect(screen.getByText('Amant de les IPA')).toBeOnTheScreen();
+  });
+
+  it('shows what the route adds below the header (e.g. my latest posts)', async () => {
+    await renderWith(
+      <MyProfileScreen>
+        <Text>latest posts</Text>
+      </MyProfileScreen>,
+    );
+    expect(screen.getByText('latest posts')).toBeOnTheScreen();
+  });
+
+  it('adds the buttons the route gives it', async () => {
+    await renderWith(<MyProfileScreen actions={<Text>friends</Text>} />);
+    expect(screen.getByText('friends')).toBeOnTheScreen();
+  });
+
+  it('links to the about screen', async () => {
+    await renderWith(<MyProfileScreen />);
+    fireEvent.press(screen.getByRole('button', { name: t('about.title') }));
+    expect(router.push).toHaveBeenCalledWith('/about');
   });
 });
 
@@ -83,7 +119,8 @@ describe('EditProfileScreen', () => {
       }),
     );
     expect(mockEq).toHaveBeenCalledWith('id', 'user-1');
-    await waitFor(() => expect(invalidate).toHaveBeenCalledWith({ queryKey: myProfileKey }));
+    // ['profile'] covers my own row (myProfileKey) and my profile as others see it (profileKey).
+    await waitFor(() => expect(invalidate).toHaveBeenCalledWith({ queryKey: ['profile'] }));
   });
 
   it('shows username, birthdate and country without letting them be edited', async () => {

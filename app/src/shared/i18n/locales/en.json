@@ -95,6 +95,185 @@
     "signOutConfirmYes": "Yes, sign out",
     "errors": {
       "bioTooLong": "Up to 160 characters."
+    },
+    "stats": {
+      "posts_one": "{{count}} post",
+      "posts_other": "{{count}} posts",
+      "beers_one": "{{count}} beer",
+      "beers_other": "{{count}} beers",
+      "friends_one": "{{count}} friend",
+      "friends_other": "{{count}} friends"
+    },
+    "notFound": "This user doesn’t exist",
+    "privateNotice": "This profile is private. Become friends with @{{username}} to see their beers."
+  },
+  "about": {
+    "title": "About the app",
+    "version": "Version {{version}}",
+    "dataTitle": "Data",
+    "offLicence": "Beer data under the ODbL licence; images under CC BY-SA. © Open Food Facts contributors.",
+    "obdbLicence": "Brewery data under the MIT licence."
+  },
+  "beers": {
+    "brewery": "Brewery",
+    "style": "Style",
+    "abv": "Alcohol",
+    "country": "Country",
+    "source": "Data: Open Food Facts",
+    "notFound": "We couldn’t find this beer",
+    "imageLabel": "Photo of {{name}}",
+    "styles": {
+      "non_alcoholic": "Non-alcoholic",
+      "trappist": "Trappist",
+      "abbey": "Abbey",
+      "sour": "Sour",
+      "fruit": "Fruit beer",
+      "witbier": "Witbier",
+      "wheat": "Wheat beer",
+      "ipa": "IPA",
+      "pale_ale": "Pale ale",
+      "saison": "Saison",
+      "bock": "Bock",
+      "stout": "Stout",
+      "porter": "Porter",
+      "pilsner": "Pilsner",
+      "amber": "Amber",
+      "blonde": "Blonde",
+      "dark": "Dark",
+      "lager": "Lager"
+    },
+    "scan": {
+      "open": "Scan a beer",
+      "title": "Scan a beer",
+      "hint": "Point at the barcode on the bottle or can.",
+      "looking": "Looking for the beer…",
+      "notFound": "We don’t have this beer yet",
+      "addSoon": "Soon you’ll be able to add it yourself.",
+      "notBeer": "This product isn’t a beer",
+      "unavailable": "We can’t look it up right now. Check your connection and try again.",
+      "rateLimited": "You’ve done too many lookups. Try again in a while.",
+      "invalid": "This code isn’t valid. Scan it again.",
+      "again": "Scan another",
+      "cameraWhy": "We need the camera to read the barcode.",
+      "allowCamera": "Allow camera",
+      "cameraDenied": "We don’t have permission to use the camera. You can allow it in Settings.",
+      "openSettings": "Open Settings"
+    }
+  },
+  "posts": {
+    "serving": {
+      "tap": "Draught",
+      "bottle": "Bottle",
+      "can": "Can"
+    },
+    "notFound": "We couldn’t find this post",
+    "retroactive": "Retroactive",
+    "notOnFeed": "Only in your log",
+    "photoLabel": "Photo of {{name}}",
+    "new": {
+      "beerTitle": "What are you drinking?",
+      "photoTitle": "Add a photo?",
+      "detailsTitle": "Details",
+      "back": "Back",
+      "searchLabel": "Find the beer",
+      "searchPlaceholder": "Name or brand",
+      "scan": "Scan the barcode",
+      "recent": "Your latest",
+      "noResults": "We can’t find it",
+      "noResultsHint": "Try another word or scan the barcode. Soon you’ll be able to add it yourself.",
+      "photoHint": "You can add a photo or carry on without one.",
+      "noPhoto": "Continue without a photo",
+      "serving": "How are you drinking it?",
+      "volume": "Amount (optional)",
+      "otherVolume": "Other",
+      "volumeMl": "Millilitres",
+      "volumeRange": "Between 50 and 5000 ml.",
+      "caption": "Text (optional)",
+      "captionPlaceholder": "Who with? How is it?",
+      "publish": "Post",
+      "publishError": "Couldn’t post. Check your connection and try again.",
+      "takePhoto": "Take a photo",
+      "choosePhoto": "Choose from library",
+      "takeAnother": "Take another",
+      "chooseAnother": "Choose another from library",
+      "removePhoto": "Remove photo",
+      "continue": "Continue",
+      "photoPreview": "Photo you will post",
+      "photoPermission": "Camera or photo access is needed. You can allow it in Settings.",
+      "photoGone": "The photo you picked is no longer there. Choose another or carry on without one.",
+      "discard": "Discard",
+      "discardConfirm": "Discard this post?",
+      "discardConfirmYes": "Yes, discard it"
+    },
+    "when": {
+      "label": "When?",
+      "now": "Now",
+      "earlier": "Earlier",
+      "day": "Day",
+      "time": "Time",
+      "retroNotice": "It will be marked as a retroactive post.",
+      "feed": "Post to the feed",
+      "feedOnHint": "Others will see it.",
+      "feedOffHint": "It will only be saved to your log.",
+      "usePhotoDate": "Use the photo’s date ({{date}})"
+    },
+    "mine": {
+      "logFirst": "Log your first one"
+    },
+    "edit": {
+      "title": "Edit post",
+      "open": "Edit",
+      "beerFixed": "The beer and the photo can’t be changed. If you got it wrong, delete the post and make a new one.",
+      "dateLocked": "This post is verified: its date can’t be changed.",
+      "saveError": "Couldn’t save. Check your connection and try again."
+    },
+    "delete": {
+      "open": "Delete",
+      "confirm": "Delete this post?",
+      "cannotUndo": "The post and its photo will be deleted. This can’t be undone.",
+      "confirmYes": "Yes, delete it",
+      "error": "Couldn’t delete. Check your connection and try again."
+    },
+    "grid": {
+      "more": "Show more",
+      "empty": "No posts yet.",
+      "emptyMine": "You haven’t logged a beer yet."
+    }
+  },
+  "social": {
+    "friendship": {
+      "add": "Add friend",
+      "sent": "Request sent",
+      "cancel": "Cancel request",
+      "received": "@{{username}} wants to be your friend",
+      "accept": "Accept",
+      "decline": "Decline",
+      "friends": "✓ Friends",
+      "remove": "Remove friend",
+      "removeConfirm": "Stop being friends with @{{username}}?",
+      "removeHint": "You’ll stop seeing each other’s private posts. You can send a new request later.",
+      "removeYes": "Yes, remove friend",
+      "error": "That didn’t work. Please try again."
+    },
+    "requests": {
+      "title": "Friend requests",
+      "empty": "You have no pending requests.",
+      "gone": "This request no longer exists.",
+      "link_one": "Friend requests · {{count}}",
+      "link_other": "Friend requests · {{count}}"
+    },
+    "friends": {
+      "title": "Friends",
+      "empty": "No friends yet.",
+      "emptyHint": "Find someone by their @username and send them a request.",
+      "link_one": "Friends · {{count}}",
+      "link_other": "Friends · {{count}}"
+    },
+    "find": {
+      "label": "Search by @username",
+      "placeholder": "@username",
+      "none": "Nobody with that username.",
+      "incoming": "Sent you a request"
     }
   }
 }

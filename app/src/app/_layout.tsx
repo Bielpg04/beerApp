@@ -34,6 +34,14 @@ function RootNavigator() {
       <Stack.Protected guard={state === 'ready'}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="profile-edit" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="about" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="beer/[id]" options={{ headerShown: true, title: '' }} />
+        <Stack.Screen name="scan" options={{ presentation: 'fullScreenModal' }} />
+        <Stack.Screen name="post/[id]/index" options={{ headerShown: true, title: '' }} />
+        <Stack.Screen name="post/[id]/edit" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="user/[id]" options={{ headerShown: true, title: '' }} />
+        <Stack.Screen name="friend-requests" options={{ headerShown: true }} />
+        <Stack.Screen name="friends" options={{ headerShown: true }} />
       </Stack.Protected>
     </Stack>
   );

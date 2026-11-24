@@ -95,6 +95,185 @@
     "signOutConfirmYes": "Sí, cerrar sesión",
     "errors": {
       "bioTooLong": "Máximo 160 caracteres."
+    },
+    "stats": {
+      "posts_one": "{{count}} registro",
+      "posts_other": "{{count}} registros",
+      "beers_one": "{{count}} cerveza",
+      "beers_other": "{{count}} cervezas",
+      "friends_one": "{{count}} amigo",
+      "friends_other": "{{count}} amigos"
+    },
+    "notFound": "Este usuario no existe",
+    "privateNotice": "Este perfil es privado. Hazte amigo de @{{username}} para ver sus cervezas."
+  },
+  "about": {
+    "title": "Acerca de la app",
+    "version": "Versión {{version}}",
+    "dataTitle": "Datos",
+    "offLicence": "Datos de las cervezas bajo licencia ODbL; imágenes bajo CC BY-SA. © Colaboradores de Open Food Facts.",
+    "obdbLicence": "Datos de las cerveceras bajo licencia MIT."
+  },
+  "beers": {
+    "brewery": "Cervecera",
+    "style": "Estilo",
+    "abv": "Alcohol",
+    "country": "País",
+    "source": "Datos: Open Food Facts",
+    "notFound": "No hemos encontrado esta cerveza",
+    "imageLabel": "Foto de {{name}}",
+    "styles": {
+      "non_alcoholic": "Sin alcohol",
+      "trappist": "Trapense",
+      "abbey": "De abadía",
+      "sour": "Ácida",
+      "fruit": "Afrutada",
+      "witbier": "Blanca (witbier)",
+      "wheat": "De trigo",
+      "ipa": "IPA",
+      "pale_ale": "Pale ale",
+      "saison": "Saison",
+      "bock": "Bock",
+      "stout": "Stout",
+      "porter": "Porter",
+      "pilsner": "Pilsner",
+      "amber": "Ámbar",
+      "blonde": "Rubia",
+      "dark": "Negra",
+      "lager": "Lager"
+    },
+    "scan": {
+      "open": "Escanea una cerveza",
+      "title": "Escanea una cerveza",
+      "hint": "Apunta al código de barras de la botella o la lata.",
+      "looking": "Buscando la cerveza…",
+      "notFound": "Todavía no tenemos esta cerveza",
+      "addSoon": "Pronto podrás añadirla tú.",
+      "notBeer": "Este producto no es una cerveza",
+      "unavailable": "Ahora mismo no podemos buscarla. Comprueba la conexión y vuelve a intentarlo.",
+      "rateLimited": "Has hecho demasiadas búsquedas. Vuelve a intentarlo dentro de un rato.",
+      "invalid": "Este código no es válido. Vuelve a escanearlo.",
+      "again": "Escanea otra",
+      "cameraWhy": "Necesitamos la cámara para leer el código de barras.",
+      "allowCamera": "Permitir la cámara",
+      "cameraDenied": "No tenemos permiso para usar la cámara. Puedes darlo en Ajustes.",
+      "openSettings": "Abrir Ajustes"
+    }
+  },
+  "posts": {
+    "serving": {
+      "tap": "Grifo",
+      "bottle": "Botella",
+      "can": "Lata"
+    },
+    "notFound": "No hemos encontrado este registro",
+    "retroactive": "Retroactivo",
+    "notOnFeed": "Solo en tu registro",
+    "photoLabel": "Foto de {{name}}",
+    "new": {
+      "beerTitle": "¿Qué cerveza bebes?",
+      "photoTitle": "¿Una foto?",
+      "detailsTitle": "Detalles",
+      "back": "Atrás",
+      "searchLabel": "Busca la cerveza",
+      "searchPlaceholder": "Nombre o marca",
+      "scan": "Escanea el código de barras",
+      "recent": "Tus últimas",
+      "noResults": "No la encontramos",
+      "noResultsHint": "Prueba con otra palabra o escanea el código de barras. Pronto podrás añadirla tú.",
+      "photoHint": "Puedes añadir una foto o seguir sin ella.",
+      "noPhoto": "Sigue sin foto",
+      "serving": "¿Cómo la bebes?",
+      "volume": "Cantidad (opcional)",
+      "otherVolume": "Otra",
+      "volumeMl": "Mililitros",
+      "volumeRange": "Entre 50 y 5000 ml.",
+      "caption": "Texto (opcional)",
+      "captionPlaceholder": "¿Con quién? ¿Qué tal?",
+      "publish": "Publica",
+      "publishError": "No se ha podido publicar. Comprueba la conexión y vuelve a intentarlo.",
+      "takePhoto": "Haz una foto",
+      "choosePhoto": "Elige de la galería",
+      "takeAnother": "Haz otra",
+      "chooseAnother": "Elige otra de la galería",
+      "removePhoto": "Quita la foto",
+      "continue": "Sigue",
+      "photoPreview": "Foto que publicarás",
+      "photoPermission": "Hace falta permiso para usar la cámara o las fotos. Puedes darlo en Ajustes.",
+      "photoGone": "La foto que habías elegido ya no está. Elige otra o sigue sin ella.",
+      "discard": "Descarta",
+      "discardConfirm": "¿Quieres descartar este registro?",
+      "discardConfirmYes": "Sí, descártalo"
+    },
+    "when": {
+      "label": "¿Cuándo?",
+      "now": "Ahora",
+      "earlier": "Antes",
+      "day": "Día",
+      "time": "Hora",
+      "retroNotice": "Se marcará como registro retroactivo.",
+      "feed": "Publica en el feed",
+      "feedOnHint": "Lo verán los demás.",
+      "feedOffHint": "Solo se guardará en tu registro.",
+      "usePhotoDate": "Usa la fecha de la foto ({{date}})"
+    },
+    "mine": {
+      "logFirst": "Registra la primera"
+    },
+    "edit": {
+      "title": "Edita el registro",
+      "open": "Edita",
+      "beerFixed": "La cerveza y la foto no se pueden cambiar. Si te has equivocado, borra el registro y haz otro.",
+      "dateLocked": "Este registro está verificado: la fecha no se puede cambiar.",
+      "saveError": "No se ha podido guardar. Comprueba la conexión y vuelve a intentarlo."
+    },
+    "delete": {
+      "open": "Borra",
+      "confirm": "¿Quieres borrar este registro?",
+      "cannotUndo": "Se borrarán el registro y su foto. No se puede deshacer.",
+      "confirmYes": "Sí, bórralo",
+      "error": "No se ha podido borrar. Comprueba la conexión y vuelve a intentarlo."
+    },
+    "grid": {
+      "more": "Mostrar más",
+      "empty": "Todavía no hay ningún registro.",
+      "emptyMine": "Todavía no has registrado ninguna cerveza."
+    }
+  },
+  "social": {
+    "friendship": {
+      "add": "Añadir como amigo",
+      "sent": "Solicitud enviada",
+      "cancel": "Cancelar la solicitud",
+      "received": "@{{username}} quiere ser tu amigo",
+      "accept": "Aceptar",
+      "decline": "Rechazar",
+      "friends": "✓ Sois amigos",
+      "remove": "Eliminar la amistad",
+      "removeConfirm": "¿Quieres dejar de ser amigo de @{{username}}?",
+      "removeHint": "Dejaréis de ver los posts privados del otro. Podrás volver a enviarle una solicitud.",
+      "removeYes": "Sí, eliminar la amistad",
+      "error": "No se ha podido hacer. Inténtalo de nuevo."
+    },
+    "requests": {
+      "title": "Solicitudes de amistad",
+      "empty": "No tienes solicitudes pendientes.",
+      "gone": "Esta solicitud ya no existe.",
+      "link_one": "Solicitudes de amistad · {{count}}",
+      "link_other": "Solicitudes de amistad · {{count}}"
+    },
+    "friends": {
+      "title": "Amigos",
+      "empty": "Todavía no tienes amigos.",
+      "emptyHint": "Busca a alguien por su @usuario y envíale una solicitud.",
+      "link_one": "Amigos · {{count}}",
+      "link_other": "Amigos · {{count}}"
+    },
+    "find": {
+      "label": "Buscar por @usuario",
+      "placeholder": "@usuario",
+      "none": "Nadie con este nombre de usuario.",
+      "incoming": "Te ha enviado una solicitud"
     }
   }
 }
