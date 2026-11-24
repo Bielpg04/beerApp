@@ -420,6 +420,22 @@ export type Database = {
         Returns: string;
       };
       f_unaccent: { Args: { value: string }; Returns: string };
+      get_profile: {
+        Args: { user_id: string };
+        Returns: {
+          avatar_path: string;
+          beers_count: number;
+          bio: string;
+          can_see_posts: boolean;
+          display_name: string;
+          friends_count: number;
+          id: string;
+          is_private: boolean;
+          posts_count: number;
+          relationship: string;
+          username: string;
+        }[];
+      };
       is_valid_username: { Args: { candidate: string }; Returns: boolean };
       min_drinking_age: { Args: { country: string }; Returns: number };
       normalize_gtin: { Args: { code: string }; Returns: string };

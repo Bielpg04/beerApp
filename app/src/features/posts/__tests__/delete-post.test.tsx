@@ -91,6 +91,7 @@ describe('DeletePostButton', () => {
     await waitFor(() => expect(router.back).toHaveBeenCalled());
     expect(order).toEqual(['files', 'row']);
     expect(invalidate).toHaveBeenCalledWith({ queryKey: ['posts'] });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ['profile'] }); // the counts on my profile
     expect(client.getQueryData(postKey('p1'))).toBeUndefined();
   });
 

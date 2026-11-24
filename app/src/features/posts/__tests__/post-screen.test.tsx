@@ -30,14 +30,18 @@ const post: Post = {
   photo: { path: 'user-a/x.jpg', thumbPath: 'user-a/x_thumb.jpg', width: 1080, height: 1440 },
 };
 
-async function renderWith(value: Post | null, renderActions?: (p: Post) => React.ReactNode) {
+async function renderWith(
+  value: Post | null,
+  renderActions?: (p: Post) => React.ReactNode,
+  renderHeader?: (p: Post) => React.ReactNode,
+) {
   const client = new QueryClient({
     defaultOptions: { queries: { retry: false, staleTime: Infinity, gcTime: Infinity } },
   });
   client.setQueryData(postKey('p1'), value);
   await render(
     <QueryClientProvider client={client}>
-      <PostScreen id="p1" renderActions={renderActions} />
+      <PostScreen id="p1" renderActions={renderActions} renderHeader={renderHeader} />
     </QueryClientProvider>,
   );
 }
@@ -93,6 +97,11 @@ it('marks retroactive posts and posts that are not on the feed', async () => {
 it('shows the actions the route gives it', async () => {
   await renderWith(post, (p) => <Text>actions for {p.id}</Text>);
   expect(screen.getByText('actions for p1')).toBeOnTheScreen();
+});
+
+it('shows the header the route gives it (the author)', async () => {
+  await renderWith(post, undefined, (p) => <Text>by {p.authorId}</Text>);
+  expect(screen.getByText('by user-a')).toBeOnTheScreen();
 });
 
 it('says so when the post does not exist or is not visible', async () => {

@@ -95,6 +95,14 @@
     "signOutConfirmYes": "Sí, tanca la sessió",
     "errors": {
       "bioTooLong": "Màxim 160 caràcters."
+    },
+    "stats": {
+      "posts_one": "{{count}} registre",
+      "posts_other": "{{count}} registres",
+      "beers_one": "{{count}} cervesa",
+      "beers_other": "{{count}} cerveses",
+      "friends_one": "{{count}} amic",
+      "friends_other": "{{count}} amics"
     }
   },
   "about": {

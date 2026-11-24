@@ -26,6 +26,7 @@ export function useDeletePost(post: Pick<Post, 'id' | 'photo'>) {
     onSuccess: () => {
       queryClient.removeQueries({ queryKey: postKey(post.id) });
       void queryClient.invalidateQueries({ queryKey: ['posts'] });
+      void queryClient.invalidateQueries({ queryKey: ['profile'] }); // counts on profiles
       router.back();
     },
   });

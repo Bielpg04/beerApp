@@ -16,9 +16,11 @@ export interface PostScreenProps {
   id: string;
   /** Composed by the route (edit/delete for the author). */
   renderActions?: (post: Post) => ReactNode;
+  /** Composed by the route (the author, which belongs to another feature). */
+  renderHeader?: (post: Post) => ReactNode;
 }
 
-export function PostScreen({ id, renderActions }: PostScreenProps) {
+export function PostScreen({ id, renderActions, renderHeader }: PostScreenProps) {
   const { t } = useTranslation();
   const query = usePost(id);
 
@@ -31,14 +33,21 @@ export function PostScreen({ id, renderActions }: PostScreenProps) {
   }
   if (query.isPending) return <EmptyState emoji="🍺" title={t('common.loading')} />;
   if (!query.data) return <EmptyState emoji="🤷" title={t('posts.notFound')} />;
-  return <PostDetails post={query.data} actions={renderActions?.(query.data)} />;
+  return (
+    <PostDetails
+      post={query.data}
+      header={renderHeader?.(query.data)}
+      actions={renderActions?.(query.data)}
+    />
+  );
 }
 
-function PostDetails({ post, actions }: { post: Post; actions: ReactNode }) {
+function PostDetails({ post, header, actions }: { post: Post; header: ReactNode; actions: ReactNode }) {
   const { t, i18n } = useTranslation();
 
   return (
     <Screen scroll>
+      {header}
       {post.photo ? <PostPhotoView post={post} /> : null}
 
       <Pressable
