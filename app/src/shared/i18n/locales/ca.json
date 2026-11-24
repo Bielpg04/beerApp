@@ -282,6 +282,13 @@
       "explain": "Deixareu de ser amics, no veureu res l’un de l’altre i no et podrà trobar ni enviar-te sol·licituds. No l’avisarem.",
       "confirmYes": "Sí, bloqueja",
       "unblock": "Desbloqueja"
+    },
+    "blocked": {
+      "title": "Usuaris bloquejats",
+      "empty": "No has bloquejat ningú.",
+      "unblockConfirm": "Vols desbloquejar @{{username}}?",
+      "unblockHint": "Tornareu a veure-us segons la privacitat de cadascú. L’amistat no es recupera: caldrà una sol·licitud nova.",
+      "unblockYes": "Sí, desbloqueja"
     }
   }
 }

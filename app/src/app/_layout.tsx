@@ -42,6 +42,7 @@ function RootNavigator() {
         <Stack.Screen name="user/[id]" options={{ headerShown: true, title: '' }} />
         <Stack.Screen name="friend-requests" options={{ headerShown: true }} />
         <Stack.Screen name="friends" options={{ headerShown: true }} />
+        <Stack.Screen name="blocked" options={{ headerShown: true }} />
       </Stack.Protected>
     </Stack>
   );
