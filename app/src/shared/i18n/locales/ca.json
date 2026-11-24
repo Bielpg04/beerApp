@@ -105,7 +105,8 @@
       "friends_other": "{{count}} amics"
     },
     "notFound": "Aquest usuari no existeix",
-    "privateNotice": "Aquest perfil és privat. Fes-te amic de @{{username}} per veure les seves cerveses."
+    "privateNotice": "Aquest perfil és privat. Fes-te amic de @{{username}} per veure les seves cerveses.",
+    "blockedNotice": "Has bloquejat @{{username}}. No veu res teu i tu tampoc res seu."
   },
   "about": {
     "title": "Sobre l’app",
@@ -274,6 +275,13 @@
       "placeholder": "@usuari",
       "none": "Ningú amb aquest nom d’usuari.",
       "incoming": "T’ha enviat una sol·licitud"
+    },
+    "block": {
+      "open": "Bloqueja @{{username}}",
+      "confirm": "Vols bloquejar @{{username}}?",
+      "explain": "Deixareu de ser amics, no veureu res l’un de l’altre i no et podrà trobar ni enviar-te sol·licituds. No l’avisarem.",
+      "confirmYes": "Sí, bloqueja",
+      "unblock": "Desbloqueja"
     }
   }
 }
