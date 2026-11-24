@@ -294,6 +294,7 @@ Com a usuari vull afegir una cervesa que vaig beure fa temps.
 - T2 Botó d'estat al perfil (Afegir / Pendent / Amics)
 - T3 Pantalla de sol·licituds rebudes
 - T4 Llista d'amics al perfil
+- T5 Cerca de persones per @usuari a la pantalla d'amics
 
 **US-402 · Bloquejar usuaris** (2) *(obligatori per App Store, guideline 1.2)*
 - T1 Taula `blocks` + efecte a RLS (no et veuen ni t'etiqueten)
