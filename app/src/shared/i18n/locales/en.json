@@ -216,8 +216,6 @@
       "usePhotoDate": "Use the photo’s date ({{date}})"
     },
     "mine": {
-      "title": "My latest posts",
-      "empty": "You haven’t logged a beer yet.",
       "logFirst": "Log your first one"
     },
     "edit": {
@@ -233,6 +231,11 @@
       "cannotUndo": "The post and its photo will be deleted. This can’t be undone.",
       "confirmYes": "Yes, delete it",
       "error": "Couldn’t delete. Check your connection and try again."
+    },
+    "grid": {
+      "more": "Show more",
+      "empty": "No posts yet.",
+      "emptyMine": "You haven’t logged a beer yet."
     }
   }
 }

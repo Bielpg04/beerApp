@@ -1,7 +1,8 @@
 export { publishPost, type PhotoStorage } from './api/create-post';
 export { deletePost, useDeletePost } from './api/delete-post';
-export { myPostsKey, useMyRecentPosts } from './api/my-posts';
 export { usePhotoUrl } from './api/photos';
+export { useThumbUrls } from './api/thumbs';
+export { POSTS_PAGE_SIZE, userPostsKey, useUserPosts } from './api/user-posts';
 export {
   PhotoPermissionError,
   photoFileExists,
@@ -28,7 +29,7 @@ export { formatConsumedAt, formatServing } from './lib/format';
 export { defaultPublishToFeed, FEED_DEFAULT_MAX_AGE_MS, isRetroactive, RETRO_AFTER_MS } from './lib/timing';
 export { DeletePostButton } from './components/delete-post-button';
 export { DetailsStep } from './components/details-step';
-export { MyRecentPosts } from './components/my-recent-posts';
+export { ProfilePostsGrid, type ProfilePostsGridProps } from './components/profile-posts-grid';
 export { EditPostScreen } from './screens/edit-post-screen';
 export { NewPostScreen, type NewPostScreenProps } from './screens/new-post-screen';
 export { PostScreen, type PostScreenProps } from './screens/post-screen';
