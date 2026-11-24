@@ -192,6 +192,63 @@ export type Database = {
         };
         Relationships: [];
       };
+      friendships: {
+        Row: {
+          accepted_at: string | null;
+          created_at: string;
+          requested_by: string;
+          status: string;
+          user_high: string;
+          user_low: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          accepted_at?: string | null;
+          created_at?: string;
+          requested_by: string;
+          status?: string;
+          user_high: string;
+          user_low: string;
+        };
+        Update: {
+          accepted_at?: string | null;
+          created_at?: string;
+          requested_by?: string;
+          status?: string;
+          user_high?: string;
+          user_low?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'friendships_user_high_fkey';
+            columns: ['user_high'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'friendships_user_high_fkey';
+            columns: ['user_high'];
+            isOneToOne: false;
+            referencedRelation: 'public_profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'friendships_user_low_fkey';
+            columns: ['user_low'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'friendships_user_low_fkey';
+            columns: ['user_low'];
+            isOneToOne: false;
+            referencedRelation: 'public_profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       legal_drinking_age: {
         Row: {
           country: string;
@@ -402,6 +459,8 @@ export type Database = {
       };
     };
     Functions: {
+      accept_friend_request: { Args: { user_id: string }; Returns: undefined };
+      are_friends: { Args: { a: string; b: string }; Returns: boolean };
       beer_by_barcode: { Args: { code: string }; Returns: string };
       can_see_post: { Args: { author: string; published: boolean }; Returns: boolean };
       catalog_register_lookup: { Args: { uid: string }; Returns: boolean };
@@ -419,6 +478,7 @@ export type Database = {
         };
         Returns: string;
       };
+      decline_friend_request: { Args: { user_id: string }; Returns: undefined };
       f_unaccent: { Args: { value: string }; Returns: string };
       get_profile: {
         Args: { user_id: string };
@@ -438,7 +498,28 @@ export type Database = {
       };
       is_valid_username: { Args: { candidate: string }; Returns: boolean };
       min_drinking_age: { Args: { country: string }; Returns: number };
+      my_friend_requests: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          avatar_path: string;
+          display_name: string;
+          id: string;
+          requested_at: string;
+          username: string;
+        }[];
+      };
+      my_friends: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          avatar_path: string;
+          display_name: string;
+          id: string;
+          since: string;
+          username: string;
+        }[];
+      };
       normalize_gtin: { Args: { code: string }; Returns: string };
+      remove_friend: { Args: { user_id: string }; Returns: undefined };
       resolve_beer: { Args: { beer: string }; Returns: string };
       search_beers: {
         Args: { max_results?: number; q: string };
@@ -451,6 +532,7 @@ export type Database = {
           style_code: string;
         }[];
       };
+      send_friend_request: { Args: { user_id: string }; Returns: string };
       set_birthdate: { Args: { birthdate: string; country: string }; Returns: undefined };
       update_post: {
         Args: {
