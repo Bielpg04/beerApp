@@ -254,6 +254,13 @@
       "removeHint": "Deixareu de veure els posts privats de l’altre. Podràs tornar a enviar-li una sol·licitud.",
       "removeYes": "Sí, elimina l’amistat",
       "error": "No s’ha pogut fer. Torna-ho a provar."
+    },
+    "requests": {
+      "title": "Sol·licituds d’amistat",
+      "empty": "No tens sol·licituds pendents.",
+      "gone": "Aquesta sol·licitud ja no existeix.",
+      "link_one": "Sol·licituds d’amistat · {{count}}",
+      "link_other": "Sol·licituds d’amistat · {{count}}"
     }
   }
 }

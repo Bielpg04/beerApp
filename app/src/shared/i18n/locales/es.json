@@ -254,6 +254,13 @@
       "removeHint": "Dejaréis de ver los posts privados del otro. Podrás volver a enviarle una solicitud.",
       "removeYes": "Sí, eliminar la amistad",
       "error": "No se ha podido hacer. Inténtalo de nuevo."
+    },
+    "requests": {
+      "title": "Solicitudes de amistad",
+      "empty": "No tienes solicitudes pendientes.",
+      "gone": "Esta solicitud ya no existe.",
+      "link_one": "Solicitudes de amistad · {{count}}",
+      "link_other": "Solicitudes de amistad · {{count}}"
     }
   }
 }
