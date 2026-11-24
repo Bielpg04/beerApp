@@ -58,6 +58,7 @@ async function renderScreen() {
       <NewPostScreen userId="u1" />
     </QueryClientProvider>,
   );
+  return client;
 }
 
 async function pickDamm() {
@@ -110,7 +111,8 @@ it('needs a serving before publishing', async () => {
 });
 
 it('publishes, opens the post and clears the draft', async () => {
-  await renderScreen();
+  const client = await renderScreen();
+  const invalidate = jest.spyOn(client, 'invalidateQueries');
   await pickDamm();
   await fireEvent.press(await screen.findByRole('button', { name: t('posts.new.noPhoto') }));
   await fireEvent.press(await screen.findByRole('radio', { name: t('posts.serving.tap') }));
@@ -127,6 +129,7 @@ it('publishes, opens the post and clears the draft', async () => {
     photo: null,
   });
   expect(usePostDraft.getState().beer).toBeNull();
+  expect(invalidate).toHaveBeenCalledWith({ queryKey: ['profile'] }); // the counts on my profile
 });
 
 it('accepts another volume', async () => {

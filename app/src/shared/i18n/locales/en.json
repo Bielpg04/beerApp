@@ -95,6 +95,14 @@
     "signOutConfirmYes": "Yes, sign out",
     "errors": {
       "bioTooLong": "Up to 160 characters."
+    },
+    "stats": {
+      "posts_one": "{{count}} post",
+      "posts_other": "{{count}} posts",
+      "beers_one": "{{count}} beer",
+      "beers_other": "{{count}} beers",
+      "friends_one": "{{count}} friend",
+      "friends_other": "{{count}} friends"
     }
   },
   "about": {

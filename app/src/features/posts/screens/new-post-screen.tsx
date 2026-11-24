@@ -83,6 +83,7 @@ export function NewPostScreen({ userId, storage = photoStorage }: NewPostScreenP
     onSuccess: (postId) => {
       usePostDraft.getState().reset();
       void queryClient.invalidateQueries({ queryKey: ['posts'] });
+      void queryClient.invalidateQueries({ queryKey: ['profile'] }); // counts on profiles
       router.push(`/post/${postId}`);
     },
   });
