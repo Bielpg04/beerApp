@@ -290,5 +290,16 @@
       "unblockHint": "Volveréis a veros según la privacidad de cada uno. La amistad no se recupera: hará falta una solicitud nueva.",
       "unblockYes": "Sí, desbloquear"
     }
+  },
+  "feed": {
+    "time": {
+      "now": "ahora",
+      "minutes_one": "hace {{count}} min",
+      "minutes_other": "hace {{count}} min",
+      "hours_one": "hace {{count}} h",
+      "hours_other": "hace {{count}} h",
+      "days_one": "hace {{count}} día",
+      "days_other": "hace {{count}} días"
+    }
   }
 }
