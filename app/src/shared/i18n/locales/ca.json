@@ -290,5 +290,16 @@
       "unblockHint": "Tornareu a veure-us segons la privacitat de cadascú. L’amistat no es recupera: caldrà una sol·licitud nova.",
       "unblockYes": "Sí, desbloqueja"
     }
+  },
+  "feed": {
+    "time": {
+      "now": "ara",
+      "minutes_one": "fa {{count}} min",
+      "minutes_other": "fa {{count}} min",
+      "hours_one": "fa {{count}} h",
+      "hours_other": "fa {{count}} h",
+      "days_one": "fa {{count}} dia",
+      "days_other": "fa {{count}} dies"
+    }
   }
 }

@@ -290,5 +290,16 @@
       "unblockHint": "You’ll see each other again as your privacy settings allow. The friendship doesn’t come back: you’ll need a new request.",
       "unblockYes": "Yes, unblock"
     }
+  },
+  "feed": {
+    "time": {
+      "now": "now",
+      "minutes_one": "{{count}} min ago",
+      "minutes_other": "{{count}} min ago",
+      "hours_one": "{{count}} h ago",
+      "hours_other": "{{count}} h ago",
+      "days_one": "{{count}} day ago",
+      "days_other": "{{count}} days ago"
+    }
   }
 }
