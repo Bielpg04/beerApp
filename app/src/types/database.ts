@@ -539,6 +539,34 @@ export type Database = {
           username: string;
         }[];
       };
+      get_feed: {
+        Args: { before_created_at?: string; before_id?: string; max?: number };
+        Returns: {
+          author_avatar_path: string;
+          author_display_name: string;
+          author_id: string;
+          author_username: string;
+          beer_brand: string;
+          beer_id: string;
+          beer_image_thumb_url: string;
+          beer_name: string;
+          caption: string;
+          comment_count: number;
+          consumed_at: string;
+          created_at: string;
+          id: string;
+          is_retroactive: boolean;
+          my_reaction: string;
+          photo_height: number;
+          photo_path: string;
+          photo_thumb_path: string;
+          photo_width: number;
+          reaction_counts: Json;
+          serving: string;
+          verification_level: string;
+          volume_ml: number;
+        }[];
+      };
       get_profile: {
         Args: { user_id: string };
         Returns: {
