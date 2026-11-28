@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/shared/lib/supabase';
 
 import type { MyProfile } from '../types';
-import { myProfileKey } from './my-profile';
 
 export type UpdateProfileInput = Pick<MyProfile, 'display_name' | 'bio' | 'avatar_path' | 'is_private'>;
 
@@ -19,6 +18,7 @@ export function useUpdateProfile(userId: string) {
         .eq('id', userId);
       if (error) throw error;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: myProfileKey }),
+    // ['profile'] also refreshes my profile as get_profile shows it.
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['profile'] }),
   });
 }

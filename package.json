@@ -17,12 +17,14 @@
     "db:migration": "supabase migration new",
     "db:lint": "supabase db lint --schema public --level warning --fail-on warning",
     "db:types": "supabase gen types typescript > app/src/types/database.ts && prettier --write --log-level warn app/src/types/database.ts",
-    "db:test": "supabase test db"
+    "db:test": "supabase test db",
+    "catalog:import": "node scripts/catalog/import.ts"
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.4",
     "@commitlint/config-conventional": "21.2.4",
     "lefthook": "2.2.2",
+    "postgres": "3.4.9",
     "prettier": "3.9.10"
   }
 }
